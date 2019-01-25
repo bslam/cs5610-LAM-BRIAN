@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static path to dist -- For building -- REMOVE
-app.use(express.static(path.join(__dirname, 'dist/A1-Express')));
+app.use(express.static(path.join(__dirname, 'dist/A1')));
 
 // CORS
 app.use(function(req, res, next) {
