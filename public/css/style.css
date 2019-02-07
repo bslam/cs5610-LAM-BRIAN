@@ -11,10 +11,19 @@ a:hover + .box,.box:hover{
   display: block;
   position: relative;
   z-index: 100;
+  text-decoration: none;
+  text-decoration: none;
+}
+
+a.blue-color a:hover{
+  text-decoration: none;
+  text-decoration: none;
 }
 
 a:visited {
-  color: green;
+  color: grey;
+  text-decoration: none;
+  text-decoration: none;
 }
 
 
