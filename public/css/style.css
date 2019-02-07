@@ -16,20 +16,23 @@ a:hover + .box,.box:hover{
   position: relative;
   z-index: 100;
   text-decoration: none;
-  text-decoration: none;
 }
 
 a.blue-color a:hover{
   text-decoration: none;
+}
+
+a:hover {
+  color: grey;
   text-decoration: none;
 }
 
 a:visited {
   color: grey;
-  text-decoration: none;
-  text-decoration: none;
 }
+
 .visited {
+  color:grey;
   text-decoration:none;
 }
 
