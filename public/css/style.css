@@ -8,3 +8,9 @@ a:hover + .box,.box:hover{
   position: relative;
   z-index: 100;
 }
+
+a:visited {
+  color: green;
+}
+
+
