@@ -7,6 +7,10 @@ body {
   width: 100%;
 }
 
+a {
+  text-decoration: none;
+}
+
 a:hover + .box,.box:hover{
   display: block;
   position: relative;
@@ -24,6 +28,9 @@ a:visited {
   color: grey;
   text-decoration: none;
   text-decoration: none;
+}
+.visited {
+  text-decoration:none;
 }
 
 
