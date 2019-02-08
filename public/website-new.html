@@ -1,87 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Websits List</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+  <title>Websites New</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.0/css/bootstrap.min.css" rel="stylesheet"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="css/style.css" rel="stylesheet"/>
 </head>
 <body>
-
-
-
-
-
-
-
-
-
-<nav class="navbar navbar-fixed-top cl-blue-navbar text-white">
-  <div class="row">
-    <div class="col-xs-4 hidden-xs">
-      <div class="container-fluid">
-
-        <a href="profile.html" class="navbar-link float-left text-white">
-          <i class="fas fa-chevron-left fontawsome_icon"></i>
-        </a>
-        <a class=" navbar-brand cl-text-bold text-white float-left pull-left col-11" href="#">
-          Websites
-        </a>
-
-
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="container-fluid">
-        <a class="cl-text-white navbar-brand cl-text-bold text-white" href="#">
-          New Websites
-        </a>
-        <a href="website-list.html" class="navbar-link navbar-text pull-right cl-text-white cl-icon-padding">
-          <span class="glyphicon glyphicon-ok"></span>
-        </a>
-      </div>
-    </div>
+<nav class="navbar navbar-fixed-top cl-blue-navbar">
+  <div class="col-md-4 d-none d-md-block container-fluid">
+    <a href="profile.html" class="navbar-link text-white">
+      <i class="fas fa-chevron-left fontawsome_icon"></i>
+    </a>
+    <a href="#" class="text-white navbar-brand font-weight-bold">
+      Websites
+    </a>
+    <a href="#" class="navbar-link navbar-text float-right text-white cl-icon-padding">
+      <i class="fas fa-plus fontawsome_icon text-white"></i>
+    </a>
+  </div>
+  <div class="col-md-8 container-fluid">
+    <a class="text-white navbar-brand font-weight-bold" href="#">
+      New Websites
+    </a>
+    <a href="website-list.html" class="navbar-link navbar-text float-right text-white cl-icon-padding">
+      <i class="fas fa-check fontawsome_icon"></i>
+    </a>
   </div>
 </nav>
 
-<div class="contain-fluid">
-  <div class="col-xs-4 hidden-xs">
+<div class="row container-fluid pt-2">
+  <div class="col-md-4 d-none d-md-block border-right">
     <ul class="list-group cl-list-group-borderless">
       <li class="list-group-item cl-list-item-borderless">
+        <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
         <a href="page-list.html">Blogging App</a>
-        <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
       </li>
       <li class="list-group-item cl-list-item-borderless">
+        <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
         <a href="page-list.html">Address Book App</a>
-        <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
       </li>
       <li class="list-group-item cl-list-item-borderless">
+        <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
         <a href="page-list.html">Script Testing App</a>
-        <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
       </li>
       <li class="list-group-item cl-list-item-borderless">
+        <a href="website-edit.html"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
         <a href="page-list.html">Blogger</a>
-        <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
       </li>
     </ul>
   </div>
-  <div class="col-xs-8">
+  <div class="col-md-8">
     <form>
       <div class="form-group">
         <label for="website-name">Name</label>
-        <input type="text" class="form-control" id="website-name" placeholder="Name">
+        <input type="text" class="form-control" id="website-name" placeholder="Website Name">
       </div>
       <div class="form-group">
         <label for="website-description">Description</label>
-        <textarea id="website-description" class="form-control" rows="5" placeholder="Description"></textarea>
+        <textarea id="website-description" class="form-control" rows="3" placeholder="Description"></textarea>
       </div>
     </form>
   </div>
 </div>
+
+
 
 <nav class="navbar fixed-bottom float-right col-12">
   <div class="container-fluid col-12">
@@ -92,5 +78,10 @@
     </div>
   </div>
 </nav>
+
+
+
+
+
 </body>
 </html>
