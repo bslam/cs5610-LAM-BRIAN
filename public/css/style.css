@@ -4,15 +4,19 @@ header {
   color: white;
   padding-top: 0px;
 }
-h1 {
-  border-top: 0px solid steelblue;
-  border-left: 0px solid steelblue;
-  border-right: 0px solid steelblue;
+
+.navbar {
+  background-color: steelblue;
+  border-color: white;
+  color: white;
 }
 
-body {
-  padding-top: 65px;
+.above-below-space{
+  padding-bottom: 60px;
+  padding-top: 60px;
 }
+
+
 
 .box{
   display: none;
@@ -30,6 +34,10 @@ a:hover + .box,.box:hover{
   text-decoration: none;
 }
 
+.text-white{
+  color: white;
+}
+
 a.blue-color a:hover{
   text-decoration: none;
 }
@@ -39,9 +47,7 @@ a:hover {
   text-decoration: none;
 }
 
-a:visited {
-  color: darkmagenta;
-}
+
 
 .visited {
   color:grey;
