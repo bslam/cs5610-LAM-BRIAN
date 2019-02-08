@@ -38,6 +38,10 @@ a:hover + .box,.box:hover{
   color: white;
 }
 
+.steelblue-icon{
+  color: steelblue;
+}
+
 a.blue-color a:hover{
   text-decoration: none;
 }
