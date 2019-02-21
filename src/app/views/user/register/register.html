@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New User Registration</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
 <div class="container above-below-space">
   <h1>Register</h1>
   <input type="text"
@@ -10,7 +19,9 @@
          class="form-control"
          placeholder="very password"/>
   <a class="btn btn-primary btn-block"
-     [routerLink]="['/user/:uid']">Register</a>
+     [routerLink]="['/user/:userId']">Register</a>
   <a class="btn btn-danger  btn-block"
-     [routerLink]="['/login']">Cancel</a>
+     href="login.html">Cancel</a>
 </div>
+</body>
+</html>
