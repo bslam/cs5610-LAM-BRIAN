@@ -2,7 +2,7 @@
   <div class="container-fluid row">
 
     <div class="navbar-text float-left">
-      <a href="page-list.html" class="text-black cl-icon-padding">
+      <a [routerLink]="['/user/:uid/website/:wid/page']" class="text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
       <a class="navbar-brand text-black font-weight-bold pl-2" href="#">
@@ -10,7 +10,7 @@
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a href="widget-choose.html" class="cl-icon-padding text-black">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid']" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
@@ -23,7 +23,7 @@
       <a href="#" class="float-right">
         <i class="fas fa-bars fontawsome_icon"></i>
       </a>
-      <a href="widget-edit.html">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
         <i class="fas fa-cog fontawsome_icon"></i>
       </a>
     </div>
@@ -35,7 +35,7 @@
       <a href="#" class="float-right">
         <i class="fas fa-bars fontawsome_icon"></i>
       </a>
-      <a href="widget-edit.html">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
         <i class="fas fa-cog fontawsome_icon"></i>
       </a>
     </div>
@@ -47,7 +47,7 @@
       <a href="#" class="float-right">
         <i class="fas fa-bars fontawsome_icon"></i>
       </a>
-      <a href="widget-image.html" class="float-right">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']" class="float-right">
         <i class="fas fa-cog fontawsome_icon"></i>
       </a>
       <img class="img-fluid img-rounded cl-widget-images"
@@ -72,7 +72,7 @@
       <a href="#" class="float-right">
         <i class="fas fa-bars fontawsome_icon"></i>
       </a>
-      <a href="widget-edit.html">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
         <i class="fas fa-cog fontawsome_icon"></i>
       </a>
     </div>
@@ -85,7 +85,7 @@
       <a href="#" class="float-right">
         <span class="fas fa-bars fontawsome_icon" style="background-color: white"></span>
       </a>
-      <a href="widget-youtube.html" class="float-right">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']" class="float-right">
         <span class="fas fa-cog fontawsome_icon" style="background-color: white"></span>
       </a>
     </div>

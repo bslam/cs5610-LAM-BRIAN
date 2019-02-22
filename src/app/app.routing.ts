@@ -53,7 +53,7 @@ const appRouting: Routes = [​
 
   { path: 'user/:uid/website/:websiteid/page', component: PageListComponent},
   { path: 'user/:uid/website/:websiteid/page/new', component: PageNewComponent},
-  { path: 'user/:uid/website/:websiteid/page/:id', component: PageEditComponent},
+  { path: 'user/:uid/website/:websiteid/page/:pid', component: PageEditComponent},
 
   { path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
   { path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},

@@ -24,6 +24,11 @@ export class UserService {
     return this.users.find(function (user) {
       return user.username === username && user.password === password;
     });
+    /**for(const entry of this.users) {
+      if (entry.username === username && entry.password === password) {
+        return entry;
+      }
+    }*/
   }
   findUserByUsername(username: String) {
     return this.users.find(function (user) {

@@ -17,7 +17,7 @@ export class PageService {
       _id: (new Date()).getTime() + '',
       name: page.name,
       websiteId: page.websiteId,
-      description: page.description
+      title: page.title
     };
 
     this.pages.push(new_page);

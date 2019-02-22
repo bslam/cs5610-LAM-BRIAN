@@ -2,7 +2,7 @@
   <div class="container-fluid row">
 
     <div class="navbar-text float-left">
-      <a href="page-list.html" class="text-black cl-icon-padding">
+      <a [routerLink]="['/user/:uid/website/:wid/page']" class="text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
       <a class="navbar-brand text-black font-weight-bold pl-2" href="#">
@@ -10,17 +10,17 @@
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a href="widget-choose.html" class="cl-icon-padding text-black">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid']" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
   </div>
 </nav>
 
-<div class="container-fluid cl-container-padding">
+<div class="container-fluid cl-container-padding">[routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']"
   <ul class="list-group cl-list-group-borderless">
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-edit.html">Header</a>
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">Header</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a href="#">Label</a>
@@ -38,10 +38,10 @@
       <a href="#">Button</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-image.html">Image</a>
+      <a [routerLink]="['/user/:uid/website/:wid/page/:wgid']">Image</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-youtube.html">YouTube</a>
+      <a [routerLink]="['/user/:uid/website/:wid/page/:wgid']">YouTube</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a href="#">Data Table</a>

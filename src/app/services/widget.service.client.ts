@@ -25,7 +25,7 @@ export  class WidgetService {
   }
   findWidgetsByID(widgetId) {
     return this.widgets.find(function (widget) {
-      return widget.widgetId === widgetId;
+      return widget._id === widgetId;
     });
   }
 
