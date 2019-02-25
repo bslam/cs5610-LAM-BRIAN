@@ -44,7 +44,8 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.compon
 
 
 
-const appRouting: Routes = [​{path: '', redirectTo: '/login', pathMatch: 'full'},
+const appRouting: Routes = [​
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'user/:uid' , component: ProfileComponent},​
   { path: 'register', component: RegisterComponent},
@@ -60,6 +61,7 @@ const appRouting: Routes = [​{path: '', redirectTo: '/login', pathMatch: 'full
   { path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
   { path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
   { path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
+
 ];​
 
 export const AppRouting = RouterModule.forRoot(appRouting);
