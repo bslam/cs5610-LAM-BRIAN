@@ -19,6 +19,8 @@ export class AppRouting { }**/
 
 import {Routes, RouterModule} from '@angular/router';​
 import {ModuleWithProviders} from '@angular/core';
+import {NgModule} from '@angular/core';
+
 
 import {LoginComponent} from './views/user/login/login.component';​
 import {ProfileComponent} from './views/user/profile/profile.component';
@@ -42,7 +44,7 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit.compon
 
 
 
-const appRouting: Routes = [​
+const appRouting: Routes = [​{path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
   { path: 'user/:uid' , component: ProfileComponent},​
   { path: 'register', component: RegisterComponent},

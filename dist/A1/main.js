@@ -41,7 +41,7 @@ module.exports = "header {\n  background-color: steelblue;\n  position: center;\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to Brian Lam's submission for A1 - angular!\n  </h1>\n  <img width=\"300\" alt=\"Brian Lam\" src=\"https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg\">\n</div>\n<h2>What's up kitty cat </h2>\n<ul>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://www.linkedin.com/in/bslam\">Brian Lam's LinkedIn</a></h2>\n  </li>\n</ul>\n\n<a [routerLink]=\"['/login']\">Login</a>\n<router-outlet></router-outlet>\n"
+module.exports = "<!--The content below is only a placeholder and can be replaced.-->\n<!--<div style=\"text-align:center\">\n  <h1>\n    Welcome to Brian Lam's submission for A1 - angular!\n  </h1>\n  <img width=\"300\" alt=\"Brian Lam\" src=\"https://upload.wikimedia.org/wikipedia/commons/0/0b/Cat_poster_1.jpg\">\n</div>\n<h2>What's up kitty cat </h2>\n<ul>\n  <li>\n    <h2><a target=\"_blank\" rel=\"noopener\" href=\"https://www.linkedin.com/in/bslam\">Brian Lam's LinkedIn</a></h2>\n  </li>\n</ul>\n\n<a [routerLink]=\"['/login']\">Login</a>-->\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -238,7 +238,7 @@ export class AppRouting { }**/
   {path: 'profile', component: ProfileComponent},​
   {path: 'register', component: RegisterComponent}
 ];​*/
-var appRouting = [
+var appRouting = [{ path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: _views_user_login_login_component__WEBPACK_IMPORTED_MODULE_1__["LoginComponent"] },
     { path: 'user/:uid', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_2__["ProfileComponent"] },
     { path: 'register', component: _views_user_register_register_component__WEBPACK_IMPORTED_MODULE_3__["RegisterComponent"] },
