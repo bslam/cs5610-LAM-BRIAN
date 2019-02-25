@@ -35,12 +35,11 @@ export class UserService {
       return user.username === username;
     });
   }
-  updateUser(user: User) {
-    for (let i = 0; i < this.users.length; i++) {
-      if (this.users[i]._id === user._id) {
+  updateUser(userId, user) {
+    for (const i in this.users) {
+      if (this.users[i]._id === userId) {
         this.users[i].firstName = user.firstName;
         this.users[i].lastName = user.lastName;
-        return this.users[i];
       }
     }
   }

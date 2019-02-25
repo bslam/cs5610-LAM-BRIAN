@@ -17,92 +17,21 @@
   </div>
 </nav>
 
-<div class="container cl-container-padding">
-  <div>
-    <div class="float-right">
-      <a href="#" class="float-right">
-        <i class="fas fa-bars fontawsome_icon"></i>
-      </a>
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
-        <i class="fas fa-cog fontawsome_icon"></i>
-      </a>
-    </div>
-    <h1>London terror attack: Police fired 'unprecedented' number of rounds</h1>
+<div class=" container-fluid cl-container-padding">
+  <div *ngFor="let widget of widgets" [ngSwitch]="widget.widgetType">
+    <a routerLink="./" class="float-right text-black">
+      <i class="fas fa-bars"></i>
+    </a>
+    <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/wid']" class="float-right text-blue">
+      <i class="fas fa-cog"></i>
+    </a>
+    <h3 *ngSwitchCase="'HEADING'">{{ widget.text }}</h3>
+    <img *ngSwitchCase="'IMAGE'" [src]="widget.url" >
+    <iframe *ngSwitchCase="'YOUTUBE'" width="640" height="360" [src]="widget.url|safe" rameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    <p *ngSwitchDefault><br><br></p>
   </div>
-
-  <div>
-    <div class="float-right">
-      <a href="#" class="float-right">
-        <i class="fas fa-bars fontawsome_icon"></i>
-      </a>
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
-        <i class="fas fa-cog fontawsome_icon"></i>
-      </a>
-    </div>
-    <h3>Counterterrorism officers patrol near the scene of the attack on London Bridge.</h3>
-  </div>
-
-  <div>
-    <div>
-      <a href="#" class="float-right">
-        <i class="fas fa-bars fontawsome_icon"></i>
-      </a>
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']" class="float-right">
-        <i class="fas fa-cog fontawsome_icon"></i>
-      </a>
-      <img class="img-fluid img-rounded cl-widget-images"
-           src="http://i2.cdn.cnn.com/cnnnext/dam/assets/170604130220-41-london-bridge-incident-0604-gallery-exlarge-169.jpg">
-    </div>
-  </div>
-  <div>
-    <div class="float-right">
-      <a href="#" class="float-right">
-        <i class="fas fa-bars fontawsome_icon"></i>
-      </a>
-      <a href="#">
-        <i class="fas fa-cog fontawsome_icon"></i>
-      </a>
-    </div>
-    <p>Armed officers responding to the London Bridge terror attack fired an "unprecedented" number of rounds at the three attackers because they were wearing what appeared to be suicide belts, police said.
-    </p>
-  </div>
-
-  <div>
-    <div class="float-right">
-      <a href="#" class="float-right">
-        <i class="fas fa-bars fontawsome_icon"></i>
-      </a>
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']">
-        <i class="fas fa-cog fontawsome_icon"></i>
-      </a>
-    </div>
-    <h3>Report: Incident at London Bridge</h3>
-  </div>
-
-  <div>
-    <div class="embed-responsive embed-responsive-16by9">
-      <iframe width="640" height="360" src="https://www.youtube.com/embed/APexI9Zb6iE" frameborder="0" allowfullscreen></iframe>"
-      <a href="#" class="float-right">
-        <span class="fas fa-bars fontawsome_icon" style="background-color: white"></span>
-      </a>
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/:wgid']" class="float-right">
-        <span class="fas fa-cog fontawsome_icon" style="background-color: white"></span>
-      </a>
-    </div>
-  </div>
-
-  <div>
-    <div class="float-right">
-      <a href="#" class="float-right">
-        <i class="fas fa-bars fontawsome_icon"></i>
-      </a>
-      <a href="#">
-        <i class="fas fa-cog fontawsome_icon"></i>
-      </a>
-    </div>
-    <p>There is a report of an incident has occurred at London Bridge. From CNN London.</p>
-  </div>
-
 </div>
 
 
