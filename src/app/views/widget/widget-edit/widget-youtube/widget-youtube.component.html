@@ -2,7 +2,7 @@
   <div class="container-fluid row">
 
     <div class="navbar-text float-left">
-      <a [routerLink]="['/user/:uid/website/:wid/page']" class="text-black cl-icon-padding">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page" class="text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
       <a class="navbar-brand text-black font-weight-bold pl-2" href="#">
@@ -10,7 +10,7 @@
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid']" class="cl-icon-padding text-black">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
@@ -35,7 +35,7 @@
       <input type="text" class="form-control" id="youtube-width" placeholder="100%">
     </div>
   </form>
-  <a class="btn btn-danger btn-block" [routerLink]="['/user/:uid/website/:wid/page/:pid/widget']">Delete</a>
+  <a class="btn btn-danger btn-block" routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget">Delete</a>
 </div>
 
 <nav class="navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12">

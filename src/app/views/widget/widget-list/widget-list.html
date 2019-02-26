@@ -14,15 +14,15 @@
   <div class="container-fluid row">
 
     <div class="navbar-text float-left">
-      <a [routerLink]="['/user/:uid/website/:wid/page']" class="text-black cl-icon-padding">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page" class="text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
-      <a class="navbar-brand text-black font-weight-bold pl-2" href="#">[routerLink]="['/user/:uid/website/:wid/page/:pid']"
+      <a class="navbar-brand text-black font-weight-bold pl-2" routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}">
         Widgets
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid']" class="cl-icon-padding text-black">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
@@ -129,7 +129,7 @@
 
   </div>
   <div class="row navbar-text float-right">
-    <a [routerLink]="['/user/:userId']" class="float-right steelblue-icon">
+    <a routerLink="/user/:{{uid}}" class="float-right steelblue-icon">
       <span class="fas fa-user fontawsome_icon float-right steelblue-icon"></span>
     </a>
   </div>
@@ -148,20 +148,20 @@
 <div class="container above-below-space">
   <ul class="list-group cl-list-group-borderless">
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">Address Book App</a>
-      <a [routerLink]="['/user/:uid/website/:wid']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page">Address Book App</a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">Blogger</a>
-      <a [routerLink]="['/user/:uid/website/:wid']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page">Blogger</a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">Blogging App</a>
-      <a [routerLink]="['/user/:uid/website/:wid']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page">Blogging App</a>
+      <a [routerLink="/user/{{uid}}/website/{{wid}}"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page']">Script Testing App</a>
-      <a [routerLink]="['/user/:uid/website/:wid']"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page">Script Testing App</a>
+      <a routerLink="/user/{{uid}}/website/{{wid}}"><span class="fas fa-cog fontawsome_icon float-right"></span></a>
     </li>
   </ul>
 </div>
@@ -169,7 +169,7 @@
 <nav class="navbar fixed-bottom float-right col-12">
   <div class="container-fluid col-12">
     <div class="row navbar-text float-right col-12">
-      <a [routerLink]="['/user/:userId']" class="float-right">
+      <a routerLink="/user/{{uid}}" class="float-right">
         <i class="fas fa-user fontawsome_icon float-right text-white col-12"></i>
       </a>
     </div>
