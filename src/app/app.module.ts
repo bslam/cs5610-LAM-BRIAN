@@ -21,7 +21,7 @@ import { PageListComponent } from './views/page/page-list/page-list.component';
 import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
 import { WidgetListComponent } from './views/widget/widget-list/widget-list.component';
-import { WidgetHeaderComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
+import { WidgetHeadingComponent } from './views/widget/widget-edit/widget-header/widget-header.component';
 import { WidgetImageComponent } from './views/widget/widget-edit/widget-image/widget-image.component';
 import { WidgetYoutubeComponent } from './views/widget/widget-edit/widget-youtube/widget-youtube.component';
 import {UserService} from './services/user.service.client';
@@ -47,7 +47,7 @@ import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
     WidgetChooserComponent,
     WidgetEditComponent,
     WidgetListComponent,
-    WidgetHeaderComponent,
+    WidgetHeadingComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
     ChangeBgColorDirective

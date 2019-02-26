@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 @Component({
   selector: 'app-widget-edit',
   templateUrl: './widget-edit.component.html',
-  styleUrls: ['./widget-edit.component.css', '../../../../css/styles.css']
+  styleUrls: ['./widget-edit.component.css', '../../../../styles.css']
 })
 export class WidgetEditComponent implements OnInit {
   wgid: string;
