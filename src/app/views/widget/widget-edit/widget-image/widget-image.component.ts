@@ -9,7 +9,7 @@ import {inject} from '@angular/core';
 @Component({
   selector: 'app-widget-image',
   templateUrl: './widget-image.component.html',
-  styleUrls: ['../../../../../css/style.css']
+  styleUrls: ['../../../../../css/styles.css']
 })
 export class WidgetImageComponent implements OnInit {
   widgetId: string;

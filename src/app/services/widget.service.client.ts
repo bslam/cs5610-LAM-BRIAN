@@ -1,66 +1,78 @@
 import {Injectable} from '@angular/core';
-import { Widget } from '../models/widget.model.client';
+import {Widget, WidgetHeading, WidgetYoutube, WidgetImage, WidgetHtml} from '../models/widget.model.client';
+import {BehaviorSubject, Subject} from 'rxjs';
 
 @Injectable()
 export  class WidgetService {
 
-  // constructor(_id:String, type:String, pageId:String, size= '1', text = 'text', url = 'url', width = '100%')
+  widgetUpdate = new Subject<Widget[]>();
+  private widgetChosen = new BehaviorSubject('DEFAULT');
   widgets: Widget[] = [
-    new Widget('123', 'HEADING', '321', '2', 'GIZMODO' ),
-    new Widget('234', 'HEADING', '321', '4', 'Lorem ipsum' ),
-    new Widget('345', 'IMAGE', '321', '2', 'text', '100%', 'http://lorempixel.com/400/200/'),
-    new Widget('456', 'HTML', '321', '<p>Lorem ipsum</p>' ),
-    new Widget('567', 'HEADING', '321', '4', 'Lorem ipsum' ),
-    new Widget('678', 'YOUTUBE', '321', '100%', 'https://youtu.be/AM2Ivdi9c4E' ),
-    new Widget('789', 'HTML', '321', '<p>Lorem ipsum</p>' ),
+    new WidgetHeading('', '123', 'HEADING', '321', 2, 'GIZMODO'),
+    new WidgetHeading('', '234', 'HEADING', '432', 4, 'Lorem ipsum'),
+    new WidgetImage('', '345', 'IMAGE', '543', '100%', 'http://lorempixel.com/400/200'),
+    new WidgetImage('', '456', 'IMAGE', '654', '100%', 'http://lorempixel.com/400/200'),
+    new WidgetHeading('', '567', 'HEADING', '765', 4, 'Lorem ipsum'),
+    new WidgetYoutube('', '678', 'YOUTUBE', '876', '100%', 'https://www.youtube.com/embed/-C_jPcUkVrM'),
+    new WidgetYoutube('', '789', 'YOUTUBE', '987', '100%', 'https://www.youtube.com/embed/-C_jPcUkVrM')
   ];
 
-  createWidget(pageId, widget) {
+  createWidget(pageId: string, widget: Widget) {
+    widget._id = String(Math.random());
+    widget.pageId = pageId;
     this.widgets.push(widget);
   }
-  findWidgetsByPageID(pageId) {
-    return this.widgets.find(function (widget) {
-      return widget.pageId === pageId;
-    });
+
+  findWidgetsByPageId(pageId: string) {
+    const widgetsFound = [];
+    for (const widget of this.widgets) {
+      if (widget.pageId === pageId) {
+        widgetsFound.push(widget);
+      }
+    }
+    return widgetsFound;
   }
-  findWidgetsByID(widgetId) {
-    return this.widgets.find(function (widget) {
-      return widget._id === widgetId;
-    });
+
+  findWidgetsByID(widgetId: string) {
+    for (const widget of this.widgets) {
+      if (widget._id === widgetId) {
+        return widget;
+      }
+    }
   }
 
-  updateWidget(widgetId, widget) {
-    for ( const i in this.widgets ) {
-      if ( this.widgets[i]._id === widgetId ) {
-        switch (widget.widgetType) {
-          case 'HEADER':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].size = widget.size;
-            return true;
-
-          case 'IMAGE':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].url = widget.url;
-            this.widgets[i].width = widget.width;
-            return true;
-
-          case 'YOUTUBE':
-            this.widgets[i].text = widget.text;
-            this.widgets[i].url = widget.url;
-            this.widgets[i].width = widget.width;
-            return true;
+  updateWidget(widgetId: string, newWidget: any) {
+    for (const widget of this.widgets) {
+      if (widget._id === widgetId) {
+        if (widget.widgetType === 'HEADING') {
+          // @ts-ignore
+          widget.size = newWidget.size;
+          // @ts-ignore
+          widget.text = newWidget.text;
+        } else if (widget.widgetType === 'IMAGE') {
+          // @ts-ignore
+          widget.width = newWidget.width;
+          // @ts-ignore
+          widget.url = newWidget.url;
+        } else if (widget.widgetType === 'YOUTUBE') {
+          // @ts-ignore
+          widget.width = newWidget.width;
+          // @ts-ignore
+          widget.url = newWidget.url;
+        } else if (widget.widgetType === 'HTML') {
+          // @ts-ignore
+          widget.text = newWidget.text;
         }
-
       }
     }
-    return false;
+    this.widgetUpdate.next(this.widgets.slice());
   }
-  deleteWidget(widgetId: String) {
-    for (const i in this.widgets) {
-      if (this.widgets[i]._id === widgetId) {
-        const j = +i;
-        this.widgets.splice(j, 1);
+
+  deleteWidget(widgetId: string) {
+    this.widgets.forEach((widget, index) => {
+      if (widget._id === widgetId) {
+        this.widgets.splice(index, 1);
       }
-    }
+    });
   }
 }

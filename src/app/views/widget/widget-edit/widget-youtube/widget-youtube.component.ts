@@ -6,7 +6,7 @@ import {WidgetService} from '../../../../services/widget.service.client';
 @Component({
   selector: 'app-widget-youtube',
   templateUrl: './widget-youtube.component.html',
-  styleUrls: ['../../../../../css/style.css']
+  styleUrls: ['../../../../../css/styles.css']
 })
 
 export class WidgetYoutubeComponent implements OnInit {

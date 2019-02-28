@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-widget-chooser',
   templateUrl: './widget-chooser.component.html',
-  styleUrls: ['../../../../css/style.css']
+  styleUrls: ['../../../../css/styles.css']
 })
 export class WidgetChooserComponent implements OnInit {
 

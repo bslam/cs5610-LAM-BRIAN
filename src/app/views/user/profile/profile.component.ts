@@ -8,7 +8,7 @@ import {NgForm} from '@angular/forms';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css', '../../../../css/style.css']
+  styleUrls: ['./profile.component.css', '../../../../css/styles.css']
 })
 
 export class ProfileComponent implements OnInit {

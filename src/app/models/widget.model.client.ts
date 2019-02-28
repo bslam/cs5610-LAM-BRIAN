@@ -1,5 +1,5 @@
 export interface Widget {
-  name: string,
+  name: string;
   _id: string;
   widgetType: string;
   pageId: string;
