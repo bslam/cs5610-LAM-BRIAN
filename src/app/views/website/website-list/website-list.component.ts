@@ -7,7 +7,7 @@ import {WebsiteService} from '../../../services/website.service.client';
 @Component({
   selector: 'app-website-list',
   templateUrl: './website-list.component.html',
-  styleUrls: ['../../../../css/styles.css']
+  styleUrls: ['./website-list.component.css']
 })
 
 export class WebsiteListComponent implements OnInit {

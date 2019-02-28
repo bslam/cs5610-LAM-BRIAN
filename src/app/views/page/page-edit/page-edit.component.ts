@@ -6,7 +6,7 @@ import {PageService} from '../../../services/page.service.client';
 @Component({
   selector: 'app-page-edit',
   templateUrl: './page-edit.component.html',
-  styleUrls: ['../../../../css/styles.css'],
+  styleUrls: ['./page-edit.component.css'],
 })
 export class PageEditComponent implements OnInit {
   uid: string;

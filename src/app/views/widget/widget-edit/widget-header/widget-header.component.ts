@@ -12,9 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-widget-heading',
-  templateUrl: './widget-heading.component.html',
-  styleUrls: ['./widget-heading.component.css', '../../../../../styles.css']
+  selector: 'app-widget-header',
+  templateUrl: './widget-header.component.html',
+  styleUrls: ['./widget-header.component.css']
 })
 export class WidgetHeadingComponent implements OnInit {
   widgetId: string;

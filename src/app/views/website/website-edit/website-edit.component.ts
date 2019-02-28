@@ -7,7 +7,7 @@ import {WebsiteService} from '../../../services/website.service.client';
 @Component({
   selector: 'app-website-edit',
   templateUrl: './website-edit.component.html',
-  styleUrls: ['./website-edit.component.css', '../../../../css/styles.css']
+  styleUrls: ['./website-edit.component.css']
 })
 export class WebsiteEditComponent implements OnInit {
   uid: string;
