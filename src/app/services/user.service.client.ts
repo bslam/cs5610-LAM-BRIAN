@@ -1,5 +1,6 @@
 import { User } from '../models/user.model.client';
 import {Injectable} from '@angular/core';
+import {Website} from '../models/website.model.client';
 
 @Injectable()
 export class UserService {
@@ -12,7 +13,9 @@ export class UserService {
 
 
   createUser(user: User) {
-    this.users.push(new User(user._id, user.username, user.password, user.firstName, user.lastName));
+    const new_user: User = new User(Math.random, user.username, user.password, '', '');
+    this.users.push(new_user);
+    return new_user;
   }
 
   findUserById(userId: String) {
