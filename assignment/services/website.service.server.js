@@ -1,4 +1,4 @@
-import {Website} from "../../src/app/models/website.model.client";
+import { Website } from "../../src/app/models/website.model.client.ts";
 
 var websites = [
   new Website('123', 'Facebook', '456', 'Lorem'),
