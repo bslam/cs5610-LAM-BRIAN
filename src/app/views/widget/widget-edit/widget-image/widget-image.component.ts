@@ -12,9 +12,10 @@ import {inject} from '@angular/core';
   styleUrls: ['./widget-image.component.css']
 })
 export class WidgetImageComponent implements OnInit {
-  widgetId: string;
+  wgid: string;
   uid: string;
-  pageId: string;
+  pid: string;
+  wid: string;
   newWidget: WidgetImage;
   widget: Widget;
   newWidgetName: string;
@@ -32,24 +33,25 @@ export class WidgetImageComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.uid = params['uid'];
-          this.widgetId = params['wgid'];
-          this.pageId = params['pid'];
+          this.wgid = params['wgid'];
+          this.pid = params['pid'];
+          this.wid = params['wid'];
         }
       );
-    if (this.widgetId !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.widgetId);
+    if (this.wgid !== 'undefined') {
+      this.widget = this.widgetService.findWidgetsByID(this.wgid);
     }
   }
 
   onUpdateWidget() {
     this.URL = ((this.newWidgetURL === 'undefined') ? this.localPath : this.newWidgetURL);
     this.newWidget.url = this.URL;
-    this.widgetService.updateWidget(this.widgetId, this.newWidget);
+    this.widgetService.updateWidget(this.wgid, this.newWidget);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.widgetId);
+    this.widgetService.deleteWidget(this.wgid);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 

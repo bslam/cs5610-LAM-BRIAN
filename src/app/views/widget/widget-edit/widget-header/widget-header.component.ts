@@ -17,9 +17,11 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./widget-header.component.css']
 })
 export class WidgetHeadingComponent implements OnInit {
-  widgetId: string;
+  wgid: string;
   uid: string;
-  pageId: string;
+  pid: string;
+  wid: string;
+
   newWidget: WidgetHeading;
   widget: Widget;
   newWidgetName: string;
@@ -34,23 +36,24 @@ export class WidgetHeadingComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.uid = params['uid'];
-          this.widgetId = params['wgid'];
-          this.pageId = params['pid'];
+          this.wgid = params['wgid'];
+          this.pid = params['pid'];
+          this.wid = params['wid'];
         }
       );
-    if (this.widgetId !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.widgetId);
+    if (this.wgid !== 'undefined') {
+      this.widget = this.widgetService.findWidgetsByID(this.wgid);
     }
   }
 
   onUpdateWidget() {
     this.newWidget = new WidgetHeading(this.newWidgetName, '', 'HEADING', '', this.newWidgetSize, this.newWidgetText);
-    this.widgetService.updateWidget(this.widgetId, this.newWidget);
+    this.widgetService.updateWidget(this.wgid, this.newWidget);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.widgetId);
+    this.widgetService.deleteWidget(this.wgid);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 

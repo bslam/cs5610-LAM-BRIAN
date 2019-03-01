@@ -10,9 +10,9 @@ import {WidgetService} from '../../../../services/widget.service.client';
 })
 
 export class WidgetYoutubeComponent implements OnInit {
-  widgetId: string;
+  wid: string;
   uid: string;
-  pageId: string;
+  pid: string;
   newWidget: WidgetYoutube;
   widget: Widget;
   newWidgetName: string;
@@ -28,23 +28,23 @@ export class WidgetYoutubeComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.uid = params['uid'];
-          this.widgetId = params['wgid'];
-          this.pageId = params['pid'];
+          this.wid = params['wgid'];
+          this.pid = params['pid'];
         }
       );
-    if (this.widgetId !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.widgetId);
+    if (this.wid !== 'undefined') {
+      this.widget = this.widgetService.findWidgetsByID(this.wid);
     }
   }
 
   onUpdateWidget() {
-    this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pageId, this.newWidgetWidth, this.newWidgetURL);
-    this.widgetService.updateWidget(this.widgetId, this.newWidget);
+    this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, this.newWidgetURL);
+    this.widgetService.updateWidget(this.wid, this.newWidget);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.widgetId);
+    this.widgetService.deleteWidget(this.wid);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

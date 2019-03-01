@@ -55,6 +55,7 @@ import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRouting
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
