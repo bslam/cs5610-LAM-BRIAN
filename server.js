@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Point static path to dist -- For building -- REMOVE
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'dist/A1')));
 
 // CORS
 app.use(function(req, res, next) {
@@ -39,7 +39,7 @@ function test(req, res) {
   res.status(400).send('Bad request...');
 }
 
-require('./assignment/app.js')(app);
+//require('./assignment/app.js')(app);
 
 //require('./assignment/app-demo')(app);
 
