@@ -11,7 +11,7 @@ export class PageService {
     new Page('543', 'Post 3', '456', 'Lorem' ),
   ];
 
-  createWebsite(websiteId: String, page: Page) {
+  createPage(pageId: String, page: Page) {
 
     const new_page = {
       _id: (new Date()).getTime() + '',

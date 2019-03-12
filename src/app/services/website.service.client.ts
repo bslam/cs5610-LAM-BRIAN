@@ -6,8 +6,8 @@ import {Injectable} from '@angular/core';
 export class WebsiteService {
 
   websites: Website[] = [
-    new Website('123', 'Facebook', '456', 'Lorem'),
-    new Website('234', 'Tweeter', '456', 'Lorem' ),
+    new Website('123', 'Facebook', '123', 'Lorem'),
+    new Website('234', 'Tweeter', '234', 'Lorem' ),
     new Website('456', 'Gizmodo', '456', 'Lorem' ),
   ];
 
@@ -30,6 +30,7 @@ export class WebsiteService {
         resultSet.push(this.websites[i]);
       }
     }
+    console.log(resultSet);
     return resultSet;
   }
 

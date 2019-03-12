@@ -12,6 +12,8 @@ import {WebsiteService} from '../../../services/website.service.client';
 
 export class WebsiteListComponent implements OnInit {
   uid: string;
+  wid: string;
+  pid: string;
   websites: Website[] = [];
 
   constructor(private websiteService: WebsiteService, private activatedRoute: ActivatedRoute) { }
@@ -22,5 +24,7 @@ export class WebsiteListComponent implements OnInit {
         this.uid = params['uid'];
       });
     this.websites = this.websiteService.findWebsitesByUser(this.uid);
+    console.log(this.websites);
+    console.log(this.uid);
   }
 }

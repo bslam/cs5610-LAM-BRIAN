@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
   user: User;
   errorFlag: boolean;
+  uid: string;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -28,6 +29,7 @@ export class RegisterComponent implements OnInit {
     } else {
       this.errorFlag = false;
       this.user = this.userService.createUser(new User('', username, password, '', ''));
+      this.uid = this.user._id.toString();
       this.router.navigate(['/user', this.user._id]);
     }
   }

@@ -1,12 +1,12 @@
 <nav class="navbar navbar-fixed-top cl-blue-navbar">
   <div class="col-md-4 d-none d-md-block container-fluid">
-    <a [routerLink]="['/register']" class="navbar-link text-white">
+    <a routerLink="/user/{{uid}}/" class="navbar-link text-white">
       <i class="fas fa-chevron-left fontawsome_icon"></i>
     </a>
-    <a href="#" class="text-white navbar-brand font-weight-bold">
+    <a routerLink="/user/{{uid}}/website" class="text-white navbar-brand font-weight-bold">
       Websites
     </a>
-    <a href="#" class="navbar-link navbar-text float-right text-white cl-icon-padding">
+    <a routerLink="/user/{{uid}}/website/new" class="navbar-link navbar-text float-right text-white cl-icon-padding">
       <i class="fas fa-plus fontawsome_icon text-white"></i>
     </a>
   </div>
@@ -14,7 +14,7 @@
     <a class="text-white navbar-brand font-weight-bold" href="#">
       Edit Website
     </a>
-    <a [routerLink]="['/user/:uid/website']" class="navbar-link navbar-text float-right text-white cl-icon-padding">
+    <a (click)="onUpdateWebsite()" class="navbar-link navbar-text float-right text-white cl-icon-padding">
       <i class="fas fa-check fontawsome_icon"></i>
     </a>
   </div>
@@ -22,38 +22,46 @@
 
 <div class="row container-fluid pt-2">
   <div class="col-md-4 d-none d-md-block border-right">
-    <ul class="list-group cl-list-group-borderless">
-      <li class="list-group-item cl-list-item-borderless">
-        <a [routerLink]="['/user/:uid/website/:wid']"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
-        <a [routerLink]="['/user/:uid/website/:wid/page']">Blogging App</a>
-      </li>
-      <li class="list-group-item cl-list-item-borderless">
-        <a [routerLink]="['/user/:uid/website/:wid']"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
-        <a [routerLink]="['/user/:uid/website/:wid/page']">Address Book App</a>
-      </li>
-      <li class="list-group-item cl-list-item-borderless">
-        <a [routerLink]="['/user/:uid/website/:wid']"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
-        <a [routerLink]="['/user/:uid/website/:wid/page']">Script Testing App</a>
-      </li>
-      <li class="list-group-item cl-list-item-borderless">
-        <a [routerLink]="['/user/:uid/website/:wid']"><i class="fas fa-cog fontawsome_icon float-right"></i></a>
-        <a [routerLink]="['/user/:uid/website/:wid/page']">Blogger</a>
+    <ul *ngFor="let website of websites" class="list-group list-group-flush">
+      <li class="list-group-item">
+        <a routerLink="/user/{{uid}}/website/{{website._id}}">
+          <i class="fas fa-cog fontawsome_icon float-right"></i></a>
+        <a routerLink="/user/{{uid}}/website/{{website._id}}/page">{{website.name}}</a>
       </li>
     </ul>
   </div>
   <div class="col-md-8">
-    <form>
-      <div class="form-group">
-        <label for="website-name">Name</label>
-        <input type="text" class="form-control" id="website-name" placeholder="Blogger">
-      </div>
-      <div class="form-group">
-        <label for="website-description">Description</label>
-        <textarea id="website-description" class="form-control" rows="3"
-                  placeholder="Blogger is a blog plublishing service that allows multi-users blogs with time-stamped entries. It was developed by Pyra Labs,which was bought by Google in 2003"></textarea>
-      </div>
+    <form #f="ngForm">
+
+
+        <div class="form-group">
+          <label>Name</label>
+          <input placeholder="Website Name"
+                 name="WebsiteName"
+                 type="text"
+                 class="form-control"
+                 ngModel
+                 required
+                 #WebsiteName="ngModel"/>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input placeholder="Website Description"
+                 name="Description"
+                 type="text"
+                 class="form-control"
+                 ngModel
+                 required
+                 #Description="ngModel"/>
+        </div>
+
+
+
+
+
+
       <a class="btn btn-danger btn-block text-white"
-         href="#">Delete</a>
+         (click)="onDelete()">Delete</a>
     </form>
   </div>
 </div>
@@ -63,7 +71,7 @@
 <nav class="navbar fixed-bottom float-right col-12">
   <div class="container-fluid col-12">
     <div class="row navbar-text float-right col-12">
-      <a [routerLink]="['/user/:userId']" class="float-right">
+      <a routerLink="/user/{{uid}}" class="float-right">
         <i class="fas fa-user fontawsome_icon float-right text-white col-12"></i>
       </a>
     </div>

@@ -5,31 +5,53 @@
       <a routerLink="/user/{{uid}}/website/{{wid}}/page" class="text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
-      <a class="navbar-brand text-black font-weight-bold pl-2" href="#">
+      <a class="navbar-brand text-black font-weight-bold pl-2" routerLink="/user/{{uid}}/website/{{wid}}/page">
         Edit Page
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a routerLink="/user/{{uid}}/website/{{wid}}/page/new" class="cl-icon-padding text-black">
+      <a (click)="onUpdate()" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
   </div>
 </nav>
 
+
+
+
 <div class="container">
-  <form>
+
+
+  <form #f="ngForm">
     <div class="form-group">
-      <label for="page-name">Name</label>
-      <input type="text" class="form-control" id="page-name" placeholder="Page Name">
+      <label>Name</label>
+      <input placeholder="Page Name"
+             name="PageName"
+             type="text"
+             class="form-control"
+             ngModel
+             required
+             #PageName="ngModel"/>
     </div>
     <div class="form-group">
-      <label for="page-title">Title</label>
-      <input type="text" class="form-control" id="page-title" placeholder="Page Title">
+      <label>Title</label>
+      <input placeholder="Page Title"
+             name="PageTitle"
+             type="text"
+             class="form-control"
+             ngModel
+             required
+             #PageTitle="ngModel"/>
     </div>
   </form>
-  <a class="btn btn-danger  btn-block" routerLink="/user/{{uid}}/website/{{wid}}/page">Delete</a>
+
+
+  <a class="btn btn-danger  btn-block" (click)="onDelete()">Delete</a>
 </div>
+
+
+
 
 <nav class="navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12">
   <div class="float-left col-12"></div>

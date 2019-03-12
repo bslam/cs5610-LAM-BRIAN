@@ -448,7 +448,7 @@ var PageService = /** @class */ (function () {
             new _models_page_model_client__WEBPACK_IMPORTED_MODULE_1__["Page"]('543', 'Post 3', '456', 'Lorem'),
         ];
     }
-    PageService.prototype.createWebsite = function (websiteId, page) {
+    PageService.prototype.createPage = function (pageId, page) {
         var new_page = {
             _id: (new Date()).getTime() + '',
             name: page.name,
@@ -597,8 +597,8 @@ __webpack_require__.r(__webpack_exports__);
 var WebsiteService = /** @class */ (function () {
     function WebsiteService() {
         this.websites = [
-            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__["Website"]('123', 'Facebook', '456', 'Lorem'),
-            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__["Website"]('234', 'Tweeter', '456', 'Lorem'),
+            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__["Website"]('123', 'Facebook', '123', 'Lorem'),
+            new _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__["Website"]('234', 'Tweeter', '234', 'Lorem'),
             new _models_website_model_client__WEBPACK_IMPORTED_MODULE_1__["Website"]('456', 'Gizmodo', '456', 'Lorem'),
         ];
     }
@@ -618,6 +618,7 @@ var WebsiteService = /** @class */ (function () {
                 resultSet.push(this.websites[i]);
             }
         }
+        console.log(resultSet);
         return resultSet;
     };
     WebsiteService.prototype.findWebsitesByUser2 = function (userId) {
@@ -849,7 +850,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" href=\"#\">\n        Pages\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a routerLink=\"/user/{{uid}}/website/:wid/page/new\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n<div class=\" container-fluid cl-container-padding\">\n  <div>\n    <ul>\n      <li *ngFor=\"let page of pages\">\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget\">\n          page: {{page.title}}\n        </a>\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/{{pid}}\">\n          <i class=\"fas fa-cog fontawsome_icon float-right\"></i>\n        </a>\n      </li>\n\n    </ul>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" href=\"#\">\n        Pages\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/new\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n<!--<div class=\" container-fluid cl-container-padding\">\n  <div>\n    <ul>\n      <li *ngFor=\"let page of pages\">\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget\">\n          page: {{page.title}}\n        </a>\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/{{pid}}\">\n          <i class=\"fas fa-cog fontawsome_icon float-right\"></i>\n        </a>\n      </li>\n\n    </ul>\n  </div>\n</div>-->\n\n<div class=\"container-fluid cl-container-padding\">\n  <ul *ngFor=\"let page of pages\" class=\"list-group list-group-flush\">\n    <li class=\"list-group-item\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/{{page._id}}\">\n        <i class=\"fas fa-cog fontawsome_icon float-right\"></i>\n      </a>\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/{{page._id}}/widget\">\n        {{page.name}}\n      </a>\n    </li>\n  </ul>\n</div>\n\n\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n\n"
 
 /***/ }),
 
@@ -865,12 +866,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageListComponent", function() { return PageListComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
+
+
 
 
 var PageListComponent = /** @class */ (function () {
-    function PageListComponent() {
+    function PageListComponent(activateRoute, pageService) {
+        this.activateRoute = activateRoute;
+        this.pageService = pageService;
+        this.pages = [];
     }
     PageListComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activateRoute.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.wid = params['wid'];
+            _this.pid = params['pid'];
+        });
+        this.page = this.pageService.findPageById(this.pid);
     };
     PageListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -878,7 +893,7 @@ var PageListComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./page-list.component.html */ "./src/app/views/page/page-list/page-list.component.html"),
             styles: [__webpack_require__(/*! ./page-list.component.css */ "./src/app/views/page/page-list/page-list.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__["PageService"]])
     ], PageListComponent);
     return PageListComponent;
 }());
@@ -905,7 +920,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" href=\"#\">\n        New Page\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page/new\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form>\n    <div class=\"form-group\">\n      <label for=\"page-name\">Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"page-name\" placeholder=\"Page Name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"page-title\">Title</label>\n      <input type=\"text\" class=\"form-control\" id=\"page-title\" placeholder=\"Page Title\">\n    </div>\n  </form>\n</div>\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" routerLink=\"/user/{{uid}}/website/{{wid}}/page\">\n        New Page\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\" (click)=\"onSubmit()\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <form #f=\"ngForm\">\n    <div class=\"form-group\">\n      <label>Name</label>\n      <input placeholder=\"Page Name\"\n             name=\"PageName\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #PageName=\"ngModel\"/>\n    </div>\n    <div class=\"form-group\">\n      <label>Title</label>\n      <input placeholder=\"Page Title\"\n             name=\"PageTitle\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #PageTitle=\"ngModel\"/>\n    </div>\n  </form>\n</div>\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -921,20 +936,47 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageNewComponent", function() { return PageNewComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
 
 
 var PageNewComponent = /** @class */ (function () {
-    function PageNewComponent() {
+    function PageNewComponent(activateRoute, pageService, router) {
+        this.activateRoute = activateRoute;
+        this.pageService = pageService;
+        this.router = router;
+        this.pages = [];
     }
     PageNewComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activateRoute.params.subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.wid = params['wid'];
+        });
     };
+    PageNewComponent.prototype.onSubmit = function () {
+        this.newPageName = this.pageForm.value.PageName;
+        this.newPageTitle = this.pageForm.value.PageTitle;
+        // @ts-ignore
+        this.page = { _id: '', name: this.newPageName, websiteId: this.wid, description: this.newPageTitle };
+        this.pageService.createPage(this.uid, this.page);
+        this.router.navigate(['../'], { relativeTo: this.activateRoute });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"])
+    ], PageNewComponent.prototype, "pageForm", void 0);
     PageNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-page-new',
             template: __webpack_require__(/*! ./page-new.component.html */ "./src/app/views/page/page-new/page-new.component.html"),
             styles: [__webpack_require__(/*! ./page-new.component.css */ "./src/app/views/page/page-new/page-new.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__["PageService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], PageNewComponent);
     return PageNewComponent;
 }());
@@ -961,7 +1003,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--<div class=\"container above-below-space\">\n  <h1>Login</h1>\n  <input type=\"text\"\n         class=\"form-control\"\n         placeholder=\"username\"/>\n  <input type=\"password\"\n         class=\"form-control\"\n         placeholder=\"password\"/>\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/user/:uid']\">Login</a>\n  <a class=\"btn btn-success btn-block\"\n     [routerLink]=\"['/register']\">Register</a>\n</div>-->\n\n<div class=\"container-fluid\">\n  <div *ngIf=\"errorFlag\" class=\"alert alert-danger\">\n    {{errorMsg}}\n  </div>\n\n  <h1>Login</h1>\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n\n    <div class=\"form-group\">\n      <input type=\"text\" name=\"username\" placeholder=\"username\" class=\"form-control\" ngModel required #username=\"ngModel\">\n    </div>\n    <span class=\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter username!\n    </span>\n\n    <div class=\"form-group\">\n      <input type=\"password\" name=\"password\" placeholder=\"password\" class=\"form-control\" ngModel required #password=\"ngModel\">\n    </div>\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter password!\n    </span>\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\" class=\"btn btn-primary btn-block\" type=\"submit\">Login</button>\n    </div>\n\n    <div class=\"form-group\">\n      <a routerLink=\"./register\" class=\"btn btn-success btn-block\">Register</a>\n    </div>\n  </form>\n</div>\n"
+module.exports = "<!--<div class=\"container above-below-space\">\n  <h1>Login</h1>\n  <input type=\"text\"\n         class=\"form-control\"\n         placeholder=\"username\"/>\n  <input type=\"password\"\n         class=\"form-control\"\n         placeholder=\"password\"/>\n  <a class=\"btn btn-primary btn-block\"\n     [routerLink]=\"['/user/:uid']\">Login</a>\n  <a class=\"btn btn-success btn-block\"\n     [routerLink]=\"['/register']\">Register</a>\n</div>-->\n\n<div class=\"container-fluid\">\n  <div *ngIf=\"errorFlag\" class=\"alert alert-danger\">\n    {{errorMsg}}\n  </div>\n\n  <h1>Login</h1>\n  <form (ngSubmit)=\"login()\" #f=\"ngForm\">\n\n    <div class=\"form-group\">\n      <input type=\"text\" name=\"username\" placeholder=\"username\" class=\"form-control\" ngModel required #username=\"ngModel\">\n    </div>\n    <span class=\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter username!\n    </span>\n\n    <div class=\"form-group\">\n      <input type=\"password\" name=\"password\" placeholder=\"password\" class=\"form-control\" ngModel required #password=\"ngModel\">\n    </div>\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter password!\n    </span>\n\n    <div class=\"form-group\">\n      <button [disabled]=\"!f.valid\" class=\"btn btn-primary btn-block\" type=\"submit\">Login</button>\n    </div>\n\n    <div class=\"form-group\">\n      <a routerLink=\"/register\" class=\"btn btn-success btn-block\">Register</a>\n    </div>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -1042,7 +1084,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar \">\n  <div class=\"container-fluid\">\n    <a class=\" navbar-brand cl-text-bold text-white float-left font-weight-bold\" href=\"#\">\n      Profile\n    </a>\n    <a routerLink=\"/user/{{uid}}\" class=\"navbar-link float-left text-white font-weight-bold\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container above-below-space\">\n  <header>\n\n  </header>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Username\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"alice@wonderland.com\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"first-name\" placeholder=\"Alice\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"last-name\" placeholder=\"Wonderland\">\n    </div>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n     routerLink=\"/user/{{uid}}/website\">Websites</a>\n  <a class=\"btn btn-danger  btn-block\"\n     routerLink=\"/login\">Logout</a>\n  <h1></h1>\n</div>\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar \">\n  <div class=\"container-fluid\">\n    <a class=\" navbar-brand cl-text-bold text-white float-left font-weight-bold\" routerLink=\"#\">\n      Profile\n    </a>\n    <a routerLink=\"/user/{{uid}}\" class=\"navbar-link float-left text-white font-weight-bold\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container above-below-space\">\n  <header>\n\n  </header>\n\n  <form>\n    <div class=\"form-group\">\n      <label for=\"username\">Username</label>\n      <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"Username\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"email\">Email address</label>\n      <input type=\"email\" class=\"form-control\" id=\"email\" placeholder=\"alice@wonderland.com\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\">First Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"first-name\" placeholder=\"Alice\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\">Last Name</label>\n      <input type=\"text\" class=\"form-control\" id=\"last-name\" placeholder=\"Wonderland\">\n    </div>\n  </form>\n\n  <a class=\"btn btn-primary btn-block\"\n     routerLink=\"/user/{{uid}}/website\">Websites</a>\n  <a class=\"btn btn-danger  btn-block\"\n     routerLink=\"/login\">Logout</a>\n  <h1></h1>\n</div>\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1123,7 +1165,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container above-below-space\">\n  <h1>Register</h1>\n\n  <form (ngSubmit) = \"onSubmit()\" #f=\"ngForm\">\n    <div *ngIf=\"errorFlag\"\n         class=\"alert alert-dange\">\n    <span>Password does not match!</span>\n    </div>\n    <div class=\"form-group\">\n      <label>Username</label>\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"username\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n    </div>\n    <div class=\"form-group\">\n      <label>Password</label>\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\"/>\n    </div>\n  <div class=\"form-group\">\n    <label>Verify password</label>\n    <input placeholder=\" verify password\"\n         name=\"verify\"\n         type=\"password\"\n         class=\"form-control\"\n         ngModel\n         required\n         #password=\"ngModel\"/>\n  </div>\n\n  <button class=\"btn btn-primary btn-block\" type=\"submit\">Register</button>\n  <button class=\"btn btn-danger btn-block\" type=\"button\">Cancel</button>\n\n\n\n</form></div>\n"
+module.exports = "<div class=\"container above-below-space\">\n  <h1>Register</h1>\n\n  <form (ngSubmit) = \"onSubmit()\" #f=\"ngForm\">\n    <div *ngIf=\"errorFlag\"\n         class=\"alert alert-dange\">\n    <span>Password does not match!</span>\n    </div>\n    <div class=\"form-group\">\n      <label>Username</label>\n      <input placeholder=\"username\"\n             name=\"username\"\n             type=\"username\"\n             class=\"form-control\"\n             ngModel\n             required\n             #username=\"ngModel\"/>\n    </div>\n    <div class=\"form-group\">\n      <label>Password</label>\n      <input placeholder=\"password\"\n             name=\"password\"\n             type=\"password\"\n             class=\"form-control\"\n             ngModel\n             required\n             #password=\"ngModel\"/>\n    </div>\n  <div class=\"form-group\">\n    <label>Verify password</label>\n    <input placeholder=\" verify password\"\n         name=\"verify\"\n         type=\"password\"\n         class=\"form-control\"\n         ngModel\n         required\n         #password=\"ngModel\"/>\n  </div>\n\n  <button class=\"btn btn-primary btn-block\" type=\"submit\" routerLink=\"/user/{{uid}}\">Register</button>\n  <button class=\"btn btn-danger btn-block\" type=\"button\" routerLink=\"/login\">Cancel</button>\n\n\n\n</form></div>\n"
 
 /***/ }),
 
@@ -1166,6 +1208,7 @@ var RegisterComponent = /** @class */ (function () {
         else {
             this.errorFlag = false;
             this.user = this.userService.createUser(new _models_user_model_client__WEBPACK_IMPORTED_MODULE_2__["User"]('', username, password, '', ''));
+            this.uid = this.user._id.toString();
             this.router.navigate(['/user', this.user._id]);
         }
     };
@@ -1206,7 +1249,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar\">\n  <div class=\"col-md-4 d-none d-md-block container-fluid\">\n    <a [routerLink]=\"['/register']\" class=\"navbar-link text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a href=\"#\" class=\"text-white navbar-brand font-weight-bold\">\n      Websites\n    </a>\n    <a href=\"#\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-plus fontawsome_icon text-white\"></i>\n    </a>\n  </div>\n  <div class=\"col-md-8 container-fluid\">\n    <a class=\"text-white navbar-brand font-weight-bold\" href=\"#\">\n      Edit Website\n    </a>\n    <a [routerLink]=\"['/user/:uid/website']\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<div class=\"row container-fluid pt-2\">\n  <div class=\"col-md-4 d-none d-md-block border-right\">\n    <ul class=\"list-group cl-list-group-borderless\">\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogging App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Address Book App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Script Testing App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogger</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"col-md-8\">\n    <form>\n      <div class=\"form-group\">\n        <label for=\"website-name\">Name</label>\n        <input type=\"text\" class=\"form-control\" id=\"website-name\" placeholder=\"Blogger\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"website-description\">Description</label>\n        <textarea id=\"website-description\" class=\"form-control\" rows=\"3\"\n                  placeholder=\"Blogger is a blog plublishing service that allows multi-users blogs with time-stamped entries. It was developed by Pyra Labs,which was bought by Google in 2003\"></textarea>\n      </div>\n      <a class=\"btn btn-danger btn-block text-white\"\n         href=\"#\">Delete</a>\n    </form>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a [routerLink]=\"['/user/:userId']\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar\">\n  <div class=\"col-md-4 d-none d-md-block container-fluid\">\n    <a routerLink=\"/user/{{uid}}/\" class=\"navbar-link text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a routerLink=\"/user/{{uid}}/website\" class=\"text-white navbar-brand font-weight-bold\">\n      Websites\n    </a>\n    <a routerLink=\"/user/{{uid}}/website/new\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-plus fontawsome_icon text-white\"></i>\n    </a>\n  </div>\n  <div class=\"col-md-8 container-fluid\">\n    <a class=\"text-white navbar-brand font-weight-bold\" href=\"#\">\n      Edit Website\n    </a>\n    <a (click)=\"onUpdateWebsite()\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<div class=\"row container-fluid pt-2\">\n  <div class=\"col-md-4 d-none d-md-block border-right\">\n    <ul *ngFor=\"let website of websites\" class=\"list-group list-group-flush\">\n      <li class=\"list-group-item\">\n        <a routerLink=\"/user/{{uid}}/website/{{website._id}}\">\n          <i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{website._id}}/page\">{{website.name}}</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"col-md-8\">\n    <form #f=\"ngForm\">\n\n\n        <div class=\"form-group\">\n          <label>Name</label>\n          <input placeholder=\"Website Name\"\n                 name=\"WebsiteName\"\n                 type=\"text\"\n                 class=\"form-control\"\n                 ngModel\n                 required\n                 #WebsiteName=\"ngModel\"/>\n        </div>\n        <div class=\"form-group\">\n          <label>Description</label>\n          <input placeholder=\"Website Description\"\n                 name=\"Description\"\n                 type=\"text\"\n                 class=\"form-control\"\n                 ngModel\n                 required\n                 #Description=\"ngModel\"/>\n        </div>\n\n\n\n\n\n\n      <a class=\"btn btn-danger btn-block text-white\"\n         (click)=\"onDelete()\">Delete</a>\n    </form>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n"
 
 /***/ }),
 
@@ -1241,20 +1284,21 @@ var WebsiteEditComponent = /** @class */ (function () {
         this.route.params
             .subscribe(function (params) {
             _this.uid = params['uid'];
-            _this.websiteId = params['wid'];
+            _this.wid = params['wid'];
+            _this.pid = params['pid'];
         });
         this.websites = this.websiteService.findWebsitesByUser(this.uid);
-        this.website = this.websiteService.findWebsitesById(this.websiteId);
+        this.website = this.websiteService.findWebsitesById(this.wid);
     };
-    WebsiteEditComponent.prototype.onEditWebsite = function (websiteId) {
-        var updated = this.websiteService.findWebsitesById(websiteId);
+    WebsiteEditComponent.prototype.onEditWebsite = function (wid) {
+        var updated = this.websiteService.findWebsitesById(wid);
         this.website = updated;
     };
     WebsiteEditComponent.prototype.onUpdateWebsite = function () {
-        this.websiteService.updateWebsite(this.websiteId, this.website);
+        this.websiteService.updateWebsite(this.wid, this.website);
     };
     WebsiteEditComponent.prototype.onDelete = function () {
-        this.websiteService.deleteWebsite(this.websiteId);
+        this.websiteService.deleteWebsite(this.wid);
         this.router.navigate(['../'], { relativeTo: this.route });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1294,7 +1338,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar \">\n  <div class=\"container-fluid\">\n    <a routerLink=\"/user/{{uid}}\" class=\"navbar-link float-left text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a class=\" font-weight-bold navbar-brand cl-text-bold text-white float-left pull-left col-11\" href=\"#\">\n      Websites\n    </a>\n    <a routerLink=\"./new\" class=\"navbar-link float-left text-white\">\n      <i class=\"fas fa-plus fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<!--<div class=\"container above-below-space\">\n  <ul class=\"list-group cl-list-group-borderless\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Address Book App</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogger</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogging App</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Script Testing App</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n  </ul>\n</div>-->\n\n<div class=\"container\" >\n  <ul class=\"list-group cl-list-group-borderless\" *ngFor=\"let website of websites\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" ><span class=\"fas float-right fa-cogs\" ></span></a>\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}\">{{website.name}}</a>\n\n    </li>\n  </ul>\n</div>\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar \">\n  <div class=\"container-fluid\">\n    <a routerLink=\"/user/{{uid}}\" class=\"navbar-link float-left text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a class=\" font-weight-bold navbar-brand cl-text-bold text-white float-left pull-left col-11\" href=\"#\">\n      Websites\n    </a>\n    <a routerLink=\"./new\" class=\"navbar-link float-left text-white\">\n      <i class=\"fas fa-plus fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<!--<div class=\"container above-below-space\">\n  <ul class=\"list-group cl-list-group-borderless\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Address Book App</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogger</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogging App</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Script Testing App</a>\n      <a [routerLink]=\"['/user/:uid/website/:wid']\"><span class=\"fas fa-cog fontawsome_icon float-right\"></span></a>\n    </li>\n  </ul>\n</div>-->\n\n<div class=\"container\" >\n  <ul class=\"list-group cl-list-group-borderless\" *ngFor=\"let website of websites\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a routerLink=\"/user/{{uid}}/website/{{website._id}}\" ><span class=\"fas float-right fa-cogs\" ></span></a>\n      <a routerLink=\"/user/{{uid}}/website/{{website._id}}/page\">{{website.name}}</a>\n\n    </li>\n  </ul>\n</div>\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n"
 
 /***/ }),
 
@@ -1328,6 +1372,8 @@ var WebsiteListComponent = /** @class */ (function () {
             _this.uid = params['uid'];
         });
         this.websites = this.websiteService.findWebsitesByUser(this.uid);
+        console.log(this.websites);
+        console.log(this.uid);
     };
     WebsiteListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1362,7 +1408,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-fixed-top cl-blue-navbar\">\n  <div class=\"col-md-4 d-none d-md-block container-fluid\">\n    <a [routerLink]=\"['/user/:userId']\" class=\"navbar-link text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a href=\"#\" class=\"text-white navbar-brand font-weight-bold\">\n      Websites\n    </a>\n    <a href=\"#\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-plus fontawsome_icon text-white\"></i>\n    </a>\n  </div>\n  <div class=\"col-md-8 container-fluid\">\n    <a class=\"text-white navbar-brand font-weight-bold\" href=\"#\">\n      New Websites\n    </a>\n    <a [routerLink]=\"['/user/:uid/website']\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<div class=\"row container-fluid pt-2\">\n  <div class=\"col-md-4 d-none d-md-block border-right\">\n    <ul class=\"list-group cl-list-group-borderless\">\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogging App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Address Book App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Script Testing App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a [routerLink]=\"['/user/:uid/website/:wid']\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a [routerLink]=\"['/user/:uid/website/:wid/page']\">Blogger</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"col-md-8\">\n    <form>\n      <div class=\"form-group\">\n        <label for=\"website-name\">Name</label>\n        <input type=\"text\" class=\"form-control\" id=\"website-name\" placeholder=\"Website Name\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"website-description\">Description</label>\n        <textarea id=\"website-description\" class=\"form-control\" rows=\"3\" placeholder=\"Description\"></textarea>\n      </div>\n    </form>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a [routerLink]=\"['/user/:userId']\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n"
+module.exports = "\n<nav class=\"navbar navbar-fixed-top cl-blue-navbar\">\n  <div class=\"col-md-4 d-none d-md-block container-fluid\">\n    <a routerLink=\"/user/{{uid}}/website\" class=\"navbar-link text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a routerLink=\"/user/{{uid}}/website/\" class=\"text-white navbar-brand font-weight-bold\">\n      Websites\n    </a>\n    <a href=\"#\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-plus fontawsome_icon text-white\"></i>\n    </a>\n  </div>\n  <div class=\"col-md-8 container-fluid\">\n    <a class=\"text-white navbar-brand font-weight-bold\" href=\"#\">\n      New Websites\n    </a>\n    <a class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-check fontawsome_icon \" (click)=\"onSubmit()\"></i>\n    </a>\n  </div>\n</nav>\n\n<div class=\"row container-fluid pt-2\">\n  <div class=\"col-md-4 d-none d-md-block border-right\">\n    <ul class=\"list-group cl-list-group-borderless\">\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\">Blogging App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\">Address Book App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\">Script Testing App</a>\n      </li>\n      <li class=\"list-group-item cl-list-item-borderless\">\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}\"><i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\">Blogger</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"col-md-8\">\n    <form #f=\"ngForm\">\n\n      <div class=\"form-group\">\n        <label>Name</label>\n        <input placeholder=\"Website Name\"\n               name=\"WebsiteName\"\n               type=\"text\"\n               class=\"form-control\"\n               ngModel\n               required\n               #WebsiteName=\"ngModel\"/>\n      </div>\n      <div class=\"form-group\">\n        <label>Description</label>\n        <input placeholder=\"Website Description\"\n               name=\"Description\"\n               type=\"text\"\n               class=\"form-control\"\n               ngModel\n               required\n               #Description=\"ngModel\"/>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n"
 
 /***/ }),
 
@@ -1379,7 +1425,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_website_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/website.service.client */ "./src/app/services/website.service.client.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _services_website_service_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/website.service.client */ "./src/app/services/website.service.client.ts");
+
 
 
 
@@ -1395,21 +1443,28 @@ var WebsiteNewComponent = /** @class */ (function () {
         this.route.params
             .subscribe(function (params) {
             _this.uid = params['uid'];
+            _this.wid = params['wid'];
         });
         this.websites = this.websiteService.findWebsitesByUser(this.uid);
     };
     WebsiteNewComponent.prototype.onSubmit = function () {
+        this.newWebsiteName = this.websitesForm.value.WebsiteName;
+        this.newWebsiteDescription = this.websitesForm.value.Description;
         this.newWebsite = { _id: '', name: this.newWebsiteName, developerId: this.uid, description: this.newWebsiteDescription };
         this.websiteService.createWebsite(this.uid, this.newWebsite);
         this.router.navigate(['../'], { relativeTo: this.route });
     };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"])
+    ], WebsiteNewComponent.prototype, "websitesForm", void 0);
     WebsiteNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-website-new',
             template: __webpack_require__(/*! ./website-new.component.html */ "./src/app/views/website/website-new/website-new.component.html"),
             styles: [__webpack_require__(/*! ./website-new.component.css */ "./src/app/views/website/website-new/website-new.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_website_service_client__WEBPACK_IMPORTED_MODULE_3__["WebsiteService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_website_service_client__WEBPACK_IMPORTED_MODULE_4__["WebsiteService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], WebsiteNewComponent);
     return WebsiteNewComponent;
 }());

@@ -36,8 +36,8 @@
 <div class="container" >
   <ul class="list-group cl-list-group-borderless" *ngFor="let website of websites">
     <li class="list-group-item cl-list-item-borderless">
-      <a routerLink="/user/{{uid}}/website/{{wid}}/page" ><span class="fas float-right fa-cogs" ></span></a>
-      <a routerLink="/user/{{uid}}/website/{{wid}}">{{website.name}}</a>
+      <a routerLink="/user/{{uid}}/website/{{website._id}}" ><span class="fas float-right fa-cogs" ></span></a>
+      <a routerLink="/user/{{uid}}/website/{{website._id}}/page">{{website.name}}</a>
 
     </li>
   </ul>

@@ -11,7 +11,8 @@ import {WebsiteService} from '../../../services/website.service.client';
 })
 export class WebsiteEditComponent implements OnInit {
   uid: string;
-  websiteId: string;
+  wid: string;
+  pid: string;
   website: Website;
   websites: Website[];
   @ViewChild('f') websiteForm: NgForm;
@@ -24,24 +25,25 @@ export class WebsiteEditComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.uid = params['uid'];
-          this.websiteId = params['wid'];
+          this.wid = params['wid'];
+          this.pid = params['pid'];
         }
       );
     this.websites = this.websiteService.findWebsitesByUser(this.uid);
-    this.website = this.websiteService.findWebsitesById(this.websiteId);
+    this.website = this.websiteService.findWebsitesById(this.wid);
   }
 
-  onEditWebsite(websiteId) {
-    const updated = this.websiteService.findWebsitesById(websiteId);
+  onEditWebsite(wid) {
+    const updated = this.websiteService.findWebsitesById(wid);
     this.website = updated;
   }
 
   onUpdateWebsite() {
-    this.websiteService.updateWebsite(this.websiteId, this.website);
+    this.websiteService.updateWebsite(this.wid, this.website);
   }
 
   onDelete() {
-    this.websiteService.deleteWebsite(this.websiteId);
+    this.websiteService.deleteWebsite(this.wid);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 }
