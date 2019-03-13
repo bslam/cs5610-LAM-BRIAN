@@ -21,32 +21,28 @@
 
 
 <div class="container">
-
-
-  <form #f="ngForm">
+  <form>
     <div class="form-group">
-      <label>Name</label>
-      <input placeholder="Page Name"
-             name="PageName"
-             type="text"
-             class="form-control"
-             ngModel
-             required
-             #PageName="ngModel"/>
+      <label for="page-name">Name</label>
+      <input
+        type="text"
+        name="websiteName"
+        class="form-control"
+        id="page-name"
+        placeholder="Page Name"
+        [(ngModel)]="page.name">
     </div>
     <div class="form-group">
-      <label>Title</label>
-      <input placeholder="Page Title"
-             name="PageTitle"
-             type="text"
-             class="form-control"
-             ngModel
-             required
-             #PageTitle="ngModel"/>
+      <label for="page-title">Title</label>
+      <input
+        type="text"
+        name="websiteName"
+        class="form-control"
+        id="page-title"
+        placeholder="Page Title"
+        [(ngModel)]="page.title">
     </div>
   </form>
-
-
   <a class="btn btn-danger  btn-block" (click)="onDelete()">Delete</a>
 </div>
 

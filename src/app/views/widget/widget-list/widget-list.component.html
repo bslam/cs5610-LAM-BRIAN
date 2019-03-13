@@ -2,7 +2,7 @@
   <div class="container-fluid row">
 
     <div class="navbar-text float-left">
-      <a [routerLink]="['/user/:uid/website/:wid/page']" class="text-black cl-icon-padding">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}" class="text-black cl-icon-padding">
         <i class="fas fa-chevron-left fontawsome_icon"></i>
       </a>
       <a class="navbar-brand text-black font-weight-bold pl-2" routerLink="./">
@@ -10,7 +10,7 @@
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid']" class="cl-icon-padding text-black">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
@@ -22,7 +22,7 @@
     <a routerLink="./" class="float-right text-black">
       <i class="fas fa-bars"></i>
     </a>
-    <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/wid']" class="float-right text-blue">
+    <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{wgid}}" class="float-right text-blue">
       <i class="fas fa-cog"></i>
     </a>
     <h3 *ngSwitchCase="'HEADING'">{{ widget.text }}</h3>
@@ -46,7 +46,7 @@
 
   </div>
   <div class="row navbar-text float-right">
-    <a [routerLink]="['/user/:userId']" class="float-right steelblue-icon">
+    <a routerLink="/user/{{uid}}" class="float-right steelblue-icon">
       <span class="fas fa-user fontawsome_icon float-right steelblue-icon"></span>
     </a>
   </div>
