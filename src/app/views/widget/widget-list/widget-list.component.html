@@ -10,27 +10,51 @@
       </a>
     </div>
     <div class="navbar-text float-right">
-      <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}" class="cl-icon-padding text-black">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/new" class="cl-icon-padding text-black">
         <i class="fas fa-plus fontawsome_icon"></i>
       </a>
     </div>
   </div>
 </nav>
 
-<div class=" container-fluid cl-container-padding">
-  <div *ngFor="let widget of widgets" [ngSwitch]="widget.widgetType">
-    <a routerLink="./" class="float-right text-black">
-      <i class="fas fa-bars"></i>
-    </a>
-    <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{wgid}}" class="float-right text-blue">
-      <i class="fas fa-cog"></i>
-    </a>
-    <h3 *ngSwitchCase="'HEADING'">{{ widget.text }}</h3>
-    <img *ngSwitchCase="'IMAGE'" [src]=widget.url >
-    <iframe *ngSwitchCase="'YOUTUBE'" width="640" height="360" [src]= widget.url rameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-    <p *ngSwitchDefault><br><br></p>
+<div class="container cl-container-padding">
+  <div *ngFor="let widget of widgets">
+    <div [ngSwitch]="widget.widgetType">
+      <div class="float-right">
+        <a routerLink="/user/{{uid}}/website/{{wid}}/page/{{pid}}/widget/{{widget._id}}">
+          <i class="fas fa-cog fontawsome_icon"></i>
+        </a>
+      </div>
+      <div *ngSwitchCase="'HEADING'">
+        <div [ngSwitch]="widget.size">
+          <div *ngSwitchCase="1">
+            <h1>{{widget.text}}</h1>
+          </div>
+          <div *ngSwitchCase="2">
+            <h2>{{widget.text}}</h2>
+          </div>
+          <div *ngSwitchCase="3">
+            <h3>{{widget.text}}</h3>
+          </div>
+          <div *ngSwitchCase="4">
+            <h4>{{widget.text}}</h4>
+          </div>
+          <div *ngSwitchCase="5">
+            <h5>{{widget.text}}</h5>
+          </div>
+          <div *ngSwitchCase="6">
+            <h6>{{widget.text}}</h6>
+          </div>
+        </div>
+      </div>
+      <img *ngSwitchCase="'IMAGE'" src="{{widget.url}}">
+      <div *ngSwitchCase="'YOUTUBE'" >
+        <iframe width="640" height="360" [src]='sanitizer.bypassSecurityTrustResourceUrl(widget.url)' frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+      <p *ngSwitchDefault><br></p>
+    </div>
   </div>
 </div>
 

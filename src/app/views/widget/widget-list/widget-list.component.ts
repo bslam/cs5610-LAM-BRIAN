@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Widget} from '../../../models/widget.model.client';
 import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service.client';
+import { DomSanitizer } from '@angular/platform-browser';
 
 import {User} from '../../../models/user.model.client';
 import {UserService} from '../../../services/user.service.client';
@@ -16,14 +17,13 @@ import {PageService} from '../../../services/page.service.client';
   styleUrls: ['./widget-list.component.css']
 })
 export class WidgetListComponent implements OnInit {
-  wgid: string;
   widget: Widget;
   widgets: Widget[] = [];
   uid: string;
   wid: string;
   pid: string;
 
-  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService) {
+  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService, public sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -34,9 +34,8 @@ export class WidgetListComponent implements OnInit {
         this.uid = params['uid'];
         this.wid = params['wid'];
         this.pid = params['pid'];
-        this.wgid = params['wgid'];
-        this.widget = this.widgetService.findWidgetsByID(this.wgid);
-        console.log(this.widget);
       });
+    this.widgets = this.widgetService.findWidgetsByPageId(this.pid);
   }
+
 }

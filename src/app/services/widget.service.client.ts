@@ -14,7 +14,10 @@ export  class WidgetService {
     new WidgetImage('', '456', 'IMAGE', '654', '100%', 'http://lorempixel.com/400/200'),
     new WidgetHeading('', '567', 'HEADING', '765', 4, 'Lorem ipsum'),
     new WidgetYoutube('', '678', 'YOUTUBE', '876', '100%', 'https://www.youtube.com/embed/-C_jPcUkVrM'),
-    new WidgetYoutube('', '789', 'YOUTUBE', '987', '100%', 'https://www.youtube.com/embed/-C_jPcUkVrM')
+    new WidgetYoutube('', '789', 'YOUTUBE', '987', '100%', 'https://www.youtube.com/embed/-C_jPcUkVrM'),
+    new WidgetHeading('', '111', 'HEADING', '111', 2, 'GIZMODO'),
+    new WidgetImage('', '222', 'IMAGE', '111', '100%', 'http://lorempixel.com/400/200'),
+    new WidgetYoutube('', '333', 'YOUTUBE', '111', '100%', 'https://www.youtube.com/embed/-C_jPcUkVrM'),
   ];
 
   createWidget(pageId: string, widget: Widget) {

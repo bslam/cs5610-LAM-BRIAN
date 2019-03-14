@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service.client';
 import {Widget} from '../../../models/widget.model.client';
 
@@ -15,9 +15,13 @@ export class WidgetChooserComponent implements OnInit {
   uid: string;
   wid: string;
   pid: string;
+  size: string;
+  text: string;
+  width: string;
+  url: string;
 
 
-  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService) { }
+  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router) { }
 
   ngOnInit() {
     this.activateRoute.params.subscribe(
@@ -29,5 +33,11 @@ export class WidgetChooserComponent implements OnInit {
         this.pid = params['pid'];
         this.wgid = params['wgid'];
       });
+  }
+
+  onSubmit(type: string) {
+    this.widget = {name: '', _id: '', widgetType: type, pageId: this.pid, };
+    this.widgetService.createWidget(this.pid, this.widget);
+    this.router.navigate(['../' + this.widget._id], {relativeTo: this.activateRoute});
   }
 }
