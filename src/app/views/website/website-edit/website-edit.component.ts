@@ -40,6 +40,7 @@ export class WebsiteEditComponent implements OnInit {
 
   onUpdateWebsite() {
     this.websiteService.updateWebsite(this.wid, this.website);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {

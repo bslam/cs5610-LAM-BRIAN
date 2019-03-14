@@ -9,6 +9,9 @@ export class WebsiteService {
     new Website('123', 'Facebook', '123', 'Lorem'),
     new Website('234', 'Tweeter', '234', 'Lorem' ),
     new Website('456', 'Gizmodo', '456', 'Lorem' ),
+    new Website('000', 'Facebook', '234', 'Lorem'),
+    new Website('999', 'Tweeter', '456', 'Lorem' ),
+    new Website('888', 'Gizmodo', '123', 'Lorem' ),
   ];
 
   createWebsite(userId: String, website: Website) {
