@@ -1,26 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
+import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
+import { Component, OnInit } from '@angular/core';
+import {WidgetHeading, WidgetHtml} from '../../../../models/widget.model.client';
+import {inject} from '@angular/core';
 
+
+
+// @ts-ignore
 @Component({
   selector: 'app-widget-youtube',
   templateUrl: './widget-youtube.component.html',
   styleUrls: ['./widget-youtube.component.css']
 })
-
 export class WidgetYoutubeComponent implements OnInit {
-  wid: string;
+  wgid: string;
   uid: string;
   pid: string;
+  wid: string;
   newWidget: WidgetYoutube;
   widget: Widget;
   newWidgetName: string;
-  newWidgetText = '';
   newWidgetWidth = '';
   newWidgetURL = '';
+  localPath: string;
+  URL: string;
 
   constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
+    this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, '');
   }
 
   ngOnInit() {
@@ -28,23 +35,31 @@ export class WidgetYoutubeComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.uid = params['uid'];
-          this.wid = params['wgid'];
+          this.wgid = params['wgid'];
           this.pid = params['pid'];
+          this.wid = params['wid'];
         }
       );
-    if (this.wid !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.wid);
+    if (this.wgid !== 'undefined') {
+      this.widget = this.widgetService.findWidgetsByID(this.wgid);
     }
   }
 
   onUpdateWidget() {
-    this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, this.newWidgetURL);
-    this.widgetService.updateWidget(this.wid, this.newWidget);
+    this.URL = this.newWidget.url;
+    this.newWidget.url = this.URL;
+    this.widgetService.updateWidget(this.wgid, this.newWidget);
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.wid);
+    this.widgetService.deleteWidget(this.wgid);
     this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+
+  handleUpload(e: any): void {
+    this.localPath = e.target.value;
+    console.log('local:  ' + this.localPath);
   }
 }
