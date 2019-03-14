@@ -12,7 +12,6 @@ import {Website} from '../../../models/website.model.client';
 export class PageListComponent implements OnInit {
   uid: string;
   wid: string;
-  pid: string;
   page: Page;
   pages: Page[] = [];
 
@@ -23,9 +22,10 @@ export class PageListComponent implements OnInit {
       (params: any) => {
         this.uid = params['uid'];
         this.wid = params['wid'];
-        this.pid = params['pid'];
       });
-    this.page = this.pageService.findPageById(this.pid);
+    this.pages = this.pageService.findPageByWebsiteId(this.wid);
+    console.log(this.wid);
+    console.log(this.pages);
   }
 
 }
