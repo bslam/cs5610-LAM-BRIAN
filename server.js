@@ -31,16 +31,4 @@ const server = http.createServer(app);
 server.listen( port , () => console.log('Running on port 3200'));
 
 
-//refactor api calls
-app.get("/api/test", test);
-
-function test(req, res) {
-  console.log("Hit test api....")
-  res.status(400).send('Bad request...');
-}
-
-//require('./assignment/app.js')(app);
-
-//require('./assignment/app-demo')(app);
-
-//require('./assignment/app')(app);
+require('./assignment/app')(app);
