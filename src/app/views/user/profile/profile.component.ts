@@ -20,20 +20,28 @@ export class ProfileComponent implements OnInit {
   constructor(private router: Router, private userService: UserService, private activateRoute: ActivatedRoute) {
   }
 
+
   ngOnInit() {
     this.activateRoute.params.subscribe(
-      (params: any) => {
+      params => {
         this.uid = params['uid'];
       });
-    this.user = this.userService.findUserById(this.uid);
-
+    this.userService.findUserById(this.uid).subscribe(
+      (data: any) => {
+        this.user = data;
+      }
+    );
   }
 
+
+
   updateUser() {
-    if (!this.user.username || !this.user.password || !this.user.firstName || !this.user.lastName) {
-      alert('Please enter all the required fields!');
-    }
-    this.userService.updateUser(this.user._id, this.user);
-    alert('Your profile has been updated!');
+    console.log(this.user);
+    this.userService.updateUser(this.uid, this.user).subscribe(
+      (user: any) => {
+        this.user = user;
+        this.router.navigate(['/user', user._id]);
+      }
+    );
   }
 }

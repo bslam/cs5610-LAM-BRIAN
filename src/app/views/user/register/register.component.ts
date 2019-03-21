@@ -20,17 +20,24 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
+
   onSubmit() {
     const username = this.registerForm.value.username;
     const password = this.registerForm.value.password;
     const verify = this.registerForm.value.verify;
-    if (password !== verify) {
-      this.errorFlag = true;
+    if (password === verify) {
+      this.userService.createUser(this.user).subscribe(
+          (user: any) => {
+            this.user = user;
+            }
+          );
+      this.userService.findUserByCredentials(username, password).subscribe(
+            (user: any) => {
+              this.router.navigate(['/user', user._id]);
+            }
+          );
     } else {
-      this.errorFlag = false;
-      this.user = this.userService.createUser(new User('', username, password, '', ''));
-      this.uid = this.user._id.toString();
-      this.router.navigate(['/user', this.user._id]);
+      this.errorFlag = true;
     }
   }
 }
