@@ -36,9 +36,12 @@ export class PageNewComponent implements OnInit {
     this.newPageTitle = this.pageForm.value.PageTitle;
     // @ts-ignore
     this.page = {_id: '', name: this.newPageName, websiteId: this.wid, description: this.newPageTitle, developerId: this.uid};
-    this.pageService.createPage(this.uid, this.page);
+    this.pageService.createPage(this.uid, this.page).subscribe(
+      (data: any) => {
+        this.page = data;
+      }
+    );
     console.log(this.pages);
     this.router.navigate(['../'], {relativeTo: this.activateRoute});
   }
-
 }

@@ -5,8 +5,8 @@ module.exports = function (app) {
   //app.get('/api/user', findUserByUsername);
   app.get('/api/user', findUserByCredentials);
   app.get('/api/user/:uid', findUserById);
-  api.put('/api/user/:uid', updateUser);
-  api.delete('/api/user/uid', deleteUser);
+  app.put('/api/user/:uid', updateUser);
+  app.delete('/api/user/uid', deleteUser);
 
   var users = [
     {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonderland"},

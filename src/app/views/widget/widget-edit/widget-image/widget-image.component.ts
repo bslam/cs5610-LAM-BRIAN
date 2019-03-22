@@ -4,6 +4,7 @@ import {Widget, WidgetImage} from '../../../../models/widget.model.client';
 import { Component, OnInit } from '@angular/core';
 import {WidgetHeading, WidgetHtml, WidgetYoutube} from '../../../../models/widget.model.client';
 import {inject} from '@angular/core';
+import {environment} from '../../../../../environments/environment';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class WidgetImageComponent implements OnInit {
   newWidgetURL = '';
   localPath: string;
   URL: string;
+  baseUrl: string;
 
   constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
     this.newWidget = new WidgetImage(this.newWidgetName, '', 'IMAGE', this.pid, this.newWidgetWidth, '');
@@ -39,25 +41,32 @@ export class WidgetImageComponent implements OnInit {
         }
       );
     if (this.wgid !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.wgid);
+      this.widgetService.findWidgetById(this.wgid).subscribe(
+        (data: any) => {
+          this.widget = data;
+        }
+      );
     }
+    this.baseUrl = environment.baseUrl;
   }
 
   onUpdateWidget() {
-    this.URL = this.newWidget.url;
+    this.URL = ((this.newWidgetURL === 'undefined') ? this.localPath : this.newWidgetURL);
     this.newWidget.url = this.URL;
-    this.widgetService.updateWidget(this.wgid, this.newWidget);
+    this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
+      (data: any) => {
+        this.widget = data;
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.wgid);
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.widgetService.deleteWidget(this.wgid).subscribe(
+      (data: any) => {
+        this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+      }
+    );
   }
 
-
-  handleUpload(e: any): void {
-    this.localPath = e.target.value;
-    console.log('local:  ' + this.localPath);
-  }
 }

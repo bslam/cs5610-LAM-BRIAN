@@ -27,16 +27,28 @@ export class PageEditComponent implements OnInit {
         this.wid = params['wid'];
         this.pid = params['pid'];
       });
-    this.page = this.pageService.findPageById(this.pid);
+    this.pageService.findPageById(this.pid).subscribe(
+      (data: any) => {
+        this.page = data;
+      }
+    );
   }
 
   onUpdate() {
-    this.pageService.updatePage(this.pid, this.page);
+    this.pageService.updatePage(this.pid, this.page).subscribe(
+      (data: any) => {
+        this.page = data;
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.activateRoute});
   }
 
   onDelete() {
-    this.pageService.deletePage(this.pid);
+    this.pageService.deletePage(this.pid).subscribe(
+      (data: any) => {
+
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.activateRoute});
   }
 }

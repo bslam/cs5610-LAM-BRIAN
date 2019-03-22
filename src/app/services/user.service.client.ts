@@ -24,8 +24,10 @@ export class UserService {
     return this.http.post(url, user);
   }
 
+
   findUserByCredentials(username, password) {
     const url = this.base_url + 'api/user?username=' + username + '&password=' + password;
+    console.log(url);
     return this.http.get(url);
   }
 

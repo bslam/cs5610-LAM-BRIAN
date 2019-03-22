@@ -93,10 +93,10 @@ module.exports = function (app) {
   app.put("/api/widget/:widgetId",updateWidget);
   app.delete("/api/widget/:widgetId",deleteWidget);
 
-  app.put("/api/page/:pageId/widget",reorderWidgets);
+  // app.put("/api/page/:pageId/widget",reorderWidgets);
 
   //UPLOAD
-  app.post ("/api/upload", upload.single('myFile'), uploadImage);
+  // app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
   function createWidget(req, res) {
     var widget = req.body;

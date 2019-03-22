@@ -36,24 +36,36 @@ export class WidgetHeadingComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.uid = params['uid'];
-          this.wgid = params['wgid'];
-          this.pid = params['pid'];
           this.wid = params['wid'];
+          this.pid = params['pid'];
+          this.wid = params['wgid'];
         }
       );
     if (this.wgid !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.wgid);
+      this.widgetService.findWidgetById(this.wgid).subscribe(
+        (data: any) => {
+          this.widget = data;
+        }
+      );
     }
   }
 
   onUpdateWidget() {
     this.newWidget = new WidgetHeading(this.newWidgetName, '', 'HEADING', '', this.newWidgetSize, this.newWidgetText);
-    this.widgetService.updateWidget(this.wgid, this.newWidget);
+    this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
+      (data: any) => {
+        this.widget = data;
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.wgid);
+    this.widgetService.deleteWidget(this.wgid).subscribe(
+      (data: any) => {
+
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 

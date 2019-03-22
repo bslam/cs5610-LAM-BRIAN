@@ -4,6 +4,7 @@ import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
 import { Component, OnInit } from '@angular/core';
 import {WidgetHeading, WidgetHtml} from '../../../../models/widget.model.client';
 import {inject} from '@angular/core';
+import {environment} from '../../../../../environments/environment';
 
 
 
@@ -25,6 +26,7 @@ export class WidgetYoutubeComponent implements OnInit {
   newWidgetURL = '';
   localPath: string;
   URL: string;
+  baseURL: string;
 
   constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
     this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, '');
@@ -41,25 +43,33 @@ export class WidgetYoutubeComponent implements OnInit {
         }
       );
     if (this.wgid !== 'undefined') {
-      this.widget = this.widgetService.findWidgetsByID(this.wgid);
+      this.widgetService.findWidgetById(this.wgid).subscribe(
+        (data: any) => {
+          this.widget = data;
+        }
+      );
     }
+    this.baseURL = environment.baseUrl;
   }
 
   onUpdateWidget() {
-    this.URL = this.newWidget.url;
-    this.newWidget.url = this.URL;
-    this.widgetService.updateWidget(this.wgid, this.newWidget);
+    this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, this.newWidgetURL);
+    this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
+      (data: any) => {
+        this.widget = data;
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.widgetService.deleteWidget(this.wgid);
-    this.router.navigate(['../'], {relativeTo: this.route});
-  }
+    this.widgetService.deleteWidget(this.wgid).subscribe(
+      (data: any) => {
 
-
-  handleUpload(e: any): void {
-    this.localPath = e.target.value;
-    console.log('local:  ' + this.localPath);
+      }
+    );
+    this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
   }
 }
+
+

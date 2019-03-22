@@ -11,7 +11,7 @@ import {NgForm} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
-  user: User;
+  user: User = {_id: '', username: '', password: '', firstName: '', lastName: ''};
   errorFlag: boolean;
   uid: string;
 
@@ -22,16 +22,18 @@ export class RegisterComponent implements OnInit {
 
 
   onSubmit() {
-    const username = this.registerForm.value.username;
-    const password = this.registerForm.value.password;
+    this.user.username = this.registerForm.value.username;
+    this.user.password = this.registerForm.value.password;
     const verify = this.registerForm.value.verify;
-    if (password === verify) {
+
+
+    if (this.user.password === verify) {
       this.userService.createUser(this.user).subscribe(
           (user: any) => {
             this.user = user;
             }
           );
-      this.userService.findUserByCredentials(username, password).subscribe(
+      this.userService.findUserByCredentials(this.user.username, this.user.password).subscribe(
             (user: any) => {
               this.router.navigate(['/user', user._id]);
             }

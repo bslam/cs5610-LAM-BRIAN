@@ -29,22 +29,48 @@ export class WebsiteEditComponent implements OnInit {
           this.pid = params['pid'];
         }
       );
-    this.websites = this.websiteService.findWebsitesByUser(this.uid);
-    this.website = this.websiteService.findWebsitesById(this.wid);
+    this.websiteService.findAllWebsitesForUser(this.uid).subscribe(
+      (data: any) => {
+        this.websites = data;
+      }
+    );
+    this.websiteService.findWebsiteById(this.wid).subscribe(
+      (data: any) => {
+        this.website = data;
+      }
+    );
   }
 
+
   onEditWebsite(wid) {
-    const updated = this.websiteService.findWebsitesById(wid);
-    this.website = updated;
+    /**const updated = this.websiteService.findWebsitesById(wid);
+    this.website = updated;*/
+    this.websiteService.findWebsiteById(wid).subscribe(
+      (data: any) => {
+        this.website = data;
+      }
+    );
   }
 
   onUpdateWebsite() {
-    this.websiteService.updateWebsite(this.wid, this.website);
+    /**this.websiteService.updateWebsite(this.wid, this.website);
+    this.router.navigate(['../'], {relativeTo: this.route});*/
+    this.websiteService.updateWebsite(this.wid, this.website).subscribe(
+      (data: any) => {
+        this.website = data;
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    this.websiteService.deleteWebsite(this.wid);
+    /**this.websiteService.deleteWebsite(this.wid);
+    this.router.navigate(['../'], {relativeTo: this.route});*/
+    this.websiteService.deleteWebsite(this.wid).subscribe(
+      (data: any) => {
+
+      }
+    );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 }
