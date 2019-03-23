@@ -12,11 +12,11 @@ module.exports = function (app) {
     { "_id": "890", "name": "Go", "developerId": "123", "description": "Lorem" },
     { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
     { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
-    { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
+    { "_id": "789", "name": "Chess", "developerId": "123", "description": "Lorem" }
   ];
 
   function createWebsite(req, res) {
-    var userId = req.params.uid;
+    var userId = req.params.userId;
     var website = req.body;
     for (var i = 0; i < websites.length; i++) {
       if (websites[i].developerId === userId && websites[i].name === website.name) {
@@ -24,31 +24,27 @@ module.exports = function (app) {
         return;
       }
     }
-    var lastId = websites[websites.length-1]._id;
-    website._id = (+(lastId)+1).toString();
+    website._id = Math.random().toString();
     website.developerId = userId;
     websites.push(website);
     res.json(website);
-    res.status(200).send(website);
   }
 
   function findAllWebsitesForUser(req, res) {
-    var userId = req.params["uid"];
+    var userId = req.params.userId;
     var resultSet = [];
-    for (var x = 0; x < websites.length; x++) {
-      if (websites[x].developerId === userId) {
-        resultSet.push(websites[x]);
+    for (var i = 0; i < websites.length; i++) {
+      if (websites[i].developerId === userId) {
+        resultSet.push(websites[i]);
       }
     }
     res.json(resultSet);
-    res.status(200).send(resultSet);
   }
 
-  function findWebsiteById(req, res){
-    var websiteId = req.params["wid"];
+  function findWebsiteById(req, res) {
+    var websiteId = req.params.websiteId;
     for (var i = 0; i < websites.length; i++) {
       if (websites[i]._id === websiteId) {
-        res.status(200);
         return res.json(websites[i]);
       }
     }
@@ -56,7 +52,7 @@ module.exports = function (app) {
   }
 
   function updateWebsite(req, res) {
-    var websiteId = req.params["wid"];
+    var websiteId = req.params.websiteId;
     var updatedWebsite = req.body;
 
     console.log("update website: " + websiteId + " " + updatedWebsite.name + " " + updatedWebsite.description);
@@ -64,7 +60,7 @@ module.exports = function (app) {
       if (websites[i]._id === websiteId) {
         websites[i].name = updatedWebsite.name;
         websites[i].description = updatedWebsite.description;
-        res.status(204).send(updatedWebsite)
+
         res.json(updatedWebsite);
         return;
       }
@@ -72,11 +68,10 @@ module.exports = function (app) {
     res.status(404).send("Website not found!");
   }
 
-  function deleteWebsite(req, res) {
-    var websiteId = req.params["wid"];
+  function deleteWebsite (req, res) {
+    var websiteId = req.params.websiteId;
     for (var x = 0; x < websites.length; x++) {
       if (websites[x]._id === websiteId) {
-        res.status(204);
         res.json(websites[x]);
         websites.splice(x, 1);
         return;

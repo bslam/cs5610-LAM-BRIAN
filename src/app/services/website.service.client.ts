@@ -20,8 +20,9 @@ export class WebsiteService {
   }
 
   findAllWebsitesForUser(userId: String) {
-    const url = this.base_url + 'api/user/' + userId + '/website';
-    return this.http.get(url);
+    // const url = this.base_url + 'api/user/' + userId + '/website';
+    // return this.http.get(url);
+    return this.http.get(this.base_url + 'api/user/' + userId + '/website');
   }
 
   findWebsiteById(websiteId: String) {
@@ -37,5 +38,6 @@ export class WebsiteService {
   deleteWebsite(websiteId: String) {
     const url = this.base_url + 'api/website/' + websiteId;
     return this.http.delete(url);
+    // return this.http.delete( this.base_url + 'api/website/' + websiteId);
   }
 }

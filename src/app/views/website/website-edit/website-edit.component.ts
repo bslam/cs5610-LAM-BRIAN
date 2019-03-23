@@ -12,7 +12,6 @@ import {WebsiteService} from '../../../services/website.service.client';
 export class WebsiteEditComponent implements OnInit {
   uid: string;
   wid: string;
-  pid: string;
   website: Website;
   websites: Website[];
   @ViewChild('f') websiteForm: NgForm;
@@ -26,7 +25,6 @@ export class WebsiteEditComponent implements OnInit {
         (params: Params) => {
           this.uid = params['uid'];
           this.wid = params['wid'];
-          this.pid = params['pid'];
         }
       );
     this.websiteService.findAllWebsitesForUser(this.uid).subscribe(
@@ -40,12 +38,8 @@ export class WebsiteEditComponent implements OnInit {
       }
     );
   }
-
-
-  onEditWebsite(wid) {
-    /**const updated = this.websiteService.findWebsitesById(wid);
-    this.website = updated;*/
-    this.websiteService.findWebsiteById(wid).subscribe(
+  onEditWebsite(websiteId) {
+    this.websiteService.findWebsiteById(websiteId).subscribe(
       (data: any) => {
         this.website = data;
       }
@@ -53,19 +47,14 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   onUpdateWebsite() {
-    /**this.websiteService.updateWebsite(this.wid, this.website);
-    this.router.navigate(['../'], {relativeTo: this.route});*/
     this.websiteService.updateWebsite(this.wid, this.website).subscribe(
       (data: any) => {
         this.website = data;
       }
     );
-    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
-    /**this.websiteService.deleteWebsite(this.wid);
-    this.router.navigate(['../'], {relativeTo: this.route});*/
     this.websiteService.deleteWebsite(this.wid).subscribe(
       (data: any) => {
 
@@ -73,4 +62,5 @@ export class WebsiteEditComponent implements OnInit {
     );
     this.router.navigate(['../'], {relativeTo: this.route});
   }
+
 }

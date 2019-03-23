@@ -291,6 +291,31 @@ var ChangeBgColorDirective = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/models/page.model.client.ts":
+/*!*********************************************!*\
+  !*** ./src/app/models/page.model.client.ts ***!
+  \*********************************************/
+/*! exports provided: Page */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Page", function() { return Page; });
+var Page = /** @class */ (function () {
+    function Page(_id, name, websiteId, description, developerId) {
+        this._id = _id;
+        this.name = name;
+        this.websiteId = websiteId;
+        this.title = description;
+        this.developerId = developerId;
+    }
+    return Page;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/models/widget.model.client.ts":
 /*!***********************************************!*\
   !*** ./src/app/models/widget.model.client.ts ***!
@@ -539,8 +564,9 @@ var WebsiteService = /** @class */ (function () {
         return this.http.post(url, website);
     };
     WebsiteService.prototype.findAllWebsitesForUser = function (userId) {
-        var url = this.base_url + 'api/user/' + userId + '/website';
-        return this.http.get(url);
+        // const url = this.base_url + 'api/user/' + userId + '/website';
+        // return this.http.get(url);
+        return this.http.get(this.base_url + 'api/user/' + userId + '/website');
     };
     WebsiteService.prototype.findWebsiteById = function (websiteId) {
         var url = this.base_url + 'api/website/' + websiteId;
@@ -553,6 +579,7 @@ var WebsiteService = /** @class */ (function () {
     WebsiteService.prototype.deleteWebsite = function (websiteId) {
         var url = this.base_url + 'api/website/' + websiteId;
         return this.http.delete(url);
+        // return this.http.delete( this.base_url + 'api/website/' + websiteId);
     };
     WebsiteService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
@@ -801,7 +828,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" routerLink=\"/user/{{uid}}/website/{{wid}}/page\">\n        New Page\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a class=\"cl-icon-padding text-black\" (click)=\"onSubmit()\">\n        <i class=\"fas fa-plus fontawsome_icon\" ></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <form #f=\"ngForm\">\n    <div class=\"form-group\">\n      <label>Name</label>\n      <input placeholder=\"Page Name\"\n             name=\"PageName\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #PageName=\"ngModel\"/>\n    </div>\n    <div class=\"form-group\">\n      <label>Title</label>\n      <input placeholder=\"Page Title\"\n             name=\"PageTitle\"\n             type=\"text\"\n             class=\"form-control\"\n             ngModel\n             required\n             #PageTitle=\"ngModel\"/>\n    </div>\n  </form>\n</div>\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light\">\n  <div class = \"container-fluid row\">\n    <a routerLink=\"../\" class=\"navbar-text black-text pull-left icon-padding\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a routerLink=\"./\" class=\"navbar-brand\">Edit Page</a>\n    <button (click)=\"createPage()\" [disabled]=\"!p.valid\" class=\"btn btn-light float-right cl-icon-padding\">\n      <span class=\"fas fa-check fontawsome_icon\"></span>\n    </button>\n  </div>\n</nav>\n\n<div class=\"container container-padding\">\n  <form (ngSubmit)=\"createPage()\" #p=\"ngForm\">\n    <label for=\"New-Page-Name\">Name</label>\n    <input id=\"New-Page-Name\" type=\"text\" class=\"form-control\" placeholder=\"Page Name\" name=\"pageName\" ngModel required #pageName=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!pageName.valid && pageName.touched\">\n      Please enter page name!\n    </span>\n    <label for=\"New-Page-Title\">Title</label>\n    <input id=\"New-Page-Title\" type=\"text\" class=\"form-control\" placeholder=\"Page Title\" name=\"pageDescription\" [(ngModel)]=\"pageDescription\"/>\n    <button class=\"btn btn-primary btn-block mt-3\" type=\"submit\" [disabled]=\"!p.valid\">Create</button>\n  </form>\n</div>\n\n<nav class=\"navbar fixed-bottom navbar-expand-lg navbar-light bg-light\">\n  <div class=\"container-fluid justify-content-end\">\n    <a routerLink=\"../../../../\" class=\"navbar-link navbar-text cl-icon-padding\">\n      <span class=\"fas fa-user fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -817,51 +844,86 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageNewComponent", function() { return PageNewComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../models/page.model.client */ "./src/app/models/page.model.client.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_page_service_client__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/page.service.client */ "./src/app/services/page.service.client.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
 
 
 
 
 
 var PageNewComponent = /** @class */ (function () {
-    function PageNewComponent(activateRoute, pageService, router) {
-        this.activateRoute = activateRoute;
-        this.pageService = pageService;
+    function PageNewComponent(route, router, pageService) {
+        this.route = route;
         this.router = router;
-        this.pages = [];
+        this.pageService = pageService;
     }
     PageNewComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.activateRoute.params.subscribe(function (params) {
-            _this.uid = params['uid'];
-            _this.wid = params['wid'];
+        this.route.params.subscribe(function (params) {
+            _this.websiteId = params['wid'];
+            _this.developerId = params['uid'];
         });
     };
-    PageNewComponent.prototype.onSubmit = function () {
+    PageNewComponent.prototype.createPage = function () {
         var _this = this;
-        this.newPageName = this.pageForm.value.PageName;
-        this.newPageTitle = this.pageForm.value.PageTitle;
-        // @ts-ignore
-        this.page = { _id: '', name: this.newPageName, websiteId: this.wid, description: this.newPageTitle, developerId: this.uid };
-        this.pageService.createPage(this.uid, this.page).subscribe(function (data) {
-            _this.page = data;
-        });
-        console.log(this.pages);
-        this.router.navigate(['../'], { relativeTo: this.activateRoute });
+        this.pageName = this.pageForm.value.pageName;
+        this.pageDescription = this.pageForm.value.pageDescription;
+        var page = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"]('', this.pageName, this.websiteId, this.pageDescription, this.developerId);
+        this.pageService.createPage(this.websiteId, page).subscribe(function (data) {
+            _this.router.navigate(['../'], { relativeTo: _this.route });
+        }, function (error) { return console.log(error); });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"])
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('p'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgForm"])
     ], PageNewComponent.prototype, "pageForm", void 0);
     PageNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-page-new',
             template: __webpack_require__(/*! ./page-new.component.html */ "./src/app/views/page/page-new/page-new.component.html"),
             styles: [__webpack_require__(/*! ./page-new.component.css */ "./src/app/views/page/page-new/page-new.component.css")]
-        }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_3__["PageService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+        })
+        // export class PageNewComponent implements OnInit {
+        //   @ViewChild('f') pageForm: NgForm;
+        //
+        //   uid: string;
+        //   wid: string;
+        //   pid: string;
+        //   page: Page;
+        //   pages: Page[] = [];
+        //   newPageName: string;
+        //   newPageTitle: string;
+        //
+        //
+        //   constructor(private activateRoute: ActivatedRoute, private pageService: PageService,  private router: Router) { }
+        //
+        //   ngOnInit() {
+        //     this.activateRoute.params.subscribe(
+        //       (params: any) => {
+        //         this.uid = params['uid'];
+        //         this.wid = params['wid'];
+        //       });
+        //   }
+        //
+        //   onSubmit() {
+        //     this.newPageName = this.pageForm.value.PageName;
+        //     this.newPageTitle = this.pageForm.value.PageTitle;
+        //     // @ts-ignore
+        //     this.page = {_id: '', name: this.newPageName, websiteId: this.wid, description: this.newPageTitle, developerId: this.uid};
+        //     this.pageService.createPage(this.uid, this.page).subscribe(
+        //       (data: any) => {
+        //         this.page = data;
+        //         this.router.navigate(['../'], {relativeTo: this.activateRoute});
+        //       }
+        //     );
+        //   }
+        ,
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _services_page_service_client__WEBPACK_IMPORTED_MODULE_4__["PageService"]])
     ], PageNewComponent);
     return PageNewComponent;
 }());
@@ -1141,7 +1203,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar\">\n  <div class=\"col-md-4 d-none d-md-block container-fluid\">\n    <a routerLink=\"/user/{{uid}}/\" class=\"navbar-link text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a routerLink=\"/user/{{uid}}/website\" class=\"text-white navbar-brand font-weight-bold\">\n      Websites\n    </a>\n    <a routerLink=\"/user/{{uid}}/website/new\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-plus fontawsome_icon text-white\"></i>\n    </a>\n  </div>\n  <div class=\"col-md-8 container-fluid\">\n    <a class=\"text-white navbar-brand font-weight-bold\" href=\"#\">\n      Edit Website\n    </a>\n    <a (click)=\"onUpdateWebsite()\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<div class=\"row container-fluid pt-2\">\n  <div class=\"col-md-4 d-none d-md-block border-right\">\n    <ul *ngFor=\"let website of websites\" class=\"list-group list-group-flush\">\n      <li class=\"list-group-item\">\n        <a routerLink=\"/user/{{uid}}/website/{{website._id}}\">\n          <i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{website._id}}/page\">{{website.name}}</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"col-md-8\">\n    <form #f=\"ngForm\">\n\n\n        <!--<div class=\"form-group\">\n          <label>Name</label>\n          <input placeholder=\"Website Name\"\n                 name=\"WebsiteName\"\n                 type=\"text\"\n                 class=\"form-control\"\n                 ngModel\n                 required\n                 #WebsiteName=\"ngModel\"/>\n        </div>\n        <div class=\"form-group\">\n          <label>Description</label>\n          <input placeholder=\"Website Description\"\n                 name=\"Description\"\n                 type=\"text\"\n                 class=\"form-control\"\n                 ngModel\n                 required\n                 #Description=\"ngModel\"/>\n        </div>-->\n      <div class=\"form-group\">\n        <label for=\"website-name\">Website Name</label>\n        <input [(ngModel)]=\"website.name\"\n               [ngModelOptions]=\"{standalone: true}\"\n               type=\"text\" class=\"form-control\"\n               id=\"website-name\"\n               placeholder=\"{{website.name}}\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"website-description\">Website Description</label>\n        <textarea [(ngModel)]=\"website.description\"\n                  [ngModelOptions]=\"{standalone: true}\"\n                  id=\"website-description\"\n                  class=\"form-control\"\n                  rows=\"5\"\n                  placeholder=\"{{website.description}}\">\n        </textarea>\n      </div>\n\n\n\n\n\n\n      <a class=\"btn btn-danger btn-block text-white\"\n         (click)=\"onDelete()\">Delete</a>\n    </form>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n"
+module.exports = "<nav class=\"navbar navbar-fixed-top cl-blue-navbar\">\n  <div class=\"col-md-4 d-none d-md-block container-fluid\">\n    <a routerLink=\"/user/{{uid}}/\" class=\"navbar-link text-white\">\n      <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n    </a>\n    <a routerLink=\"/user/{{uid}}/website\" class=\"text-white navbar-brand font-weight-bold\">\n      Websites\n    </a>\n    <a routerLink=\"/user/{{uid}}/website/new\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-plus fontawsome_icon text-white\"></i>\n    </a>\n  </div>\n  <div class=\"col-md-8 container-fluid\">\n    <a class=\"text-white navbar-brand font-weight-bold\" href=\"#\">\n      Edit Website\n    </a>\n    <a (click)=\"onUpdateWebsite()\" class=\"navbar-link navbar-text float-right text-white cl-icon-padding\">\n      <i class=\"fas fa-check fontawsome_icon\"></i>\n    </a>\n  </div>\n</nav>\n\n<div class=\"row container-fluid pt-2\">\n  <div class=\"col-md-4 d-none d-md-block border-right\">\n    <ul *ngFor=\"let website of websites\" class=\"list-group list-group-flush\">\n      <li class=\"list-group-item\">\n        <a routerLink=\"/user/{{uid}}/website/{{website._id}}\">\n          <i class=\"fas fa-cog fontawsome_icon float-right\"></i></a>\n        <a routerLink=\"/user/{{uid}}/website/{{website._id}}/page\">{{website.name}}</a>\n      </li>\n    </ul>\n  </div>\n  <div class=\"col-md-8\">\n    <form #f=\"ngForm\">\n\n      <div class=\"form-group\">\n        <label for=\"website-name\">Website Name</label>\n        <input [(ngModel)]=\"website.name\"\n               [ngModelOptions]=\"{standalone: true}\"\n               type=\"text\" class=\"form-control\"\n               id=\"website-name\"\n               placeholder=\"{{website.name}}\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"website-description\">Website Description</label>\n        <textarea [(ngModel)]=\"website.description\"\n                  [ngModelOptions]=\"{standalone: true}\"\n                  id=\"website-description\"\n                  class=\"form-control\"\n                  rows=\"5\"\n                  placeholder=\"{{website.description}}\">\n        </textarea>\n      </div>\n\n\n\n\n\n\n      <a class=\"btn btn-danger btn-block text-white\"\n         (click)=\"onDelete()\">Delete</a>\n    </form>\n  </div>\n</div>\n\n\n\n<nav class=\"navbar fixed-bottom float-right col-12\">\n  <div class=\"container-fluid col-12\">\n    <div class=\"row navbar-text float-right col-12\">\n      <a routerLink=\"/user/{{uid}}\" class=\"float-right\">\n        <i class=\"fas fa-user fontawsome_icon float-right text-white col-12\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n"
 
 /***/ }),
 
@@ -1177,7 +1239,6 @@ var WebsiteEditComponent = /** @class */ (function () {
             .subscribe(function (params) {
             _this.uid = params['uid'];
             _this.wid = params['wid'];
-            _this.pid = params['pid'];
         });
         this.websiteService.findAllWebsitesForUser(this.uid).subscribe(function (data) {
             _this.websites = data;
@@ -1186,26 +1247,19 @@ var WebsiteEditComponent = /** @class */ (function () {
             _this.website = data;
         });
     };
-    WebsiteEditComponent.prototype.onEditWebsite = function (wid) {
+    WebsiteEditComponent.prototype.onEditWebsite = function (websiteId) {
         var _this = this;
-        /**const updated = this.websiteService.findWebsitesById(wid);
-        this.website = updated;*/
-        this.websiteService.findWebsiteById(wid).subscribe(function (data) {
+        this.websiteService.findWebsiteById(websiteId).subscribe(function (data) {
             _this.website = data;
         });
     };
     WebsiteEditComponent.prototype.onUpdateWebsite = function () {
         var _this = this;
-        /**this.websiteService.updateWebsite(this.wid, this.website);
-        this.router.navigate(['../'], {relativeTo: this.route});*/
         this.websiteService.updateWebsite(this.wid, this.website).subscribe(function (data) {
             _this.website = data;
         });
-        this.router.navigate(['../'], { relativeTo: this.route });
     };
     WebsiteEditComponent.prototype.onDelete = function () {
-        /**this.websiteService.deleteWebsite(this.wid);
-        this.router.navigate(['../'], {relativeTo: this.route});*/
         this.websiteService.deleteWebsite(this.wid).subscribe(function (data) {
         });
         this.router.navigate(['../'], { relativeTo: this.route });
@@ -1281,6 +1335,7 @@ var WebsiteListComponent = /** @class */ (function () {
             _this.uid = params['uid'];
         });
         this.websiteService.findAllWebsitesForUser(this.uid).subscribe(function (data) {
+            console.log(data);
             _this.websites = data;
         });
     };
