@@ -636,6 +636,10 @@ var WidgetService = /** @class */ (function () {
         var url = this.base_url + 'api/widget/' + widgetId;
         return this.http.delete(url);
     };
+    WidgetService.prototype.reorderWidgets = function (startIndex, endIndex, pageId) {
+        var url = this.base_url + '/api/page/' + pageId + '/widget?start=' + startIndex + '&end=' + endIndex;
+        return this.http.put(url, '');
+    };
     WidgetService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
@@ -1500,13 +1504,32 @@ var WidgetChooserComponent = /** @class */ (function () {
             _this.wgid = params['wgid'];
         });
     };
+    // onSubmit(type: string) {
+    //   this.widget = {name: '', _id: '', widgetType: type, pageId: this.pid, };
+    //   this.widgetService.createWidget(this.pid, this.widget).subscribe(
+    //     (data: any) => {
+    //       this.widget = data;
+    //     }
+    //   );
+    //   this.router.navigate(['../' + this.widget._id], {relativeTo: this.activateRoute});
+    // }
     WidgetChooserComponent.prototype.onSubmit = function (type) {
         var _this = this;
-        this.widget = { name: '', _id: '', widgetType: type, pageId: this.pid, };
+        console.log(type);
+        // const page = new Page('', this.pageName, this.websiteId, this.pageDescription, this.developerId);
+        // @ts-ignore
+        // this.widget = new Widget('', '', type, this.pid);
+        console.log('Making a new widget');
         this.widgetService.createWidget(this.pid, this.widget).subscribe(function (data) {
+            console.log('inside the brakets');
             _this.widget = data;
+            console.log('before router');
+            _this.wgid = data._id;
+            // this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget', data._id]);
+            console.log('after router');
+            console.log(data);
         });
-        this.router.navigate(['../' + this.widget._id], { relativeTo: this.activateRoute });
+        this.router.navigate(['../' + this.wgid], { relativeTo: this.activateRoute });
     };
     WidgetChooserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -1577,8 +1600,10 @@ var WidgetEditComponent = /** @class */ (function () {
             _this.pid = params['pid'];
             _this.wgid = params['wgid'];
         });
+        console.log('before finding widgets in edit component');
         this.widgetService.findWidgetById(this.wgid).subscribe(function (data) {
             _this.widget = data;
+            console.log(data);
         });
     };
     WidgetEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1651,7 +1676,7 @@ var WidgetHeadingComponent = /** @class */ (function () {
             _this.uid = params['uid'];
             _this.wid = params['wid'];
             _this.pid = params['pid'];
-            _this.wid = params['wgid'];
+            _this.wgid = params['wgid'];
         });
         if (this.wgid !== 'undefined') {
             this.widgetService.findWidgetById(this.wgid).subscribe(function (data) {
@@ -1661,7 +1686,7 @@ var WidgetHeadingComponent = /** @class */ (function () {
     };
     WidgetHeadingComponent.prototype.onUpdateWidget = function () {
         var _this = this;
-        this.newWidget = new _models_widget_model_client__WEBPACK_IMPORTED_MODULE_4__["WidgetHeading"](this.newWidgetName, '', 'HEADING', '', this.newWidgetSize, this.newWidgetText);
+        this.newWidget = new _models_widget_model_client__WEBPACK_IMPORTED_MODULE_4__["WidgetHeading"](this.newWidgetName, this.wgid, 'HEADING', this.pid, this.newWidgetSize, this.newWidgetText);
         this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(function (data) {
             _this.widget = data;
         });
@@ -1935,16 +1960,23 @@ var WidgetListComponent = /** @class */ (function () {
     }
     WidgetListComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log('start of the function');
         this.activateRoute.params.subscribe(function (params) {
             _this.uid = params['uid'];
             _this.wid = params['wid'];
             _this.pid = params['pid'];
-            _this.widgetService.findAllWidgetsForPage(_this.pid).subscribe(function (data) {
-                _this.widgets = data;
-                for (var _i = 0, _a = _this.widgets; _i < _a.length; _i++) {
-                    var w = _a[_i];
-                }
-            });
+        });
+        console.log('middle of function');
+        this.widgetService.findAllWidgetsForPage(this.pid).subscribe(function (data) {
+            _this.widgets = data;
+            console.log(data);
+        });
+    };
+    WidgetListComponent.prototype.reorderWidgets = function (indexes) {
+        var _this = this;
+        this.widgetService.reorderWidgets(indexes.startIndex, indexes.endIndex, this.pid).subscribe(function (data) {
+            console.log(data);
+            _this.widgets = data;
         });
     };
     WidgetListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

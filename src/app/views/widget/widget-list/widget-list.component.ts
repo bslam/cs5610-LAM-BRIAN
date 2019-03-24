@@ -26,23 +26,26 @@ export class WidgetListComponent implements OnInit {
   constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService, public sanitizer: DomSanitizer) {
   }
 
-
-
   ngOnInit() {
-    this.activateRoute.params.subscribe(
-      (params: any) => {
-        this.uid = params['uid'];
-        this.wid = params['wid'];
-        this.pid = params['pid'];
+    console.log('start of the function');
+    this.activateRoute.params.subscribe((params: any) => {
+      this.uid = params['uid'];
+      this.wid = params['wid'];
+      this.pid = params['pid'];
+    });
+    console.log('middle of function');
+    this.widgetService.findAllWidgetsForPage(this.pid).subscribe((data: any) => {
+      this.widgets = data;
+      console.log(data);
+    });
+  }
 
-        this.widgetService.findAllWidgetsForPage(this.pid).subscribe(
-          (data: any) => {
-            this.widgets = data;
-            for (const w of this.widgets) {
-            }
-          }
-        );
-      });
+
+  reorderWidgets(indexes) {
+    this.widgetService.reorderWidgets(indexes.startIndex, indexes.endIndex, this.pid).subscribe((data: any) => {
+      console.log(data);
+      this.widgets = data;
+    });
   }
 
 }

@@ -38,7 +38,7 @@ export class WidgetHeadingComponent implements OnInit {
           this.uid = params['uid'];
           this.wid = params['wid'];
           this.pid = params['pid'];
-          this.wid = params['wgid'];
+          this.wgid = params['wgid'];
         }
       );
     if (this.wgid !== 'undefined') {
@@ -51,7 +51,7 @@ export class WidgetHeadingComponent implements OnInit {
   }
 
   onUpdateWidget() {
-    this.newWidget = new WidgetHeading(this.newWidgetName, '', 'HEADING', '', this.newWidgetSize, this.newWidgetText);
+    this.newWidget = new WidgetHeading(this.newWidgetName, this.wgid, 'HEADING', this.pid, this.newWidgetSize, this.newWidgetText);
     this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
       (data: any) => {
         this.widget = data;

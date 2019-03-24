@@ -42,4 +42,9 @@ export class WidgetService {
     const url = this.base_url + 'api/widget/' + widgetId;
     return this.http.delete(url);
   }
+
+  reorderWidgets(startIndex, endIndex, pageId) {
+    const url = this.base_url + '/api/page/' + pageId + '/widget?start=' + startIndex + '&end=' + endIndex;
+    return this.http.put(url, '');
+  }
 }

@@ -33,9 +33,11 @@ export class WidgetEditComponent implements OnInit {
         this.pid = params['pid'];
         this.wgid = params['wgid'];
       });
+    console.log('before finding widgets in edit component');
     this.widgetService.findWidgetById(this.wgid).subscribe(
       (data: any) => {
         this.widget = data;
+        console.log(data);
       }
     );
   }
