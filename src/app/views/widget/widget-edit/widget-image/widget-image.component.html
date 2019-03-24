@@ -56,15 +56,15 @@
         [(ngModel)]="newWidget.width">
     </div>
     <div class="form-group">
-      <label>Upload</label>
-      <div class="file-upload">
-        <div class="file-upload">
-          <input type="file"
-                 id="avatar" name="avatar"
-                 accept="image/png, image/jpeg"
-                 (change)="handleUpload($event)">
-        </div>
-      </div>
+      <label for="WidgetImageUpload">Upload</label>
+      <form ngNoForm action="{{baseUrl}}/api/upload" method="post" enctype="multipart/form-data">
+        <input  name="myFile" id="WidgetImageUpload" placeholder="No file chosen" type="file" class="form-control"/>
+        <input  name="widgetId" value="{{wgid}}"   style="display: none"/>
+        <input  name="websiteId" value="{{wid}}"   style="display: none"/>
+        <input  name="pageId" value="{{pid}}"   style="display: none"/>
+        <input  name="userId" value="{{uid}}"   style="display: none"/>
+        <button type="submit" class="btn btn-block btn-primary mt-2">Upload Image</button>
+      </form>
       <button class="btn btn-primary btn-block" >Upload Image</button>
       <button class="btn btn-danger btn-block" (click)="onDelete()">Delete</button>
     </div>

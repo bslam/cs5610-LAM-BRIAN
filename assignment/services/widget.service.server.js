@@ -8,7 +8,7 @@ module.exports = function (app) {
     { _id: "567", widgetType: "HEADING", name: ' ', pageId: "111", size: "4", text: "Lorem ipsum", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
     { _id: "678", widgetType: "YOUTUBE", name: ' ', pageId: "111", size: "", text: "", url: 'https://www.youtube.com/embed/-C_jPcUkVrM', width: "100%", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
   ];
-  //var widgetModel = models.widgetModel;
+
   var multer = require('multer'); // npm install multer --save
   var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
 
@@ -18,11 +18,11 @@ module.exports = function (app) {
   app.get("/api/widget/:widgetId",findWidgetById);
   app.put("/api/widget/:widgetId",updateWidget);
   app.delete("/api/widget/:widgetId",deleteWidget);
-
+  //REORDER
   app.put("/api/page/:pageId/widget",reorderWidgets);
 
   //UPLOAD
-  // app.post ("/api/upload", upload.single('myFile'), uploadImage);
+  app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
   function createWidget(req, res) {
     var widget = req.body;
@@ -104,6 +104,48 @@ module.exports = function (app) {
     var endIndex = parseInt(req.query["end"]);
     array_swap(widgets, startIndex, endIndex);
     // res.sendStatus(200);
+  }
+
+  function uploadImage(req, res) {
+    upload(req, res, (err) => {
+      if (err) {
+        res.render('index', {msg: err});
+      } else {
+        if (req.file === undefined) {
+          res.render('index', {
+            msg: 'no file selected'
+          });
+        } else {
+          var curwidget = req.body;
+          var widgetId = req.body['widgetId'];
+          console.log('uploading file');
+          console.log('widgetId is :' + widgetId);
+          var userId = req.body.userId;
+          var websiteId = req.body.websiteId;
+          var pageId = req.body.pageId;
+          var widgetId = req.body.widgetId;
+          var myFile = req.file;
+          var originalname = myFile.originalname; // file name on user's computer
+          var filename = myFile.filename;     // new file name in upload folder
+          var path = myFile.path;         // full path of uploaded file
+          var destination = myFile.destination;  // folder where file is saved to
+          var size = myFile.size;
+          var mimetype = myFile.mimetype;
+          var myurl = '/assets/uploads/' + filename;
+          for (var i in widgets) {
+            if (widgets[i]._id === widgetId) {
+              widgets[i].url = myurl;
+              widgets[i].size = size;
+              return;
+            }
+          }
+          res.render({
+            msg: 'file uploaded'
+          });
+          res.send("test");
+        }
+      }
+    })
   }
 
 
