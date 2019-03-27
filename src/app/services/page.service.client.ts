@@ -13,7 +13,7 @@ import {Page} from '../models/page.model.client';
 export class PageService {
   constructor(private http: HttpClient) {
   }
-  base_url = 'http://localhost:3200/';
+  base_url = environment.baseUrl;
 
   createPage(websiteId: string, page: Page) {
     const url = this.base_url + 'api/website/' + websiteId + '/page';
