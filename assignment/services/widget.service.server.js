@@ -10,8 +10,8 @@ module.exports = function (app) {
   ];
 
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
-
+  // var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
+  var upload = multer({ dest: __dirname+'/../../dist/A1/assets/uploads' });
 
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget",findAllWidgetsForPage);
