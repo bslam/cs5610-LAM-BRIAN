@@ -18,8 +18,8 @@ export class WidgetService {
 
   base_url = environment.baseUrl;
 
-  createWidget(pageId: string, widget: Widget) {
-    const url = this.base_url + 'api/page/' + pageId + '/widget';
+  createWidget(pageId: string, widget: Widget, type: string) {
+    const url = this.base_url + 'api/page/' + pageId + '/widget?type=' + type;
     return this.http.post(url, widget);
   }
 

@@ -52,17 +52,15 @@ export class WidgetChooserComponent implements OnInit {
     // @ts-ignore
     // this.widget = new Widget('', '', type, this.pid);
     console.log('Making a new widget');
-    this.widgetService.createWidget(this.pid, this.widget).subscribe(
+    this.widgetService.createWidget(this.pid, this.widget, type).subscribe(
       (data: any) => {
         console.log('inside the brakets');
         this.widget = data;
-        console.log('before router');
+        console.log(this.widget);
         this.wgid = data._id;
-        // this.router.navigate(['user', this.uid, 'website', this.wid, 'page', this.pid, 'widget', data._id]);
-        console.log('after router');
-        console.log(data);
+        // console.log(this.wgid);
+        this.router.navigate(['../' + this.widget._id], {relativeTo: this.activateRoute});
       }
     );
-    this.router.navigate(['../' + this.wgid], {relativeTo: this.activateRoute});
   }
 }

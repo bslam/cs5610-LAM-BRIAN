@@ -26,9 +26,20 @@ module.exports = function (app) {
 
   function createWidget(req, res) {
     var widget = req.body;
-    var pid = req.params.pageId
     var prevId = widgets[widgets.length-1]._id;
     widget._id = ((prevId)+1).toString();
+    widget.pageId = req.params.pageId;
+    widget.widgetType = req.query.type;
+    // switch(widget.widgetType) {
+    //   case "HEADING":
+    //     // code block
+    //     break;
+    //   case "IMAGE":
+    //     // code block
+    //     break;
+    //   case "YOUTUBE":
+    //   // code block
+    // }
     widgets.push(widget);
     res.status(201).send(widget);
     // res.json(widget);
@@ -107,98 +118,36 @@ module.exports = function (app) {
   }
 
   function uploadImage(req, res) {
-    upload(req, res, (err) => {
-      if (err) {
-        res.render('index', {msg: err});
-      } else {
-        if (req.file === undefined) {
-          res.render('index', {
-            msg: 'no file selected'
-          });
-        } else {
-          var curwidget = req.body;
-          var widgetId = req.body['widgetId'];
-          console.log('uploading file');
-          console.log('widgetId is :' + widgetId);
-          var userId = req.body.userId;
-          var websiteId = req.body.websiteId;
-          var pageId = req.body.pageId;
-          var widgetId = req.body.widgetId;
-          var myFile = req.file;
-          var originalname = myFile.originalname; // file name on user's computer
-          var filename = myFile.filename;     // new file name in upload folder
-          var path = myFile.path;         // full path of uploaded file
-          var destination = myFile.destination;  // folder where file is saved to
-          var size = myFile.size;
-          var mimetype = myFile.mimetype;
-          var myurl = '/assets/uploads/' + filename;
-          for (var i in widgets) {
-            if (widgets[i]._id === widgetId) {
-              widgets[i].url = myurl;
-              widgets[i].size = size;
-              return;
-            }
-          }
-          res.render({
-            msg: 'file uploaded'
-          });
-          res.send("test");
-        }
+    if(req.file === undefined) {
+      console.log(req.body);
+      console.log("undefined file?");
+      return;
+    }
+    // console.log(req.body);
+    var widgetId = req.body.widgetId;
+    var width = req.body.width;
+    console.log(req.file);
+    var myFile = req.file;
+    var userId = req.body.userId;
+    var websiteId = req.body.websiteId;
+    var pageId = req.body.pageId;
+    var originalname = myFile.originalname; // file name on user's computer
+    var filename = myFile.filename; // new file name in upload folder
+    var path = myFile.path; // full path of uploaded file
+    var destination = myFile.destination; // folder where file is saved to
+    var size = myFile.size;
+    var mimetype = myFile.mimetype;
+    // widget = findWidgetById(widgetId);
+    var widgetId = req.params.widgetId;
+    for (const i of widgets) {
+      if (i._id === widgetId) {
+        //res.json(widgets[i]);
+        i.url = '/uploads/' + filename;
+        return;
       }
-    })
+    }
+
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -29,6 +29,8 @@ import {WebsiteService} from './services/website.service.client';
 import {PageService} from './services/page.service.client';
 import {WidgetService} from './services/widget.service.client';
 import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
+import {OrderByPipe} from '../../assignment/services/pipes/order-by-pipe';
+import { SortableDirective} from '../../assignment/services/directives/sortable.directive';
 
 
 
@@ -50,7 +52,9 @@ import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
     WidgetHeadingComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
-    ChangeBgColorDirective
+    ChangeBgColorDirective,
+    OrderByPipe,
+    SortableDirective
   ],
   imports: [
     BrowserModule,
@@ -59,6 +63,9 @@ import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
     AppRouting
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],
+  exports: [
+    OrderByPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
