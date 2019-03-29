@@ -497,13 +497,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
 
 
+
+// import { Observable } from 'rxjs/Observable ';
 
 var PageService = /** @class */ (function () {
     function PageService(http) {
         this.http = http;
-        this.base_url = 'http://localhost:3200/';
+        this.base_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl;
     }
     PageService.prototype.createPage = function (websiteId, page) {
         var url = this.base_url + 'api/website/' + websiteId + '/page';
@@ -2115,8 +2118,7 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 var environment = {
     production: false,
-    // baseUrl: 'https://bslam-cs5610-spr19.herokuapp.com/',
-    baseUrl: 'http://localhost:3200/'
+    baseUrl: 'https://bslam-cs5610-spr19.herokuapp.com/',
 };
 /*
  * For easier debugging in development mode, you can import the following file
