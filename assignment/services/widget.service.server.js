@@ -9,6 +9,9 @@ module.exports = function (app) {
     { _id: "678", widgetType: "YOUTUBE", name: ' ', pageId: "111", size: "", text: "", url: 'https://www.youtube.com/embed/-C_jPcUkVrM', width: "100%", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
   ];
 
+
+
+
   var multer = require('multer'); // npm install multer --save
   // var upload = multer({ dest: __dirname+'/../../src/assets/uploads' });
   var upload = multer({ dest: __dirname+'/../../dist/A1/assets/uploads' });
@@ -24,74 +27,118 @@ module.exports = function (app) {
   //UPLOAD
   app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
+  var userModel = require('../model/user/user.model.server');
+  var websiteModel = require('../model/website/website.model.server');
+  var pageModel = require('../model/page/page.model.server');
+  var widgetModel = require('../model/widget/widget.model.server');
+
   function createWidget(req, res) {
-    var widget = req.body;
-    var prevId = widgets[widgets.length-1]._id;
-    widget._id = ((prevId)+1).toString();
-    widget.pageId = req.params.pageId;
-    widget.widgetType = req.query.type;
-    // switch(widget.widgetType) {
-    //   case "HEADING":
-    //     // code block
-    //     break;
-    //   case "IMAGE":
-    //     // code block
-    //     break;
-    //   case "YOUTUBE":
-    //   // code block
-    // }
-    widgets.push(widget);
-    res.status(201).send(widget);
-    // res.json(widget);
+    // var widget = req.body;
+    // var prevId = widgets[widgets.length-1]._id;
+    // widget._id = ((prevId)+1).toString();
+    // widget.pageId = req.params.pageId;
+    // widget.widgetType = req.query.type;
+    // // switch(widget.widgetType) {
+    // //   case "HEADING":
+    // //     // code block
+    // //     break;
+    // //   case "IMAGE":
+    // //     // code block
+    // //     break;
+    // //   case "YOUTUBE":
+    // //   // code block
+    // // }
+    // widgets.push(widget);
+    // res.status(201).send(widget);
+    // // res.json(widget);
+    var pageId = req.params.pageId;
+    widgetModel
+      .createWidget(pageId, req.body)
+      .then(function (responseWidget) {
+          res.status(200).json(responseWidget);
+        },
+        function (error) {
+          res.status(404).json(error);
+        });
+
   }
 
   function findAllWidgetsForPage(req, res) {
     var pageId = req.params.pageId;
-    var allWidgets = [];
-    for (var i in widgets) {
-      if (widgets[i].pageId === pageId) {
-        allWidgets.push(widgets[i]);
+    // var allWidgets = [];
+    // for (var i in widgets) {
+    //   if (widgets[i].pageId === pageId) {
+    //     allWidgets.push(widgets[i]);
+    //   }
+    // }
+    // res.json(allWidgets);
+    widgetModel.findAllWidgetsForPage(pageId).then(
+      function (foundWidgets) {
+        res.status(200).json(foundWidgets);
+      }, function (err) {
+        res.status(404).json(err);
       }
-    }
-    res.json(allWidgets);
+    );
   }
 
 
   function findWidgetById(req, res) {
     var widgetId = req.params.widgetId;
-    for (const i of widgets) {
-      if (i._id === widgetId) {
-        //res.json(widgets[i]);
-        res.status(200).send(i);
-        return;
+    // for (const i of widgets) {
+    //   if (i._id === widgetId) {
+    //     //res.json(widgets[i]);
+    //     res.status(200).send(i);
+    //     return;
+    //   }
+    // }
+    // res.status(404).send("No widget matching this Id");
+    widgetModel.findWidgetById(widgetId).then(
+      function (foundWidget) {
+        res.status(200).json(foundWidget);
+      }, function (err) {
+        res.status(404).json(err);
       }
-    }
-    res.status(404).send("No widget matching this Id");
+    );
   }
 
   function updateWidget(req, res) {
     var widgetId = req.params.widgetId;
-    var widget = req.body;
-    for (var i = 0; i < widgets.length; i++) {
-      if (widgets[i]._id === widgetId) {
-        widgets[i] = widget;
-        res.status(200).send(widget);
-        return;
+    var newWidget = req.body;
+    // for (var i = 0; i < widgets.length; i++) {
+    //   if (widgets[i]._id === widgetId) {
+    //     widgets[i] = widget;
+    //     res.status(200).send(widget);
+    //     return;
+    //   }
+    // }
+    // res.status(404).send("Widget not updated, no wgid matching ");
+    widgetModel.updateWidget(widgetId, newWidget).then(
+      function (updatedWidget) {
+        res.status(200).json(updatedWidget);
+      },
+      function (err) {
+        res.status(404).json(err);
       }
-    }
-    res.status(404).send("Widget not updated, no wgid matching ");
+    );
   }
 
   function deleteWidget(req, res) {
     var widgetId = req.params.widgetId;
-    for (var i = 0; i < widgets.length; i++) {
-      if (widgets[i]._id === widgetId) {
-        widgets.splice(i,1);
-        res.status(200).send(widgets);
-        return;
+    // for (var i = 0; i < widgets.length; i++) {
+    //   if (widgets[i]._id === widgetId) {
+    //     widgets.splice(i,1);
+    //     res.status(200).send(widgets);
+    //     return;
+    //   }
+    // }
+    // res.status(404).send("Widget not deleted, no matching wgid");
+    widgetModel.deleteWidget(widgetId).then(
+      function (deletedOrNot) {
+        res.json(deletedOrNot);
+      }, function (err) {
+        res.status(404).json(err);
       }
-    }
-    res.status(404).send("Widget not deleted, no matching wgid");
+    );
   }
 
   function array_swap(arr, old_index, new_index) {
