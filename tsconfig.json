@@ -17,10 +17,10 @@
     "lib": [
       "es2018",
       "dom"
-    ],
-    "include": [
-      "src/**/*",
-      "node_modules/ngx-quill-editor/*"
     ]
+//    "include": [
+//      "src/**/*",
+//      "node_modules/ngx-quill-editor/*"
+//    ]
   }
 }

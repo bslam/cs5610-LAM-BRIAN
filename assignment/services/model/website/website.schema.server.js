@@ -5,8 +5,9 @@ var websiteSchema =mongoose.Schema({
   name: String,
   developerId: {type: mongoose.Schema.Types.ObjectId, ref: 'UserModel'},
   description: String,
-  widgets: [widgetSchema],
-  visitCount: Number
+  pages: [{type: mongoose.Schema.Types.ObjectId, ref: 'pageModel'}]
 }, {collection: 'website'})
 
 module.exports = websiteSchema;
+
+
