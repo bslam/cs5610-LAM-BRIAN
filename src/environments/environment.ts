@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://bslam-cs5610-spr19.herokuapp.com/',
-  // baseUrl: 'http://localhost:3200/'
+  // baseUrl: 'https://bslam-cs5610-spr19.herokuapp.com/',
+  baseUrl: 'http://localhost:3200/'
 };
 
 /*
