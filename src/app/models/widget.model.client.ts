@@ -39,21 +39,6 @@ export class WidgetImage implements Widget {
   }
 }
 
-export class WidgetHtml implements Widget {
-  name: string;
-  _id: string;
-  pageId: string;
-  widgetType: string;
-  text: string;
-
-  constructor(name: string, _id: string, widgetType: string, pageId: string, text: string) {
-    this._id = _id;
-    this.widgetType = widgetType;
-    this.pageId = pageId;
-    this.text = text;
-  }
-}
-
 export class WidgetYoutube implements Widget {
   name: string;
   _id: string;
@@ -66,6 +51,48 @@ export class WidgetYoutube implements Widget {
     this._id = _id;
     this.widgetType = widgetType;
     this.pageId = pageId;
+    this.width = width;
+    this.url = url;
+  }
+}
+
+export class WidgetHTML implements Widget {
+  name: string;
+  _id: string;
+  pageId: string;
+  text: string;
+  widgetType: string;
+  width: string;
+  url: string;
+
+  constructor(name: string, _id: string, widgetType: string, pageId: string, text: string, width: string, url: string) {
+    this._id = _id;
+    this.widgetType = widgetType;
+    this.pageId = pageId;
+    this.text = text;
+    this.width = width;
+    this.url = url;
+  }
+}
+
+
+export class WidgetText implements Widget {
+  name: string;
+  _id: string;
+  pageId: string;
+  text: string;
+  widgetType: string;
+  width: string;
+  url: string;
+  placeholder: string;
+  rows: string;
+  formatted: boolean;
+
+  constructor(name: string, _id: string, widgetType: string, pageId: string, text: string, width: string, url: string) {
+    this._id = _id;
+    this.widgetType = widgetType;
+    this.pageId = pageId;
+    this.text = text;
     this.width = width;
     this.url = url;
   }

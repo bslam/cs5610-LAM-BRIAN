@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
-import {Widget, WidgetHeading, WidgetHtml, WidgetImage, WidgetYoutube} from '../../../../models/widget.model.client';
+import {Widget, WidgetHeading, WidgetHTML, WidgetImage, WidgetYoutube} from '../../../../models/widget.model.client';
 import {inject} from '@angular/core';
 
 

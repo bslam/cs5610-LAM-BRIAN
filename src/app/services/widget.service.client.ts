@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Widget, WidgetHeading, WidgetYoutube, WidgetImage, WidgetHtml} from '../models/widget.model.client';
+import {Widget, WidgetHeading, WidgetYoutube, WidgetImage, WidgetHTML} from '../models/widget.model.client';
 import {BehaviorSubject, Subject} from 'rxjs';
 
 import { User } from '../models/user.model.client';

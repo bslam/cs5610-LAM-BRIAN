@@ -1,0 +1,51 @@
+<nav class="navbar navbar-default navbar-light bg-light navbar-fixed-top">
+  <div class="container-fluid row">
+
+    <div class="navbar-text float-left">
+      <a routerLink="/user/{{uid}}/website/{{wid}}/page" class="text-black cl-icon-padding">
+        <i class="fas fa-chevron-left fontawsome_icon"></i>
+      </a>
+      <a class="navbar-brand text-black font-weight-bold pl-2" routerLink="./">
+        Widget Edit
+      </a>
+    </div>
+    <div class="navbar-text float-right">
+      <a (click)="onUpdateWidget()" class="cl-icon-padding text-black">
+        <i class="fas fa-plus fontawsome_icon"></i>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <form novalidate name="model.myform">
+    <div class="form-group">
+      <label for="Name">Name</label>
+      <input [(ngModel)]="widget.name"
+             type="text"
+             class="form-control"
+             id="Name"
+             name="widname"
+             placeholder="Name"
+             required>
+    </div>
+
+    <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
+  </form>
+  <p></p>
+
+  <a class="btn btn-danger btn-block "
+     (click)="onDelete()">Delete</a>
+
+</div>
+
+<nav class="navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12">
+  <div class="float-left navbar-text">
+  </div>
+  <div class="row navbar-text float-right">
+    <a routerLink="/user/{{uid}}" class="float-right steelblue-icon">
+      <span class="fas fa-user fontawsome_icon float-right steelblue-icon"></span>
+    </a>
+  </div>
+</nav>

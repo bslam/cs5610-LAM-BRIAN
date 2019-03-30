@@ -2,7 +2,7 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
 import { Component, OnInit } from '@angular/core';
-import {WidgetHeading, WidgetHtml} from '../../../../models/widget.model.client';
+import {WidgetHeading, WidgetHTML} from '../../../../models/widget.model.client';
 import {inject} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 
