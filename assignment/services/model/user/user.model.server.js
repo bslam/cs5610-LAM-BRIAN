@@ -5,13 +5,11 @@ var userModel = mongoose.model("User",userSchema);
 
 userModel.createUser = createUser;
 userModel.findUserById = findUserById;
-userModel.findUserByUserName = findUserByUserName;
-userModel.findByCredential = findByCredential;
+userModel.findByUsername = findByUsername;
+userModel.findByCredentials = findByCredentials;
 userModel.updateUser = updateUser;
 userModel.deleteUser = deleteUser;
 
-//helper function
-userModel.populateUsers = populateUsers;
 
 module.exports = userModel;
 

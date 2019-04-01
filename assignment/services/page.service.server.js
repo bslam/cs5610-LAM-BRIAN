@@ -20,10 +20,10 @@ module.exports = function (app) {
     { _id: "999", name: "Post 3", websiteId: "678", title: "Lorem" }
   ];
 
-  var userModel = require('../model/user/user.model.server');
-  var websiteModel = require('../model/website/website.model.server');
-  var pageModel = require('../model/page/page.model.server');
-  var widgetModel = require('../model/widget/widget.model.server');
+  var userModel = require('./model/user/user.model.server');
+  var websiteModel = require('./model/website/website.model.server');
+  var pageModel = require('./model/page/page.model.server');
+  var widgetModel = require('./model/widget/widget.model.server');
 
   function createPage(req, res) {
     var websiteId = req.params["websiteId"];

@@ -31,6 +31,10 @@ import {WidgetService} from './services/widget.service.client';
 import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
 import {OrderByPipe} from '../../assignment/services/pipes/order-by-pipe';
 import { SortableDirective} from '../../assignment/services/directives/sortable.directive';
+import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
+import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
+
+import {QuillEditorModule} from 'ngx-quill-editor';
 
 
 
@@ -53,6 +57,8 @@ import { SortableDirective} from '../../assignment/services/directives/sortable.
     WidgetHeadingComponent,
     WidgetImageComponent,
     WidgetYoutubeComponent,
+    WidgetHtmlComponent,
+    WidgetTextComponent,
     ChangeBgColorDirective,
     OrderByPipe,
     SortableDirective
@@ -61,6 +67,7 @@ import { SortableDirective} from '../../assignment/services/directives/sortable.
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    QuillEditorModule,
     AppRouting
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService],

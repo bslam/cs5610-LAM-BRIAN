@@ -27,10 +27,10 @@ module.exports = function (app) {
   //UPLOAD
   app.post ("/api/upload", upload.single('myFile'), uploadImage);
 
-  var userModel = require('../model/user/user.model.server');
-  var websiteModel = require('../model/website/website.model.server');
-  var pageModel = require('../model/page/page.model.server');
-  var widgetModel = require('../model/widget/widget.model.server');
+  var userModel = require('./model/user/user.model.server');
+  var websiteModel = require('./model/website/website.model.server');
+  var pageModel = require('./model/page/page.model.server');
+  var widgetModel = require('./model/widget/widget.model.server');
 
   function createWidget(req, res) {
     // var widget = req.body;

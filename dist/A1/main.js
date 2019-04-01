@@ -215,6 +215,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./directives/change-bg-color.directive */ "./src/app/directives/change-bg-color.directive.ts");
 /* harmony import */ var _assignment_services_pipes_order_by_pipe__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../assignment/services/pipes/order-by-pipe */ "./assignment/services/pipes/order-by-pipe.ts");
 /* harmony import */ var _assignment_services_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../assignment/services/directives/sortable.directive */ "./assignment/services/directives/sortable.directive.ts");
+/* harmony import */ var _views_widget_widget_edit_widget_html_widget_html_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-html/widget-html.component */ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.ts");
+/* harmony import */ var _views_widget_widget_edit_widget_text_widget_text_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-text/widget-text.component */ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.ts");
+/* harmony import */ var ngx_quill_editor__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ngx-quill-editor */ "./node_modules/ngx-quill-editor/index.js");
+
+
+
 
 
 
@@ -266,6 +272,8 @@ var AppModule = /** @class */ (function () {
                 _views_widget_widget_edit_widget_header_widget_header_component__WEBPACK_IMPORTED_MODULE_19__["WidgetHeadingComponent"],
                 _views_widget_widget_edit_widget_image_widget_image_component__WEBPACK_IMPORTED_MODULE_20__["WidgetImageComponent"],
                 _views_widget_widget_edit_widget_youtube_widget_youtube_component__WEBPACK_IMPORTED_MODULE_21__["WidgetYoutubeComponent"],
+                _views_widget_widget_edit_widget_html_widget_html_component__WEBPACK_IMPORTED_MODULE_29__["WidgetHtmlComponent"],
+                _views_widget_widget_edit_widget_text_widget_text_component__WEBPACK_IMPORTED_MODULE_30__["WidgetTextComponent"],
                 _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_26__["ChangeBgColorDirective"],
                 _assignment_services_pipes_order_by_pipe__WEBPACK_IMPORTED_MODULE_27__["OrderByPipe"],
                 _assignment_services_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_28__["SortableDirective"]
@@ -274,6 +282,7 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+                ngx_quill_editor__WEBPACK_IMPORTED_MODULE_31__["QuillEditorModule"],
                 _app_routing__WEBPACK_IMPORTED_MODULE_5__["AppRouting"]
             ],
             providers: [_services_user_service_client__WEBPACK_IMPORTED_MODULE_22__["UserService"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_23__["WebsiteService"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_24__["PageService"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_25__["WidgetService"]],
@@ -1276,6 +1285,7 @@ var RegisterComponent = /** @class */ (function () {
         this.userService = userService;
         this.router = router;
         this.user = { _id: '', username: '', password: '', firstName: '', lastName: '' };
+        this.errorMsg = 'Passwords must match!';
     }
     RegisterComponent.prototype.ngOnInit = function () {
     };
@@ -1284,16 +1294,31 @@ var RegisterComponent = /** @class */ (function () {
         this.user.username = this.registerForm.value.username;
         this.user.password = this.registerForm.value.password;
         var verify = this.registerForm.value.verify;
-        if (this.user.password === verify) {
-            this.userService.createUser(this.user).subscribe(function (user) {
-                _this.user = user;
-            });
-            this.userService.findUserByCredentials(this.user.username, this.user.password).subscribe(function (user) {
-                _this.router.navigate(['/user', user._id]);
-            });
+        //
+        //
+        // if (this.user.password === verify) {
+        //   this.userService.createUser(this.user).subscribe(
+        //       (user: any) => {
+        //         this.user = user;
+        //         }
+        //       );
+        //   this.userService.findUserByCredentials(this.user.username, this.user.password).subscribe(
+        //         (user: any) => {
+        //           this.router.navigate(['/user', user._id]);
+        //         }
+        //       );
+        // } else {
+        //   this.errorFlag = true;
+        // }
+        if (this.user.password !== verify) {
+            this.errorFlag = true;
         }
         else {
-            this.errorFlag = true;
+            console.log(this.user.username);
+            this.userService.createUser(this.user).subscribe(function (user) {
+                _this.user = user;
+                _this.router.navigate(['/user', user._id]);
+            });
         }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1836,6 +1861,94 @@ var WidgetHeadingComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-html/widget-html.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/* You can add global styles to this file, and also import other style files */\nheader {\n  background-color: steelblue;\n  position: center;\n  color: white;\n  padding-top: 0px;\n}\n.navbar {\n  background-color: steelblue;\n  border-color: white;\n  color: white;\n}\n.above-below-space{\n  padding-bottom: 60px;\n  padding-top: 60px;\n}\n.box{\n  display: none;\n  width: 100%;\n}\na {\n  text-decoration: none;\n}\na:hover + .box,.box:hover{\n  display: block;\n  position: relative;\n  z-index: 100;\n  text-decoration: none;\n}\n.text-white{\n  color: white;\n}\n.steelblue-icon{\n  color: steelblue;\n}\na.blue-color a:hover{\n  text-decoration: none;\n}\na:hover {\n  color: grey;\n  text-decoration: none;\n}\n.visited {\n  color:grey;\n  text-decoration:none;\n}\n.html-widget {\n  position: relative;\n  padding-bottom: 56.25%; /* 16:9 */\n  height: 0;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvd2lkZ2V0L3dpZGdldC1lZGl0L3dpZGdldC1odG1sL3dpZGdldC1odG1sLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsOEVBQThFO0FBQzlFO0VBQ0UsMkJBQTJCO0VBQzNCLGdCQUFnQjtFQUNoQixZQUFZO0VBQ1osZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSwyQkFBMkI7RUFDM0IsbUJBQW1CO0VBQ25CLFlBQVk7QUFDZDtBQUVBO0VBQ0Usb0JBQW9CO0VBQ3BCLGlCQUFpQjtBQUNuQjtBQUlBO0VBQ0UsYUFBYTtFQUNiLFdBQVc7QUFDYjtBQUVBO0VBQ0UscUJBQXFCO0FBQ3ZCO0FBRUE7RUFDRSxjQUFjO0VBQ2Qsa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFlBQVk7QUFDZDtBQUVBO0VBQ0UsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFdBQVc7RUFDWCxxQkFBcUI7QUFDdkI7QUFJQTtFQUNFLFVBQVU7RUFDVixvQkFBb0I7QUFDdEI7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixzQkFBc0IsRUFBRSxTQUFTO0VBQ2pDLFNBQVM7QUFDWCIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dpZGdldC93aWRnZXQtZWRpdC93aWRnZXQtaHRtbC93aWRnZXQtaHRtbC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogWW91IGNhbiBhZGQgZ2xvYmFsIHN0eWxlcyB0byB0aGlzIGZpbGUsIGFuZCBhbHNvIGltcG9ydCBvdGhlciBzdHlsZSBmaWxlcyAqL1xuaGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogc3RlZWxibHVlO1xuICBwb3NpdGlvbjogY2VudGVyO1xuICBjb2xvcjogd2hpdGU7XG4gIHBhZGRpbmctdG9wOiAwcHg7XG59XG5cbi5uYXZiYXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBzdGVlbGJsdWU7XG4gIGJvcmRlci1jb2xvcjogd2hpdGU7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLmFib3ZlLWJlbG93LXNwYWNle1xuICBwYWRkaW5nLWJvdHRvbTogNjBweDtcbiAgcGFkZGluZy10b3A6IDYwcHg7XG59XG5cblxuXG4uYm94e1xuICBkaXNwbGF5OiBub25lO1xuICB3aWR0aDogMTAwJTtcbn1cblxuYSB7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuYTpob3ZlciArIC5ib3gsLmJveDpob3ZlcntcbiAgZGlzcGxheTogYmxvY2s7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgei1pbmRleDogMTAwO1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbi50ZXh0LXdoaXRle1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi5zdGVlbGJsdWUtaWNvbntcbiAgY29sb3I6IHN0ZWVsYmx1ZTtcbn1cblxuYS5ibHVlLWNvbG9yIGE6aG92ZXJ7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuYTpob3ZlciB7XG4gIGNvbG9yOiBncmV5O1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cblxuXG4udmlzaXRlZCB7XG4gIGNvbG9yOmdyZXk7XG4gIHRleHQtZGVjb3JhdGlvbjpub25lO1xufVxuXG4uaHRtbC13aWRnZXQge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHBhZGRpbmctYm90dG9tOiA1Ni4yNSU7IC8qIDE2OjkgKi9cbiAgaGVpZ2h0OiAwO1xufVxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-html/widget-html.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" routerLink=\"./\">\n        Widget Edit\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a (click)=\"onUpdateWidget()\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n<div class=\"container\">\n\n  <form novalidate name=\"model.myform\">\n    <div class=\"form-group\">\n      <label for=\"Name\">Name</label>\n      <input [(ngModel)]=\"widget.name\"\n             type=\"text\"\n             class=\"form-control\"\n             id=\"Name\"\n             name=\"widname\"\n             placeholder=\"Name\"\n             required>\n    </div>\n\n    <quill-editor [(ngModel)]=\"widget.text\" name=\"text\"></quill-editor>\n  </form>\n  <p></p>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"onDelete()\">Delete</a>\n\n</div>\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left navbar-text\">\n  </div>\n  <div class=\"row navbar-text float-right\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+
+/***/ }),
+
+/***/ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-html/widget-html.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: WidgetHtmlComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetHtmlComponent", function() { return WidgetHtmlComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_widget_service_client__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../services/widget.service.client */ "./src/app/services/widget.service.client.ts");
+
+
+
+
+var WidgetHtmlComponent = /** @class */ (function () {
+    function WidgetHtmlComponent(activatedRoute, widgetService, router) {
+        this.activatedRoute = activatedRoute;
+        this.widgetService = widgetService;
+        this.router = router;
+    }
+    WidgetHtmlComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // fetch ids from current url
+        this.activatedRoute.params
+            .subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.wgid = params['wgid'];
+            _this.pid = params['pid'];
+            _this.wid = params['wid'];
+        });
+        if (this.wgid !== 'undefined') {
+            this.widgetService.findWidgetById(this.wgid).subscribe(function (data) {
+                _this.widget = data;
+            });
+        }
+    };
+    WidgetHtmlComponent.prototype.onUpdateWidget = function () {
+        var _this = this;
+        console.log('onUpdateWidget');
+        this.widgetService.updateWidget(this.wgid, this.widget)
+            .subscribe(function (data) { return _this.router.navigate(['/user', _this.uid, 'website', _this.wid, 'page', _this.pid, 'widget']); });
+    };
+    WidgetHtmlComponent.prototype.onDelete = function () {
+        var _this = this;
+        this.widgetService.deleteWidget(this.wgid)
+            .subscribe(function (data) { return _this.router.navigate(['/user', _this.uid, 'website', _this.wid, 'page', _this.pid, 'widget']); });
+    };
+    WidgetHtmlComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-widget-html',
+            template: __webpack_require__(/*! ./widget-html.component.html */ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.html"),
+            styles: [__webpack_require__(/*! ./widget-html.component.css */ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_3__["WidgetService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    ], WidgetHtmlComponent);
+    return WidgetHtmlComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/widget/widget-edit/widget-image/widget-image.component.css":
 /*!**********************************************************************************!*\
   !*** ./src/app/views/widget/widget-edit/widget-image/widget-image.component.css ***!
@@ -1935,6 +2048,94 @@ var WidgetImageComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.css":
+/*!********************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-text/widget-text.component.css ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/* You can add global styles to this file, and also import other style files */\nheader {\n  background-color: steelblue;\n  position: center;\n  color: white;\n  padding-top: 0px;\n}\n.navbar {\n  background-color: steelblue;\n  border-color: white;\n  color: white;\n}\n.above-below-space{\n  padding-bottom: 60px;\n  padding-top: 60px;\n}\n.box{\n  display: none;\n  width: 100%;\n}\na {\n  text-decoration: none;\n}\na:hover + .box,.box:hover{\n  display: block;\n  position: relative;\n  z-index: 100;\n  text-decoration: none;\n}\n.text-white{\n  color: white;\n}\n.steelblue-icon{\n  color: steelblue;\n}\na.blue-color a:hover{\n  text-decoration: none;\n}\na:hover {\n  color: grey;\n  text-decoration: none;\n}\n.visited {\n  color:grey;\n  text-decoration:none;\n}\n.text-widget {\n  position: relative;\n  padding-bottom: 56.25%; /* 16:9 */\n  height: 0;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvd2lkZ2V0L3dpZGdldC1lZGl0L3dpZGdldC10ZXh0L3dpZGdldC10ZXh0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsOEVBQThFO0FBQzlFO0VBQ0UsMkJBQTJCO0VBQzNCLGdCQUFnQjtFQUNoQixZQUFZO0VBQ1osZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSwyQkFBMkI7RUFDM0IsbUJBQW1CO0VBQ25CLFlBQVk7QUFDZDtBQUVBO0VBQ0Usb0JBQW9CO0VBQ3BCLGlCQUFpQjtBQUNuQjtBQUlBO0VBQ0UsYUFBYTtFQUNiLFdBQVc7QUFDYjtBQUVBO0VBQ0UscUJBQXFCO0FBQ3ZCO0FBRUE7RUFDRSxjQUFjO0VBQ2Qsa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFlBQVk7QUFDZDtBQUVBO0VBQ0UsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFdBQVc7RUFDWCxxQkFBcUI7QUFDdkI7QUFJQTtFQUNFLFVBQVU7RUFDVixvQkFBb0I7QUFDdEI7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQixzQkFBc0IsRUFBRSxTQUFTO0VBQ2pDLFNBQVM7QUFDWCIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dpZGdldC93aWRnZXQtZWRpdC93aWRnZXQtdGV4dC93aWRnZXQtdGV4dC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogWW91IGNhbiBhZGQgZ2xvYmFsIHN0eWxlcyB0byB0aGlzIGZpbGUsIGFuZCBhbHNvIGltcG9ydCBvdGhlciBzdHlsZSBmaWxlcyAqL1xuaGVhZGVyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogc3RlZWxibHVlO1xuICBwb3NpdGlvbjogY2VudGVyO1xuICBjb2xvcjogd2hpdGU7XG4gIHBhZGRpbmctdG9wOiAwcHg7XG59XG5cbi5uYXZiYXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBzdGVlbGJsdWU7XG4gIGJvcmRlci1jb2xvcjogd2hpdGU7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLmFib3ZlLWJlbG93LXNwYWNle1xuICBwYWRkaW5nLWJvdHRvbTogNjBweDtcbiAgcGFkZGluZy10b3A6IDYwcHg7XG59XG5cblxuXG4uYm94e1xuICBkaXNwbGF5OiBub25lO1xuICB3aWR0aDogMTAwJTtcbn1cblxuYSB7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuYTpob3ZlciArIC5ib3gsLmJveDpob3ZlcntcbiAgZGlzcGxheTogYmxvY2s7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgei1pbmRleDogMTAwO1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbi50ZXh0LXdoaXRle1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi5zdGVlbGJsdWUtaWNvbntcbiAgY29sb3I6IHN0ZWVsYmx1ZTtcbn1cblxuYS5ibHVlLWNvbG9yIGE6aG92ZXJ7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuYTpob3ZlciB7XG4gIGNvbG9yOiBncmV5O1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cblxuXG4udmlzaXRlZCB7XG4gIGNvbG9yOmdyZXk7XG4gIHRleHQtZGVjb3JhdGlvbjpub25lO1xufVxuXG4udGV4dC13aWRnZXQge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHBhZGRpbmctYm90dG9tOiA1Ni4yNSU7IC8qIDE2OjkgKi9cbiAgaGVpZ2h0OiAwO1xufVxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-text/widget-text.component.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" routerLink=\"./\">\n        Widget Edit\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a (click)=\"onUpdateWidget()\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n<div class=\"container\">\n  Text\n  <input [(ngModel)]=\"widget.text\" class=\"form-control\"/>\n  Rows\n  <input [(ngModel)]=\"widget.rows\" class=\"form-control\" type=\"number\"/>\n\n  <label for=\"Name\">Name</label>\n  <div>\n    <input [(ngModel)]=\"widget.name\"\n           type=\"text\"\n           class=\"form-control\"\n           id=\"Name\"\n           name=\"name\"\n           placeholder=\"Name\">\n  </div>\n\n  Placeholder\n  <input [(ngModel)]=\"widget.placeholder\" class=\"form-control\" required/>\n  <p></p>\n  <div class=\"input-group\">\n    <input type=\"text\"\n           readonly\n           value=\"Formatted\"\n           class=\"form-control\"/>\n    <span class=\"input-group-addon\">\n        <input [(ngModel)]=\"widget.formatted\"\n               type=\"checkbox\"/>\n    </span>\n  </div>\n\n  <p></p>\n\n  <a class=\"btn btn-danger btn-block \"\n     (click)=\"onDelete()\">Delete</a>\n</div>\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left navbar-text\">\n  </div>\n  <div class=\"row navbar-text float-right\">\n    <a routerLink=\"/user/{{uid}}\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+
+/***/ }),
+
+/***/ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-text/widget-text.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: WidgetTextComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetTextComponent", function() { return WidgetTextComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_widget_service_client__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../services/widget.service.client */ "./src/app/services/widget.service.client.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
+
+var WidgetTextComponent = /** @class */ (function () {
+    function WidgetTextComponent(widgetService, router, activatedRoute) {
+        this.widgetService = widgetService;
+        this.router = router;
+        this.activatedRoute = activatedRoute;
+    }
+    WidgetTextComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // fetch ids from current url
+        this.activatedRoute.params
+            .subscribe(function (params) {
+            _this.uid = params['uid'];
+            _this.wgid = params['wgid'];
+            _this.pid = params['pid'];
+            _this.wid = params['wid'];
+        });
+        if (this.wgid !== 'undefined') {
+            this.widgetService.findWidgetById(this.wgid).subscribe(function (data) {
+                _this.widget = data;
+            });
+        }
+    };
+    WidgetTextComponent.prototype.onUpdateWidget = function () {
+        var _this = this;
+        console.log('onUpdateWidget');
+        this.widgetService.updateWidget(this.wgid, this.widget)
+            .subscribe(function (data) { return _this.router.navigate(['/user', _this.uid, 'website', _this.wid, 'page', _this.pid, 'widget']); });
+    };
+    WidgetTextComponent.prototype.onDelete = function () {
+        var _this = this;
+        this.widgetService.deleteWidget(this.wgid)
+            .subscribe(function (data) { return _this.router.navigate(['/user', _this.uid, 'website', _this.wid, 'page', _this.pid, 'widget']); });
+    };
+    WidgetTextComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-widget-text',
+            template: __webpack_require__(/*! ./widget-text.component.html */ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.html"),
+            styles: [__webpack_require__(/*! ./widget-text.component.css */ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_widget_service_client__WEBPACK_IMPORTED_MODULE_2__["WidgetService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+    ], WidgetTextComponent);
+    return WidgetTextComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/widget/widget-edit/widget-youtube/widget-youtube.component.css":
 /*!**************************************************************************************!*\
   !*** ./src/app/views/widget/widget-edit/widget-youtube/widget-youtube.component.css ***!
@@ -1942,7 +2143,7 @@ var WidgetImageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* You can add global styles to this file, and also import other style files */\nheader {\n  background-color: steelblue;\n  position: center;\n  color: white;\n  padding-top: 0px;\n}\n.navbar {\n  background-color: steelblue;\n  border-color: white;\n  color: white;\n}\n.above-below-space{\n  padding-bottom: 60px;\n  padding-top: 60px;\n}\n.box{\n  display: none;\n  width: 100%;\n}\na {\n  text-decoration: none;\n}\na:hover + .box,.box:hover{\n  display: block;\n  position: relative;\n  z-index: 100;\n  text-decoration: none;\n}\n.text-white{\n  color: white;\n}\n.steelblue-icon{\n  color: steelblue;\n}\na.blue-color a:hover{\n  text-decoration: none;\n}\na:hover {\n  color: grey;\n  text-decoration: none;\n}\n.visited {\n  color:grey;\n  text-decoration:none;\n}\n\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvd2lkZ2V0L3dpZGdldC1lZGl0L3dpZGdldC15b3V0dWJlL3dpZGdldC15b3V0dWJlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsOEVBQThFO0FBQzlFO0VBQ0UsMkJBQTJCO0VBQzNCLGdCQUFnQjtFQUNoQixZQUFZO0VBQ1osZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSwyQkFBMkI7RUFDM0IsbUJBQW1CO0VBQ25CLFlBQVk7QUFDZDtBQUVBO0VBQ0Usb0JBQW9CO0VBQ3BCLGlCQUFpQjtBQUNuQjtBQUlBO0VBQ0UsYUFBYTtFQUNiLFdBQVc7QUFDYjtBQUVBO0VBQ0UscUJBQXFCO0FBQ3ZCO0FBRUE7RUFDRSxjQUFjO0VBQ2Qsa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFlBQVk7QUFDZDtBQUVBO0VBQ0UsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFdBQVc7RUFDWCxxQkFBcUI7QUFDdkI7QUFJQTtFQUNFLFVBQVU7RUFDVixvQkFBb0I7QUFDdEIiLCJmaWxlIjoic3JjL2FwcC92aWV3cy93aWRnZXQvd2lkZ2V0LWVkaXQvd2lkZ2V0LXlvdXR1YmUvd2lkZ2V0LXlvdXR1YmUuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIFlvdSBjYW4gYWRkIGdsb2JhbCBzdHlsZXMgdG8gdGhpcyBmaWxlLCBhbmQgYWxzbyBpbXBvcnQgb3RoZXIgc3R5bGUgZmlsZXMgKi9cbmhlYWRlciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHN0ZWVsYmx1ZTtcbiAgcG9zaXRpb246IGNlbnRlcjtcbiAgY29sb3I6IHdoaXRlO1xuICBwYWRkaW5nLXRvcDogMHB4O1xufVxuXG4ubmF2YmFyIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogc3RlZWxibHVlO1xuICBib3JkZXItY29sb3I6IHdoaXRlO1xuICBjb2xvcjogd2hpdGU7XG59XG5cbi5hYm92ZS1iZWxvdy1zcGFjZXtcbiAgcGFkZGluZy1ib3R0b206IDYwcHg7XG4gIHBhZGRpbmctdG9wOiA2MHB4O1xufVxuXG5cblxuLmJveHtcbiAgZGlzcGxheTogbm9uZTtcbiAgd2lkdGg6IDEwMCU7XG59XG5cbmEge1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbmE6aG92ZXIgKyAuYm94LC5ib3g6aG92ZXJ7XG4gIGRpc3BsYXk6IGJsb2NrO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIHotaW5kZXg6IDEwMDtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufVxuXG4udGV4dC13aGl0ZXtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4uc3RlZWxibHVlLWljb257XG4gIGNvbG9yOiBzdGVlbGJsdWU7XG59XG5cbmEuYmx1ZS1jb2xvciBhOmhvdmVye1xuICB0ZXh0LWRlY29yYXRpb246IG5vbmU7XG59XG5cbmE6aG92ZXIge1xuICBjb2xvcjogZ3JleTtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufVxuXG5cblxuLnZpc2l0ZWQge1xuICBjb2xvcjpncmV5O1xuICB0ZXh0LWRlY29yYXRpb246bm9uZTtcbn1cblxuIl19 */"
+module.exports = "/* You can add global styles to this file, and also import other style files */\nheader {\n  background-color: steelblue;\n  position: center;\n  color: white;\n  padding-top: 0px;\n}\n.navbar {\n  background-color: steelblue;\n  border-color: white;\n  color: white;\n}\n.above-below-space{\n  padding-bottom: 60px;\n  padding-top: 60px;\n}\n.box{\n  display: none;\n  width: 100%;\n}\na {\n  text-decoration: none;\n}\na:hover + .box,.box:hover{\n  display: block;\n  position: relative;\n  z-index: 100;\n  text-decoration: none;\n}\n.text-white{\n  color: white;\n}\n.steelblue-icon{\n  color: steelblue;\n}\na.blue-color a:hover{\n  text-decoration: none;\n}\na:hover {\n  color: grey;\n  text-decoration: none;\n}\n.visited {\n  color:grey;\n  text-decoration:none;\n}\n.youtube-widget {\n  position: relative;\n  padding-bottom: 56.25% /*16:9*/;\n  height: 0;\n}\n.youtube-widget iframe {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n}\n\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvdmlld3Mvd2lkZ2V0L3dpZGdldC1lZGl0L3dpZGdldC15b3V0dWJlL3dpZGdldC15b3V0dWJlLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsOEVBQThFO0FBQzlFO0VBQ0UsMkJBQTJCO0VBQzNCLGdCQUFnQjtFQUNoQixZQUFZO0VBQ1osZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSwyQkFBMkI7RUFDM0IsbUJBQW1CO0VBQ25CLFlBQVk7QUFDZDtBQUVBO0VBQ0Usb0JBQW9CO0VBQ3BCLGlCQUFpQjtBQUNuQjtBQUlBO0VBQ0UsYUFBYTtFQUNiLFdBQVc7QUFDYjtBQUVBO0VBQ0UscUJBQXFCO0FBQ3ZCO0FBRUE7RUFDRSxjQUFjO0VBQ2Qsa0JBQWtCO0VBQ2xCLFlBQVk7RUFDWixxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFlBQVk7QUFDZDtBQUVBO0VBQ0UsZ0JBQWdCO0FBQ2xCO0FBRUE7RUFDRSxxQkFBcUI7QUFDdkI7QUFFQTtFQUNFLFdBQVc7RUFDWCxxQkFBcUI7QUFDdkI7QUFJQTtFQUNFLFVBQVU7RUFDVixvQkFBb0I7QUFDdEI7QUFFQTtFQUNFLGtCQUFrQjtFQUNsQiwrQkFBK0I7RUFDL0IsU0FBUztBQUNYO0FBQ0E7RUFDRSxrQkFBa0I7RUFDbEIsTUFBTTtFQUNOLE9BQU87RUFDUCxXQUFXO0VBQ1gsWUFBWTtBQUNkIiwiZmlsZSI6InNyYy9hcHAvdmlld3Mvd2lkZ2V0L3dpZGdldC1lZGl0L3dpZGdldC15b3V0dWJlL3dpZGdldC15b3V0dWJlLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiBZb3UgY2FuIGFkZCBnbG9iYWwgc3R5bGVzIHRvIHRoaXMgZmlsZSwgYW5kIGFsc28gaW1wb3J0IG90aGVyIHN0eWxlIGZpbGVzICovXG5oZWFkZXIge1xuICBiYWNrZ3JvdW5kLWNvbG9yOiBzdGVlbGJsdWU7XG4gIHBvc2l0aW9uOiBjZW50ZXI7XG4gIGNvbG9yOiB3aGl0ZTtcbiAgcGFkZGluZy10b3A6IDBweDtcbn1cblxuLm5hdmJhciB7XG4gIGJhY2tncm91bmQtY29sb3I6IHN0ZWVsYmx1ZTtcbiAgYm9yZGVyLWNvbG9yOiB3aGl0ZTtcbiAgY29sb3I6IHdoaXRlO1xufVxuXG4uYWJvdmUtYmVsb3ctc3BhY2V7XG4gIHBhZGRpbmctYm90dG9tOiA2MHB4O1xuICBwYWRkaW5nLXRvcDogNjBweDtcbn1cblxuXG5cbi5ib3h7XG4gIGRpc3BsYXk6IG5vbmU7XG4gIHdpZHRoOiAxMDAlO1xufVxuXG5hIHtcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufVxuXG5hOmhvdmVyICsgLmJveCwuYm94OmhvdmVye1xuICBkaXNwbGF5OiBibG9jaztcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICB6LWluZGV4OiAxMDA7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuLnRleHQtd2hpdGV7XG4gIGNvbG9yOiB3aGl0ZTtcbn1cblxuLnN0ZWVsYmx1ZS1pY29ue1xuICBjb2xvcjogc3RlZWxibHVlO1xufVxuXG5hLmJsdWUtY29sb3IgYTpob3ZlcntcbiAgdGV4dC1kZWNvcmF0aW9uOiBub25lO1xufVxuXG5hOmhvdmVyIHtcbiAgY29sb3I6IGdyZXk7XG4gIHRleHQtZGVjb3JhdGlvbjogbm9uZTtcbn1cblxuXG5cbi52aXNpdGVkIHtcbiAgY29sb3I6Z3JleTtcbiAgdGV4dC1kZWNvcmF0aW9uOm5vbmU7XG59XG5cbi55b3V0dWJlLXdpZGdldCB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgcGFkZGluZy1ib3R0b206IDU2LjI1JSAvKjE2OjkqLztcbiAgaGVpZ2h0OiAwO1xufVxuLnlvdXR1YmUtd2lkZ2V0IGlmcmFtZSB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgdG9wOiAwO1xuICBsZWZ0OiAwO1xuICB3aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuXG4iXX0= */"
 
 /***/ }),
 

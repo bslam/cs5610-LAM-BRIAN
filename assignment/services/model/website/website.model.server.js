@@ -4,17 +4,17 @@ var websiteModel = mongoose.model("websiteModel", websiteSchema);
 var userModel = require('../user/user.model.server');
 mongoose.set('useFindAndModify', false);
 
-websiteModel.createWebsite = createWebsiteForUser;
-websiteModel.findWebsitesForUser = findAllWebsitesForUser;
+websiteModel.createWebsite = createWebsite;
+websiteModel.findWebsitesForUser = findWebsitesForUser;
 websiteModel.findWebsiteById = findWebsiteById;
 websiteModel.updateWebsite = updateWebsite;
 websiteModel.deleteWebsite = deleteWebsite;
 
 
 
-module.exports = WebsiteModel;
+module.exports = websiteModel;
 
-function findWebSitesForUser(userId){
+function findWebsitesForUser(userId){
   // return WebsiteModel.find({"developerId": userId})
   // .populate('developerId')
   //   .populate('developerId', 'username')
