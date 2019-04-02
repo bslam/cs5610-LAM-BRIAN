@@ -38,13 +38,13 @@ export class WebsiteNewComponent implements OnInit {
   onSubmit() {
     this.newWebsiteName = this.websitesForm.value.WebsiteName;
     this.newWebsiteDescription = this.websitesForm.value.Description;
-    this.newWebsite = {_id: '', name: this.newWebsiteName, developerId: this.uid, description: this.newWebsiteDescription};
+    this.newWebsite = {_id: undefined, name: this.newWebsiteName, developerId: this.uid, description: this.newWebsiteDescription};
     // this.websiteService.createWebsite(this.uid, this.newWebsite);
     this.websiteService.createWebsite(this.uid, this.newWebsite).subscribe(
       (newWebsite: any) => {
         this.newWebsite = newWebsite;
+        this.router.navigate(['../'], {relativeTo: this.route});
       }
     );
-    this.router.navigate(['../'], {relativeTo: this.route});
   }
 }

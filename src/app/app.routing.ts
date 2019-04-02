@@ -1,21 +1,18 @@
 /**import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from './views/user/login/login.component';
-import {ProfileComponent} from './views/user/profile/profile.component';
-import {RegisterComponent} from './views/user/register/register.component';
-
-
-const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'register', component: RegisterComponent}
-]
-
-@NgModule({
+ import { Routes, RouterModule } from '@angular/router';
+ import {LoginComponent} from './views/user/login/login.component';
+ import {ProfileComponent} from './views/user/profile/profile.component';
+ import {RegisterComponent} from './views/user/register/register.component';
+ const appRoutes: Routes = [
+ {path: 'login', component: LoginComponent},
+ {path: 'profile', component: ProfileComponent},
+ {path: 'register', component: RegisterComponent}
+ ]
+ @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRouting { }**/
+ export class AppRouting { }**/
 
 import { Routes, RouterModule } from '@angular/router';​
 import {ModuleWithProviders} from '@angular/core';
@@ -47,23 +44,22 @@ import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.comp
 
 const appRouting: Routes = [​
   { path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent},
-  { path: 'user/:uid' , component: ProfileComponent},​
+{ path: 'login', component: LoginComponent},
+{ path: 'user/:uid' , component: ProfileComponent},​
   { path: 'register', component: RegisterComponent},
 
-  { path: 'user/:uid/website' , component: WebsiteListComponent},
-  { path: 'user/:uid/website/new' , component: WebsiteNewComponent},
-  { path: 'user/:uid/website/:wid' , component: WebsiteEditComponent},
+{ path: 'user/:uid/website' , component: WebsiteListComponent},
+{ path: 'user/:uid/website/new' , component: WebsiteNewComponent},
+{ path: 'user/:uid/website/:wid' , component: WebsiteEditComponent},
 
-  { path: 'user/:uid/website/:wid/page', component: PageListComponent},
-  { path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
-  { path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
+{ path: 'user/:uid/website/:wid/page', component: PageListComponent},
+{ path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
+{ path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
 
-  { path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
-  { path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-  { path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent}
+{ path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
+{ path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
+{ path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent}
 
 ];​
 
 export const AppRouting = RouterModule.forRoot(appRouting);
-

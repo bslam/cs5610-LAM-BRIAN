@@ -323,23 +323,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_widget_widget_chooser_widget_chooser_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/widget/widget-chooser/widget-chooser.component */ "./src/app/views/widget/widget-chooser/widget-chooser.component.ts");
 /* harmony import */ var _views_widget_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-edit.component */ "./src/app/views/widget/widget-edit/widget-edit.component.ts");
 /**import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {LoginComponent} from './views/user/login/login.component';
-import {ProfileComponent} from './views/user/profile/profile.component';
-import {RegisterComponent} from './views/user/register/register.component';
-
-
-const appRoutes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'register', component: RegisterComponent}
-]
-
-@NgModule({
+ import { Routes, RouterModule } from '@angular/router';
+ import {LoginComponent} from './views/user/login/login.component';
+ import {ProfileComponent} from './views/user/profile/profile.component';
+ import {RegisterComponent} from './views/user/register/register.component';
+ const appRoutes: Routes = [
+ {path: 'login', component: LoginComponent},
+ {path: 'profile', component: ProfileComponent},
+ {path: 'register', component: RegisterComponent}
+ ]
+ @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRouting { }**/
+ export class AppRouting { }**/
 
 
 
@@ -588,7 +585,7 @@ var UserService = /** @class */ (function () {
         this.base_url = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].baseUrl;
     }
     UserService.prototype.createUser = function (user) {
-        var url = this.base_url + 'api/user/' + user._id;
+        var url = this.base_url + 'api/user/';
         return this.http.post(url, user);
     };
     UserService.prototype.findUserByCredentials = function (username, password) {
@@ -1010,7 +1007,7 @@ var PageNewComponent = /** @class */ (function () {
         var _this = this;
         this.pageName = this.pageForm.value.pageName;
         this.pageDescription = this.pageForm.value.pageDescription;
-        var page = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"]('', this.pageName, this.websiteId, this.pageDescription, this.developerId);
+        var page = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"](undefined, this.pageName, this.websiteId, this.pageDescription, this.developerId);
         this.pageService.createPage(this.websiteId, page).subscribe(function (data) {
             _this.router.navigate(['../'], { relativeTo: _this.route });
         }, function (error) { return console.log(error); });
@@ -1284,7 +1281,7 @@ var RegisterComponent = /** @class */ (function () {
     function RegisterComponent(userService, router) {
         this.userService = userService;
         this.router = router;
-        this.user = { _id: '', username: '', password: '', firstName: '', lastName: '' };
+        this.user = { _id: undefined, username: undefined, password: undefined, firstName: undefined, lastName: undefined };
         this.errorMsg = 'Passwords must match!';
     }
     RegisterComponent.prototype.ngOnInit = function () {
@@ -1317,6 +1314,7 @@ var RegisterComponent = /** @class */ (function () {
             console.log(this.user.username);
             this.userService.createUser(this.user).subscribe(function (user) {
                 _this.user = user;
+                console.log(_this.user);
                 _this.router.navigate(['/user', user._id]);
             });
         }
@@ -1490,8 +1488,8 @@ var WebsiteListComponent = /** @class */ (function () {
             _this.uid = params['uid'];
         });
         this.websiteService.findAllWebsitesForUser(this.uid).subscribe(function (data) {
-            console.log(data);
             _this.websites = data;
+            console.log(data);
         });
     };
     WebsiteListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1571,12 +1569,12 @@ var WebsiteNewComponent = /** @class */ (function () {
         var _this = this;
         this.newWebsiteName = this.websitesForm.value.WebsiteName;
         this.newWebsiteDescription = this.websitesForm.value.Description;
-        this.newWebsite = { _id: '', name: this.newWebsiteName, developerId: this.uid, description: this.newWebsiteDescription };
+        this.newWebsite = { _id: undefined, name: this.newWebsiteName, developerId: this.uid, description: this.newWebsiteDescription };
         // this.websiteService.createWebsite(this.uid, this.newWebsite);
         this.websiteService.createWebsite(this.uid, this.newWebsite).subscribe(function (newWebsite) {
             _this.newWebsite = newWebsite;
+            _this.router.navigate(['../'], { relativeTo: _this.route });
         });
-        this.router.navigate(['../'], { relativeTo: this.route });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('f'),

@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 
+
+var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+// var connectionString = 'input virtual version here'
 // Ask Yuan what to do with this????? Took this from the Heroku Link
 // mongodb://<dbuser>:<dbpassword>@ds145790.mlab.com:45790/heroku_g477qtmg
-var connectionString = 'mongodb://127.0.0.1:27017/webdev';
 
 
 mongoose.Promise = global.Promise;

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var websiteSchema = require('../website/website.schema.server');
 
 var userSchema = new mongoose.Schema({
-  userame: String,
+  username: String,
   password: String,
   firstName: String,
   lastName: String,
@@ -13,6 +13,6 @@ var userSchema = new mongoose.Schema({
     displayName: String
   },
   websites: [websiteSchema]
-},{collection:'Users'});
+},{collection:'user'});
 
 module.exports = userSchema;

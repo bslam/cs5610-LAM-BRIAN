@@ -19,24 +19,11 @@ function findWebsitesForUser(userId){
   // .populate('developerId')
   //   .populate('developerId', 'username')
   //   .exec();
-  return websiteModel.find({_user: userId});
+  return websiteModel.find({developerId: userId});
 }
 
 function createWebsite(website){
-  website._user = userId;
-  console.log(userId);
-  return websiteModel.create(website)
-    .then(function(responseWebsite) {
-      console.log('response');
-      userModel.findUserById(responseWebsite._user)
-        .then(function(user) {
-          user.websites.push(responseWebsite);
-          return user.save();
-        });
-      console.log(responseWebsite);
-      return responseWebsite;
-    });
-  console.log('response');
+  return websiteModel.create(website);
 }
 
 function findWebsiteById(websiteId) {

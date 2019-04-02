@@ -11,7 +11,7 @@ import {NgForm} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   @ViewChild('f') registerForm: NgForm;
-  user: User = {_id: '', username: '', password: '', firstName: '', lastName: ''};
+  user: User = {_id: undefined, username: undefined, password: undefined, firstName: undefined, lastName: undefined};
   errorFlag: boolean;
   uid: string;
 
@@ -53,6 +53,7 @@ export class RegisterComponent implements OnInit {
       this.userService.createUser(this.user).subscribe(
         (user: any) => {
           this.user = user;
+          console.log(this.user);
           this.router.navigate(['/user', user._id]);
         }
       );

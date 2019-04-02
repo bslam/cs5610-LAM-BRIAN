@@ -5,15 +5,15 @@ module.exports = function (app) {
   app.put('/api/website/:websiteId', updateWebsite);
   app.delete('/api/website/:websiteId', deleteWebsite);
 
-  var websites = [
-    { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
-    { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
-    { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
-    { "_id": "890", "name": "Go", "developerId": "123", "description": "Lorem" },
-    { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-    { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
-    { "_id": "789", "name": "Chess", "developerId": "123", "description": "Lorem" }
-  ];
+  // var websites = [
+  //   { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
+  //   { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
+  //   { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
+  //   { "_id": "890", "name": "Go", "developerId": "123", "description": "Lorem" },
+  //   { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
+  //   { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
+  //   { "_id": "789", "name": "Chess", "developerId": "123", "description": "Lorem" }
+  // ];
 
   var userModel = require('./model/user/user.model.server');
   var websiteModel = require('./model/website/website.model.server');
@@ -23,6 +23,7 @@ module.exports = function (app) {
   function createWebsite(req, res) {
     var userId = req.params.userId;
     var website = req.body;
+    console.log(website);
     // for (var i = 0; i < websites.length; i++) {
     //   if (websites[i].developerId === userId && websites[i].name === website.name) {
     //     res.status(404).send("This website is already exist.");
@@ -33,10 +34,12 @@ module.exports = function (app) {
     // website.developerId = userId;
     // websites.push(website);
     // res.json(website);
-    websiteModel.createWebsiteForUser(userId, website).then(
+    websiteModel.createWebsite(website).then(
       function (newWebsite) {
+        console.log(newWebsite);
         res.status(200).json(newWebsite);
       }, function (err) {
+        console.log(err);
         res.status(404).json(err);
       }
     );
@@ -55,7 +58,8 @@ module.exports = function (app) {
       function (foundWebsites) {
         res.status(200).json(foundWebsites);
       }, function (err) {
-        res.status(404).json(err);
+        console.log(err);
+        res.status(404);
       }
     );
   }

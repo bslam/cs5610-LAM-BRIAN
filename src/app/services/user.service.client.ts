@@ -20,7 +20,7 @@ export class UserService {
   base_url = environment.baseUrl;
 
   createUser(user: User) {
-    const url = this.base_url + 'api/user/' + user._id;
+    const url = this.base_url + 'api/user/';
     return this.http.post(url, user);
   }
 
