@@ -1,6 +1,6 @@
 var mongoose = new require('mongoose');
 var pageSchema = require('./page.schema.server');
-var pageModel = mongoose.model("pageModel", pageSchema);
+var pageModel = mongoose.model("page", pageSchema);
 var websiteModel = require('../website/website.model.server');
 mongoose.set('useFindAndModify', false);
 
@@ -26,10 +26,11 @@ function createPage(websiteId, page) {
     });
 }
 
-function findAllPagesForWebsite(websiteId) {
-  return websiteModel
-    .findById(websiteId)
-    .populate('pages').exec();
+function findAllPagesForWebsite(wid) {
+  // return websiteModel.findById(websiteId).populate('pages').exec();
+  // return pageModel.find({: userId});
+  console.log("inside Assignment/services/website  finaAllPagesForWebsite")
+  return pageModel.find({_website: wid});
 }
 
 function findPageById(pageId){
