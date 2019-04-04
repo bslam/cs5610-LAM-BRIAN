@@ -30,22 +30,6 @@ export class RegisterComponent implements OnInit {
     this.user.username = this.registerForm.value.username;
     this.user.password = this.registerForm.value.password;
     const verify = this.registerForm.value.verify;
-    //
-    //
-    // if (this.user.password === verify) {
-    //   this.userService.createUser(this.user).subscribe(
-    //       (user: any) => {
-    //         this.user = user;
-    //         }
-    //       );
-    //   this.userService.findUserByCredentials(this.user.username, this.user.password).subscribe(
-    //         (user: any) => {
-    //           this.router.navigate(['/user', user._id]);
-    //         }
-    //       );
-    // } else {
-    //   this.errorFlag = true;
-    // }
     if (this.user.password !== verify) {
       this.errorFlag = true;
     } else {
