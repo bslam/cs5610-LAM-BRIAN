@@ -27,9 +27,6 @@ function createPage(websiteId, page) {
 }
 
 function findAllPagesForWebsite(wid) {
-  // return websiteModel.findById(websiteId).populate('pages').exec();
-  // return pageModel.find({: userId});
-  console.log("inside Assignment/services/website  finaAllPagesForWebsite")
   return pageModel.find({_website: wid});
 }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {Widget, WidgetHeading, WidgetImage, WidgetYoutube, WidgetText, WidgetHTML} from '../../../../models/widget.model.client';
@@ -7,7 +7,7 @@ import {inject} from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 @Component({
@@ -17,13 +17,15 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class WidgetHtmlComponent implements OnInit {
 
+  @ViewChild('f') htmlForm: NgForm;
+
   uid: string;
   wid: string;
   pid: string;
   wgid: string;
 
   newWidget: WidgetHTML;
-  widget: Widget;
+  widget: WidgetHTML;
 
   constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
   }
@@ -51,10 +53,19 @@ export class WidgetHtmlComponent implements OnInit {
 
   onUpdateWidget() {
     console.log('onUpdateWidget');
-    this.widgetService.updateWidget(this.wgid, this.widget)
-      .subscribe(
-        (data: any) => this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']),
-      );
+    // this.widgetService.updateWidget(this.wgid, this.widget)
+    //   .subscribe(
+    //     (data: any) => this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']),
+    //   );
+    this.newWidget = new WidgetHTML(this.htmlForm.value.widname, this.wgid, 'IMAGE', this.pid,
+      this.htmlForm.value.text, this.htmlForm.value.widgetWidth, this.htmlForm.value.widgetURL);
+    console.log(this.newWidget);
+    this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
+      (data: any) => {
+        this.widget = data;
+        this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+      }
+    );
   }
 
   onDelete() {

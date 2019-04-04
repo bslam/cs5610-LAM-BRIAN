@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -9,7 +9,7 @@ import {inject} from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -20,13 +20,15 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class WidgetTextComponent implements OnInit {
 
+  @ViewChild('f') textForm: NgForm;
+
   uid: string;
   wid: string;
   pid: string;
   wgid: string;
 
   newWidget: WidgetText;
-  widget: Widget;
+  widget: WidgetText;
 
   constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute) {
   }
@@ -53,10 +55,15 @@ export class WidgetTextComponent implements OnInit {
 
   onUpdateWidget() {
     console.log('onUpdateWidget');
-    this.widgetService.updateWidget(this.wgid, this.widget)
-      .subscribe(
-        (data: any) => this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']),
-      );
+    this.newWidget = new WidgetText(this.textForm.value.name, this.wgid, 'IMAGE', this.pid,
+      this.textForm.value.text, this.textForm.value.width, this.textForm.value.url);
+    console.log(this.newWidget);
+    this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
+      (data: any) => {
+        this.widget = data;
+        this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
+      }
+    );
   }
 
   onDelete() {

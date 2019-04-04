@@ -25,6 +25,7 @@ export class WidgetService {
 
   findAllWidgetsForPage(pageId: string) {
     const url = this.base_url + 'api/page/' + pageId + '/widget';
+    console.log('Inside src/app/services/widget.service.client.ts');
     return this.http.get(url);
   }
 

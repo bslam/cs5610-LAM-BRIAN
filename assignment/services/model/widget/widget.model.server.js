@@ -29,18 +29,23 @@ function createWidget(pageId, widget) {
         .then(function (updatedPage) {
           updatedPage.widgets.push(newWidget);
           updatedPage.save();
+          console.log("inside create widget");
+          console.log(newWidget);
         });
       return newWidget;
     });
 }
 
-function findAllWidgetsForPage(pageId) {
-  return pageModel.findById(pageId)
-    .populate('widgets')
-    .then(function (page) {
-        return page.widgets;
-      }
-    )
+function findAllWidgetsForPage(pid) {
+  // console.log('Inside widget.model.server.js Function = findAllWidgetsForPage');
+  // return pageModel.findById(pageId)
+  //   .populate('widgets')
+  //   .then(function (page) {
+  //     console.log(page);
+  //       return page.widgets;
+  //     }
+  //   )
+  return widgetModel.find({pageId: pid});
 }
 
 function findWidgetById(widgetId) {

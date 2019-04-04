@@ -1,10 +1,11 @@
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {WidgetService} from '../../../../services/widget.service.client';
 import {Widget, WidgetYoutube} from '../../../../models/widget.model.client';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {WidgetHeading, WidgetHTML} from '../../../../models/widget.model.client';
 import {inject} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
+import {NgForm} from '@angular/forms';
 
 
 
@@ -15,12 +16,14 @@ import {environment} from '../../../../../environments/environment';
   styleUrls: ['./widget-youtube.component.css']
 })
 export class WidgetYoutubeComponent implements OnInit {
+  @ViewChild('f') youtubeForm: NgForm;
+
   wgid: string;
   uid: string;
   pid: string;
   wid: string;
   newWidget: WidgetYoutube;
-  widget: Widget;
+  widget: WidgetYoutube;
   newWidgetName: string;
   newWidgetWidth = '';
   newWidgetURL = '';
@@ -53,22 +56,22 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   onUpdateWidget() {
-    this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, this.newWidgetURL);
+    this.newWidget = new WidgetYoutube(this.youtubeForm.value.widgetName, this.wgid,
+      'YOUTUBE', this.pid, this.youtubeForm.value.widgetWidth, this.youtubeForm.value.widgetURL);
     this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
       (data: any) => {
         this.widget = data;
+        this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
       }
     );
-    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   onDelete() {
     this.widgetService.deleteWidget(this.wgid).subscribe(
       (data: any) => {
-
+        this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
       }
     );
-    this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']);
   }
 }
 

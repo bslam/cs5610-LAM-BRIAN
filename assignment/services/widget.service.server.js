@@ -1,13 +1,13 @@
 module.exports = function (app) {
 
 
-  var widgets = [
-    { _id: "123", widgetType: "HEADING", name: ' ', pageId: "321", size: "2", text: "GIZMODO", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
-    { _id: "234", widgetType: "HEADING", name: ' ', pageId: "111", size: "4", text: "Lorem ipsum", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
-    { _id: "345", widgetType: "IMAGE", pageId: "111", size: "", text: "", width: "100%", url: "http://lorempixel.com/400/200/" },
-    { _id: "567", widgetType: "HEADING", name: ' ', pageId: "111", size: "4", text: "Lorem ipsum", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
-    { _id: "678", widgetType: "YOUTUBE", name: ' ', pageId: "111", size: "", text: "", url: 'https://www.youtube.com/embed/-C_jPcUkVrM', width: "100%", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
-  ];
+  // var widgets = [
+  //   { _id: "123", widgetType: "HEADING", name: ' ', pageId: "321", size: "2", text: "GIZMODO", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
+  //   { _id: "234", widgetType: "HEADING", name: ' ', pageId: "111", size: "4", text: "Lorem ipsum", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
+  //   { _id: "345", widgetType: "IMAGE", pageId: "111", size: "", text: "", width: "100%", url: "http://lorempixel.com/400/200/" },
+  //   { _id: "567", widgetType: "HEADING", name: ' ', pageId: "111", size: "4", text: "Lorem ipsum", url: "", width: "", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
+  //   { _id: "678", widgetType: "YOUTUBE", name: ' ', pageId: "111", size: "", text: "", url: 'https://www.youtube.com/embed/-C_jPcUkVrM', width: "100%", height: 100, rows: 0, class: '', icon: '', deletable: false, formatted: false, placeholder: '' },
+  // ];
 
 
 
@@ -52,8 +52,9 @@ module.exports = function (app) {
     // res.status(201).send(widget);
     // // res.json(widget);
     var pageId = req.params.pageId;
+    var website = req.body;
     widgetModel
-      .createWidget(pageId, req.body)
+      .createWidget(pageId, website)
       .then(function (responseWidget) {
           res.status(200).json(responseWidget);
         },
@@ -65,13 +66,6 @@ module.exports = function (app) {
 
   function findAllWidgetsForPage(req, res) {
     var pageId = req.params.pageId;
-    // var allWidgets = [];
-    // for (var i in widgets) {
-    //   if (widgets[i].pageId === pageId) {
-    //     allWidgets.push(widgets[i]);
-    //   }
-    // }
-    // res.json(allWidgets);
     widgetModel.findAllWidgetsForPage(pageId).then(
       function (foundWidgets) {
         res.status(200).json(foundWidgets);
@@ -114,6 +108,8 @@ module.exports = function (app) {
     // res.status(404).send("Widget not updated, no wgid matching ");
     widgetModel.updateWidget(widgetId, newWidget).then(
       function (updatedWidget) {
+        console.log('Inside assignment/services/widget.service.server.js');
+        console.log(updatedWidget)
         res.status(200).json(updatedWidget);
       },
       function (err) {
