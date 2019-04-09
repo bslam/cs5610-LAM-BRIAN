@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
         .subscribe(
           (data: any) => {
             if (data) {
-              this.router.navigate(['/user', data._id]);
+              this.router.navigate(['/user']);
             } else {
               this.errorFlag = true;
               console.log('Issue when creating user');
