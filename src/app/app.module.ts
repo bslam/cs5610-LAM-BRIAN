@@ -33,6 +33,7 @@ import {OrderByPipe} from '../../assignment/services/pipes/order-by-pipe';
 import { SortableDirective} from '../../assignment/services/directives/sortable.directive';
 import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
 import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
+import {SharedService} from './services/shared.service';
 
 import {QuillEditorModule} from 'ngx-quill-editor';
 
@@ -70,7 +71,7 @@ import {QuillEditorModule} from 'ngx-quill-editor';
     QuillEditorModule,
     AppRouting
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, SharedService],
   exports: [
     OrderByPipe
   ],

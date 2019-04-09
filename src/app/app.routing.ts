@@ -34,32 +34,29 @@ import { WidgetListComponent } from './views/widget/widget-list/widget-list.comp
 import { WidgetChooserComponent } from './views/widget/widget-chooser/widget-chooser.component';
 import { WidgetEditComponent } from './views/widget/widget-edit/widget-edit.component';
 
-/*const appRoutes: Routes = [​
-  {path: 'login', component: LoginComponent},
-  {path: 'profile', component: ProfileComponent},​
-  {path: 'register', component: RegisterComponent}
-];​*/
-
+import {AuthGuard} from './services/auth-guard.service';
 
 
 const appRouting: Routes = [​
   { path: '', redirectTo: '/login', pathMatch: 'full'},
 { path: 'login', component: LoginComponent},
-{ path: 'user/:uid' , component: ProfileComponent},​
+{ path: 'user' , component: ProfileComponent, canActivate: [AuthGuard]},​
   { path: 'register', component: RegisterComponent},
 
-{ path: 'user/:uid/website' , component: WebsiteListComponent},
-{ path: 'user/:uid/website/new' , component: WebsiteNewComponent},
-{ path: 'user/:uid/website/:wid' , component: WebsiteEditComponent},
+{ path: 'user/:uid/website' , component: WebsiteListComponent, canActivate: [AuthGuard]},
+{ path: 'user/:uid/website/new' , component: WebsiteNewComponent, canActivate: [AuthGuard]},
+{ path: 'user/:uid/website/:wid' , component: WebsiteEditComponent, canActivate: [AuthGuard]},
 
-{ path: 'user/:uid/website/:wid/page', component: PageListComponent},
-{ path: 'user/:uid/website/:wid/page/new', component: PageNewComponent},
-{ path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
+{ path: 'user/:uid/website/:wid/page', component: PageListComponent, canActivate: [AuthGuard]},
+{ path: 'user/:uid/website/:wid/page/new', component: PageNewComponent, canActivate: [AuthGuard]},
+{ path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent, canActivate: [AuthGuard]},
 
-{ path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
-{ path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-{ path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent}
+{ path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent, canActivate: [AuthGuard]},
+{ path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent, canActivate: [AuthGuard]},
+{ path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent, canActivate: [AuthGuard]}
 
 ];​
 
 export const AppRouting = RouterModule.forRoot(appRouting);
+// What does this line do?
+// export const Routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);

@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
 
 
   errorMsg = 'Passwords must match!';
+  noFieldErrorFlag = false;
 
 
 
@@ -30,17 +31,30 @@ export class RegisterComponent implements OnInit {
     this.user.username = this.registerForm.value.username;
     this.user.password = this.registerForm.value.password;
     const verify = this.registerForm.value.verify;
+    if (this.user.username === null || this.user.password === null) {
+      this.noFieldErrorFlag = true;
+    }
     if (this.user.password !== verify) {
       this.errorFlag = true;
     } else {
-      console.log(this.user.username);
-      this.userService.createUser(this.user).subscribe(
-        (user: any) => {
-          this.user = user;
-          console.log(this.user);
-          this.router.navigate(['/user', user._id]);
-        }
-      );
+      this.userService.register(this.user.username, this.user.password)
+        .subscribe(
+          (data: any) => {
+            if (data) {
+              this.router.navigate(['/profile']);
+            } else {
+              this.errorFlag = true;
+              console.log('Issue when creating user');
+            }
+          },
+          (error: any) => {
+            if (error) {
+              this.errorFlag = true;
+              this.errorMsg = error;
+              console.log(this.errorMsg);
+            }
+          }
+        );
     }
   }
 }

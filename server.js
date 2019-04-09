@@ -5,9 +5,34 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const app = express();
+const cookieParser = require('cookie-parser');
+
+
+
+const session = require('express-session');
+const passport = require('passport');
+
+
+
+
+app.use(cookieParser());
+app.use(session({
+  // secret: process.env.SESSION_SECRET,
+  secret: 'Brian Secret',
+  saveUninitialized: true,
+  resave: false,
+}));
+
+
+app.use(session({secret: process.env.SESSION_SECRET}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 // Point static path to dist -- For building -- REMOVE
 //app.use(express.static(path.join(__dirname, 'public')));
@@ -30,8 +55,8 @@ app.set('port', port);
 const server = http.createServer(app);
 server.listen( port , () => console.log('Running on port 3200'));
 
-//var connectionString = 'mongodb://127.0.0.1:27017/webdev';
-var connectionString = 'mongodb://brian:abc123@ds145790.mlab.com:45790/heroku_g477qtmg';
+var connectionString = 'mongodb://127.0.0.1:27017/webdev';
+// var connectionString = 'mongodb://brian:abc123@ds145790.mlab.com:45790/heroku_g477qtmg';
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 const client = mongoose.connect( connectionString, { useNewUrlParser: true });

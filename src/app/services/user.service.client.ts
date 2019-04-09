@@ -7,6 +7,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 // import { Observable } from 'rxjs/Observable ';
 import {environment} from '../../environments/environment';
 import {Router} from '@angular/router';
+import {SharedService} from './shared.service';
+import {map} from 'rxjs/operators';
 
 
 
@@ -14,10 +16,11 @@ import {Router} from '@angular/router';
 @Injectable()
 
 export class UserService {
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sharedService: SharedService, private router: Router) {
   }
 
   base_url = environment.baseUrl;
+  options = {withCredentials: false};
 
   createUser(user: User) {
     const url = this.base_url + 'api/user/';
@@ -44,6 +47,58 @@ export class UserService {
   deleteUserById(userId: String) {
     const url = this.base_url + 'api/user/' + userId;
     return this.http.delete(url);
+  }
+  login(username: String, password: String) {
+    this.options.withCredentials = true;
+
+    const body = {
+      username: username,
+      password: password
+    };
+
+    return this.http.post(this.base_url + 'api/login', body, this.options);
+      // .map(
+      //   (res: Response) => {
+      //     const data = res.json();
+      //     return data;
+      //   }
+      // );
+  }
+
+  logout() {
+    this.options.withCredentials = true;
+    return this.http
+      .post(this.base_url + 'api/logout', '', this.options)
+      .pipe(
+        map((res: any) => {
+            const data = res;
+            this.sharedService.user = null;
+            return data;
+          }
+        ));
+  }
+
+  register(username: String, password: String) {
+    this.options.withCredentials = true;
+    const user = {username: username, password: password};
+    return this.http
+      .post(this.base_url + 'api/register', user, this.options);
+  }
+
+  loggedIn() {
+    return this.http
+      .post(this.base_url + 'api/loggedin', '', this.options)
+      .pipe(
+        map((user) => {
+            if (user !== 0) {
+              this.sharedService.user = user;
+              return true;
+            } else {
+              this.router.navigate(['/login']);
+              return false;
+            }
+          }
+        ));
   }
 }
 

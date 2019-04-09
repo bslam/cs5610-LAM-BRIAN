@@ -1,5 +1,40 @@
 module.exports = function (app) {
 
+  var userModel = require('./model/user/user.model.server');
+  var websiteModel = require('./model/website/website.model.server');
+  var pageModel = require('./model/page/page.model.server');
+  var widgetModel = require('./model/widget/widget.model.server');
+
+  const passport = require('passport');
+  const LocalStrategy = require('passport-local').Strategy;
+  const FacebookStrategy = require('passport-facebook').Strategy;
+  const bcrypt = require('bcrypt-nodejs');
+
+  const localId = 381499992451385;
+  const localSecret = "6b692e75c14aec0788ba413afb8cf9dc"
+
+  const facebookConfig = {
+    clientID: process.env.FB_CLIENT_ID || localId,
+    clientSecret: process.env.FB_CLIENT_SECRET || localSecret,
+    callbackURL: process.env.FB_CALLBACK_URL || 'http://localhost:3200/auth/facebook/callback/',
+  }
+
+
+  function serializeUser(user, done) {
+    done(null, user);
+  }
+
+  function deserializeUser(user, done) {
+    userModel.findUserById(user._id).then(
+      function (user) {
+        done(null, user);
+      },
+      function (err) {
+        done(err, null);
+      });
+  }
+
+
   //api calls
   app.post('/api/user', createUser);
   //app.get('/api/user', findUserByUsername);
@@ -7,18 +42,22 @@ module.exports = function (app) {
   app.get('/api/user/:uid', findUserById);
   app.put('/api/user/:uid', updateUser);
   app.delete('/api/user/uid', deleteUser);
+  app.post("/api/login", passport.authenticate('local'), login);
+  app.post("/api/logout", logout);
+  app.post("/api/register", register);
+  app.post("/api/loggedin", loggedin);
+  app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
+  app.get('/auth/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/user',
+    failureRedirect: '/login'
+  }));
 
-  // var users = [
-  //   {_id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonderland"},
-  //   {_id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley"},
-  //   {_id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia"},
-  //   {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi"}
-  // ];
 
-  var userModel = require('./model/user/user.model.server');
-  var websiteModel = require('./model/website/website.model.server');
-  var pageModel = require('./model/page/page.model.server');
-  var widgetModel = require('./model/widget/widget.model.server');
+  passport.serializeUser(serializeUser);
+  passport.deserializeUser(deserializeUser);
+  passport.use(new LocalStrategy(localStrategy));
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
+
 
   function helloUser(req, res) {
     res.send("Hello from user service!");
@@ -130,49 +169,119 @@ module.exports = function (app) {
     );
   }
 
-}
-
-/**
-createUser(user: User) {
-    const new_user: User = new User(Math.random, user.username, user.password, '', '');
-    this.users.push(new_user);
-    return new_user;
+  function facebookStrategy(token, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id)
+      .then(
+        function (user) {
+          if (user) {
+            console.log('Found User');
+            console.log(user);
+            return done(null, user);
+          } else {
+            const names = profile.displayName.split(" ");
+            const newFacebookUser = {
+              lastName: names[1],
+              firstName: names[0],
+              email: profile.emails ? profile.emails[0].value : "",
+              facebook: {id: profile.id, token: token}
+            };
+            return userModel.createUser(newFacebookUser);
+          }
+        },
+        function (err) {
+          if (err) {
+            return done(err);
+          }
+        })
+      .then(
+        function (user) {
+          return done(null, user);
+        },
+        function (err) {
+          if (err) {
+            return done(err);
+          }
+        }
+      );
   }
 
-  findUserById(userId: String) {
-    return this.users.find(function (user) {
-      return user._id === userId;
-    });
-  }
-  findUserByCredential(username: String, password: String) {
-    return this.users.find(function (user) {
-      return user.username === username && user.password === password;
-    });
-    /**for(const entry of this.users) {
-      if (entry.username === username && entry.password === password) {
-        return entry;
+  // function facebookStrategy(token, refreshToken, profile, done){
+  //   userModel.findUserByFacebookId(profile.id)
+  //     .then(
+  //       function(user) {
+  //         if(user) {
+  //           console.log('user');
+  //           return done(null, user);
+  //         } else {
+  //           console.log('profile');
+  //           var names = profile.displayName.split(" ");
+  //           var newFacebookUser = {
+  //             lastName: names[1],
+  //             firstName: names[0],
+  //             email: profile.emails ? profile.emails[0].value:"",
+  //             facebook: { id: profile.id, token: token } };
+  //           return userModel.createUser(newFacebookUser);
+  //         }
+  //       }, function(err) {
+  //         if (err) {
+  //           return done(err);
+  //         } } );
+  // }
+
+  function localStrategy(username, password, done) {
+    userModel.findUserByUsername(username).then(
+      (user) => {
+        if (user && bcrypt.compareSync(password, user.password)) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      },
+      (err) => {
+        if (err) {
+          return done(err, null);
+        }
       }
-    }
-}
-findUserByUsername(username: String) {
-  return this.users.find(function (user) {
-    return user.username === username;
-  });
-}
-updateUser(userId, user) {
-  for (const i in this.users) {
-    if (this.users[i]._id === userId) {
-      this.users[i].firstName = user.firstName;
-      this.users[i].lastName = user.lastName;
-    }
+    );
   }
-}
 
-deleteUser(userId: String) {
-  for (const i in this.users) {
-    if (this.users[i]._id === userId) {
-      const j = +i;
-      this.users.splice(j, 1);
-    }
+  function login(req, res) {
+    const user = req.user;
+    res.json(user);
+    // if(user && bcrypt.compareSync(password, user.password)) {
+    //   return done(null, user);
+    // } else {
+    //   return done(null, false);
+    // }
   }
-}*/
+
+  function logout(req, res) {
+    req.logOut();
+    res.send(200);
+    res.json({success: true});
+  }
+
+  function loggedin(req, res) {
+    res.send(req.isAuthenticated() ? req.user : '0');
+  }
+
+  function register(req, res) {
+    const user = req.body;
+    user.password = bcrypt.hashSync(user.password);
+    userModel
+      .createUser(user)
+      .then(
+        function (newUser) {
+          if (newUser) {
+            req.login(user, function (error) {
+              if (error) {
+                res.status(400).send(error);
+              } else {
+                res.json(user);
+              }
+            });
+          }
+        }
+      );
+  }
+}
