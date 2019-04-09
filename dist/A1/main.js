@@ -218,7 +218,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_widget_widget_edit_widget_html_widget_html_component__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-html/widget-html.component */ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.ts");
 /* harmony import */ var _views_widget_widget_edit_widget_text_widget_text_component__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-text/widget-text.component */ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.ts");
 /* harmony import */ var _services_shared_service__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./services/shared.service */ "./src/app/services/shared.service.ts");
-/* harmony import */ var ngx_quill_editor__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ngx-quill-editor */ "./node_modules/ngx-quill-editor/index.js");
+/* harmony import */ var _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./services/auth-guard.service */ "./src/app/services/auth-guard.service.ts");
+/* harmony import */ var ngx_quill_editor__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ngx-quill-editor */ "./node_modules/ngx-quill-editor/index.js");
+
 
 
 
@@ -284,10 +286,10 @@ var AppModule = /** @class */ (function () {
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
-                ngx_quill_editor__WEBPACK_IMPORTED_MODULE_32__["QuillEditorModule"],
+                ngx_quill_editor__WEBPACK_IMPORTED_MODULE_33__["QuillEditorModule"],
                 _app_routing__WEBPACK_IMPORTED_MODULE_5__["AppRouting"]
             ],
-            providers: [_services_user_service_client__WEBPACK_IMPORTED_MODULE_22__["UserService"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_23__["WebsiteService"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_24__["PageService"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_25__["WidgetService"], _services_shared_service__WEBPACK_IMPORTED_MODULE_31__["SharedService"]],
+            providers: [_services_user_service_client__WEBPACK_IMPORTED_MODULE_22__["UserService"], _services_website_service_client__WEBPACK_IMPORTED_MODULE_23__["WebsiteService"], _services_page_service_client__WEBPACK_IMPORTED_MODULE_24__["PageService"], _services_widget_service_client__WEBPACK_IMPORTED_MODULE_25__["WidgetService"], _services_shared_service__WEBPACK_IMPORTED_MODULE_31__["SharedService"], _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_32__["AuthGuard"]],
             exports: [
                 _assignment_services_pipes_order_by_pipe__WEBPACK_IMPORTED_MODULE_27__["OrderByPipe"]
             ],
@@ -1459,7 +1461,7 @@ var RegisterComponent = /** @class */ (function () {
             this.userService.register(this.user.username, this.user.password)
                 .subscribe(function (data) {
                 if (data) {
-                    _this.router.navigate(['/profile']);
+                    _this.router.navigate(['/user']);
                 }
                 else {
                     _this.errorFlag = true;

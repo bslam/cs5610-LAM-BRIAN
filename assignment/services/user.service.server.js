@@ -37,8 +37,8 @@ module.exports = function (app) {
 
   //api calls
   app.post('/api/user', createUser);
-  //app.get('/api/user', findUserByUsername);
-  app.get('/api/user', findUserByCredentials);
+  app.get('/api/user', findUserByUsername);
+  // app.get('/api/user', findUserByCredentials);
   app.get('/api/user/:uid', findUserById);
   app.put('/api/user/:uid', updateUser);
   app.delete('/api/user/uid', deleteUser);
@@ -100,6 +100,15 @@ module.exports = function (app) {
       }
     );
 
+  }
+
+  function findUserByUsername(req, res) {
+    const username = req.query["username"];
+    userModel.findByUsername(username).then(function(user){
+      res.send(user);
+    }, function(error){
+      res.status(400).send(error);
+    })
   }
 
   // function findUserById(req, res) {
@@ -192,17 +201,7 @@ module.exports = function (app) {
           if (err) {
             return done(err);
           }
-        })
-      .then(
-        function (user) {
-          return done(null, user);
-        },
-        function (err) {
-          if (err) {
-            return done(err);
-          }
-        }
-      );
+        });
   }
 
   // function facebookStrategy(token, refreshToken, profile, done){
@@ -229,7 +228,7 @@ module.exports = function (app) {
   // }
 
   function localStrategy(username, password, done) {
-    userModel.findUserByUsername(username).then(
+    userModel.findByUsername(username).then(
       (user) => {
         if (user && bcrypt.compareSync(password, user.password)) {
           return done(null, user);
