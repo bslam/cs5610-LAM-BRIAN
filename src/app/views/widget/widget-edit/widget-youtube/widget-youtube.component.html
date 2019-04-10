@@ -21,6 +21,9 @@
 
 
 <div class="container">
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
   <form #f="ngForm">
     <div class="form-group">
       <label>Name</label>

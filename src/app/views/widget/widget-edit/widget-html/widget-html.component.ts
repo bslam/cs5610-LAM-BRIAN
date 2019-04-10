@@ -27,6 +27,8 @@ export class WidgetHtmlComponent implements OnInit {
 
   newWidget: WidgetHTML;
   widget: WidgetHTML;
+  errorFlag: boolean;
+  errorMsg: 'Please enter a Name for this Widget';
 
   constructor(private activatedRoute: ActivatedRoute,
               private widgetService: WidgetService, private router: Router, private sharedService: SharedService) {
@@ -59,6 +61,10 @@ export class WidgetHtmlComponent implements OnInit {
     //   .subscribe(
     //     (data: any) => this.router.navigate(['/user', this.uid, 'website', this.wid, 'page', this.pid, 'widget']),
     //   );
+    if (this.htmlForm.value.widname === null || this.htmlForm.value.widname === '') {
+      this.errorFlag = true;
+      return;
+    }
     this.newWidget = new WidgetHTML(this.htmlForm.value.widname, this.wgid, 'IMAGE', this.pid,
       this.htmlForm.value.text, this.htmlForm.value.widgetWidth, this.htmlForm.value.widgetURL);
     console.log(this.newWidget);

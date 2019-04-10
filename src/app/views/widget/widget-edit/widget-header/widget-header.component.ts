@@ -29,6 +29,9 @@ export class WidgetHeadingComponent implements OnInit {
   newWidgetSize: number;
   newWidgetText: string;
 
+  errorFlag: boolean;
+  errorMsg: 'Please enter a Name for this Widget';
+
   constructor(private route: ActivatedRoute,
               private widgetService: WidgetService, private router: Router, private sharedService: SharedService) {
   }
@@ -53,6 +56,10 @@ export class WidgetHeadingComponent implements OnInit {
   }
 
   onUpdateWidget() {
+    if (this.newWidgetName === null || this.newWidgetName === '') {
+      this.errorFlag = true;
+      return;
+    }
     this.newWidget = new WidgetHeading(this.newWidgetName, this.wgid, 'HEADING', this.pid, this.newWidgetSize, this.newWidgetText);
     this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
       (data: any) => {

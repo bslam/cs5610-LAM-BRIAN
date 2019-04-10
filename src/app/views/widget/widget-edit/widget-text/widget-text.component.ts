@@ -30,6 +30,8 @@ export class WidgetTextComponent implements OnInit {
 
   newWidget: WidgetText;
   widget: WidgetText;
+  errorFlag: boolean;
+  errorMsg: 'Please enter a Name for this Widget';
 
   constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute,
               private sharedService: SharedService) {
@@ -57,6 +59,10 @@ export class WidgetTextComponent implements OnInit {
 
   onUpdateWidget() {
     console.log('onUpdateWidget');
+    if (this.textForm.value.name === null || this.textForm.value.name === '') {
+      this.errorFlag = true;
+      return;
+    }
     this.newWidget = new WidgetText(this.textForm.value.name, this.wgid, 'IMAGE', this.pid,
       this.textForm.value.text, this.textForm.value.width, this.textForm.value.url);
     console.log(this.newWidget);

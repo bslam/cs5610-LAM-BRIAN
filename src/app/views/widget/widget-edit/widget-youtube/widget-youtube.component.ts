@@ -31,6 +31,8 @@ export class WidgetYoutubeComponent implements OnInit {
   localPath: string;
   URL: string;
   baseURL: string;
+  errorFlag: boolean;
+  errorMsg: 'Please enter a Name for this Widget';
 
   constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router,
               private sharedService: SharedService) {
@@ -58,6 +60,10 @@ export class WidgetYoutubeComponent implements OnInit {
   }
 
   onUpdateWidget() {
+    if (this.youtubeForm.value.widgetName === null || this.youtubeForm.value.widgetName === '') {
+      this.errorFlag = true;
+      return;
+    }
     this.newWidget = new WidgetYoutube(this.youtubeForm.value.widgetName, this.wgid,
       'YOUTUBE', this.pid, this.youtubeForm.value.widgetWidth, this.youtubeForm.value.widgetURL);
     this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(

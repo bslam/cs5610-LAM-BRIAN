@@ -18,6 +18,9 @@
 </nav>
 
 <div class="container">
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
 
   <form novalidate name="model.myform" #f="ngForm">
     <div class="form-group">

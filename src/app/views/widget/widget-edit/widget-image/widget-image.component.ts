@@ -30,6 +30,8 @@ export class WidgetImageComponent implements OnInit {
   localPath: string;
   URL: string;
   baseUrl: string;
+  errorFlag: boolean;
+  errorMsg: 'Please enter a Name for this Widget';
 
   constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router,
               private sharedService: SharedService) {
@@ -73,7 +75,10 @@ export class WidgetImageComponent implements OnInit {
     //     this.router.navigate(['../'], {relativeTo: this.route});
     //   }
     // );
-
+    if (this.iForm.value.widgetName === null || this.iForm.value.widgetName === '') {
+      this.errorFlag = true;
+      return;
+    }
     this.newWidget = new WidgetImage(this.iForm.value.widgetName, this.wgid, 'IMAGE', this.pid,
       this.iForm.value.widgetWidth, this.iForm.value.widgetURL);
     this.widgetService.updateWidget(this.wgid, this.newWidget).subscribe(
