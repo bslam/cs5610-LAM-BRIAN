@@ -926,7 +926,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" routerLink=\"/user/{{uid}}/website/{{wid}}/page\">\n        Edit Page\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a (click)=\"onUpdate()\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n<div class=\"container\">\n  <form>\n    <div class=\"form-group\">\n      <label for=\"page-name\">Name</label>\n      <input\n        type=\"text\"\n        name=\"websiteName\"\n        class=\"form-control\"\n        id=\"page-name\"\n        placeholder=\"Page Name\"\n        [(ngModel)]=\"page.name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"page-title\">Title</label>\n      <input\n        type=\"text\"\n        name=\"websiteName\"\n        class=\"form-control\"\n        id=\"page-title\"\n        placeholder=\"Page Title\"\n        [(ngModel)]=\"page.title\">\n    </div>\n  </form>\n  <a class=\"btn btn-danger  btn-block\" (click)=\"onDelete()\">Delete</a>\n</div>\n\n\n\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-light bg-light navbar-fixed-top\">\n  <div class=\"container-fluid row\">\n\n    <div class=\"navbar-text float-left\">\n      <a routerLink=\"/user/{{uid}}/website/{{wid}}/page\" class=\"text-black cl-icon-padding\">\n        <i class=\"fas fa-chevron-left fontawsome_icon\"></i>\n      </a>\n      <a class=\"navbar-brand text-black font-weight-bold pl-2\" routerLink=\"/user/{{uid}}/website/{{wid}}/page\">\n        Edit Page\n      </a>\n    </div>\n    <div class=\"navbar-text float-right\">\n      <a (click)=\"onUpdate()\" class=\"cl-icon-padding text-black\">\n        <i class=\"fas fa-plus fontawsome_icon\"></i>\n      </a>\n    </div>\n  </div>\n</nav>\n\n\n\n\n<div class=\"container\">\n  <div *ngIf=\"errorFlag\" class=\"alert alert-danger\">\n    {{errorMsg}}\n  </div>\n  <form>\n    <div class=\"form-group\">\n      <label for=\"page-name\">Name</label>\n      <input\n        type=\"text\"\n        name=\"websiteName\"\n        class=\"form-control\"\n        id=\"page-name\"\n        placeholder=\"Page Name\"\n        [(ngModel)]=\"page.name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"page-title\">Title</label>\n      <input\n        type=\"text\"\n        name=\"websiteName\"\n        class=\"form-control\"\n        id=\"page-title\"\n        placeholder=\"Page Title\"\n        [(ngModel)]=\"page.title\">\n    </div>\n  </form>\n  <a class=\"btn btn-danger  btn-block\" (click)=\"onDelete()\">Delete</a>\n</div>\n\n\n\n\n<nav class=\"navbar navbar-inverse navbar-light bg-light fixed-bottom float-right col-12\">\n  <div class=\"float-left col-12\"></div>\n  <div class=\"row navbar-text float-right col-12\">\n    <a routerLink=\"/user/\" class=\"float-right steelblue-icon\">\n      <span class=\"fas fa-user fontawsome_icon float-right steelblue-icon\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -955,6 +955,7 @@ var PageEditComponent = /** @class */ (function () {
         this.activateRoute = activateRoute;
         this.pageService = pageService;
         this.router = router;
+        this.errorMsg = 'Please enter a name for the page!';
     }
     PageEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -969,10 +970,16 @@ var PageEditComponent = /** @class */ (function () {
     };
     PageEditComponent.prototype.onUpdate = function () {
         var _this = this;
-        this.pageService.updatePage(this.pid, this.page).subscribe(function (data) {
-            _this.page = data;
-        });
-        this.router.navigate(['../'], { relativeTo: this.activateRoute });
+        if (!this.page.name) {
+            this.errorFlag = true;
+            return;
+        }
+        else {
+            this.pageService.updatePage(this.pid, this.page).subscribe(function (data) {
+                _this.page = data;
+                _this.router.navigate(['../'], { relativeTo: _this.activateRoute });
+            });
+        }
     };
     PageEditComponent.prototype.onDelete = function () {
         this.pageService.deletePage(this.pid).subscribe(function (data) {
@@ -1089,7 +1096,7 @@ module.exports = "/* You can add global styles to this file, and also import oth
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light\">\n  <div class = \"container-fluid row\">\n    <a routerLink=\"../\" class=\"navbar-text black-text pull-left icon-padding\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a routerLink=\"./\" class=\"navbar-brand\">Edit Page</a>\n    <button (click)=\"createPage()\" [disabled]=\"!p.valid\" class=\"btn btn-light float-right cl-icon-padding\">\n      <span class=\"fas fa-check fontawsome_icon\"></span>\n    </button>\n  </div>\n</nav>\n\n<div class=\"container container-padding\">\n  <form (ngSubmit)=\"createPage()\" #p=\"ngForm\">\n    <label for=\"New-Page-Name\">Name</label>\n    <input id=\"New-Page-Name\" type=\"text\" class=\"form-control\" placeholder=\"Page Name\" name=\"pageName\" ngModel required #pageName=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!pageName.valid && pageName.touched\">\n      Please enter page name!\n    </span>\n    <label for=\"New-Page-Title\">Title</label>\n    <input id=\"New-Page-Title\" type=\"text\" class=\"form-control\" placeholder=\"Page Title\" name=\"pageDescription\" [(ngModel)]=\"pageDescription\"/>\n    <button class=\"btn btn-primary btn-block mt-3\" type=\"submit\" [disabled]=\"!p.valid\">Create</button>\n  </form>\n</div>\n\n<nav class=\"navbar fixed-bottom navbar-expand-lg navbar-light bg-light\">\n  <div class=\"container-fluid justify-content-end\">\n    <a routerLink=\"../../../../\" class=\"navbar-link navbar-text cl-icon-padding\">\n      <span class=\"fas fa-user fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-fixed-top navbar-expand-lg navbar-light bg-light\">\n  <div class = \"container-fluid row\">\n    <a routerLink=\"../\" class=\"navbar-text black-text pull-left icon-padding\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a routerLink=\"./\" class=\"navbar-brand\">Edit Page</a>\n    <button (click)=\"createPage()\" [disabled]=\"!p.valid\" class=\"btn btn-light float-right cl-icon-padding\">\n      <span class=\"fas fa-check fontawsome_icon\"></span>\n    </button>\n  </div>\n</nav>\n\n\n<div class=\"container-fluid cl-container-padding\">\n  <div *ngIf=\"errorFlag\" class=\"alert alert-danger\">\n    {{errorMsg}}\n  </div>\n\n<div class=\"container container-padding\">\n  <form (ngSubmit)=\"createPage()\" #p=\"ngForm\">\n    <label for=\"New-Page-Name\">Name</label>\n    <input id=\"New-Page-Name\" type=\"text\" class=\"form-control\" placeholder=\"Page Name\" name=\"pageName\" ngModel required #pageName=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!pageName.valid && pageName.touched\">\n      Please enter page name!\n    </span>\n    <label for=\"New-Page-Title\">Title</label>\n    <input id=\"New-Page-Title\" type=\"text\" class=\"form-control\" placeholder=\"Page Title\" name=\"pageDescription\" [(ngModel)]=\"pageDescription\"/>\n    <button class=\"btn btn-primary btn-block mt-3\" type=\"submit\" [disabled]=\"!p.valid\">Create</button>\n  </form>\n</div>\n\n<nav class=\"navbar fixed-bottom navbar-expand-lg navbar-light bg-light\">\n  <div class=\"container-fluid justify-content-end\">\n    <a routerLink=\"../../../../\" class=\"navbar-link navbar-text cl-icon-padding\">\n      <span class=\"fas fa-user fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1120,6 +1127,7 @@ var PageNewComponent = /** @class */ (function () {
         this.route = route;
         this.router = router;
         this.pageService = pageService;
+        this.errorMsg = 'Please enter a page name!';
     }
     PageNewComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1130,12 +1138,18 @@ var PageNewComponent = /** @class */ (function () {
     };
     PageNewComponent.prototype.createPage = function () {
         var _this = this;
-        this.pageName = this.pageForm.value.pageName;
-        this.pageDescription = this.pageForm.value.pageDescription;
-        var page = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"](undefined, this.pageName, this.websiteId, this.pageDescription, this.developerId);
-        this.pageService.createPage(this.websiteId, page).subscribe(function (data) {
-            _this.router.navigate(['../'], { relativeTo: _this.route });
-        }, function (error) { return console.log(error); });
+        if (this.pageForm.value.pageName === null || this.pageForm.value.pageName === '') {
+            this.errorFlag = true;
+            return;
+        }
+        else {
+            this.pageName = this.pageForm.value.pageName;
+            this.pageDescription = this.pageForm.value.pageDescription;
+            var page = new _models_page_model_client__WEBPACK_IMPORTED_MODULE_2__["Page"](undefined, this.pageName, this.websiteId, this.pageDescription, this.developerId);
+            this.pageService.createPage(this.websiteId, page).subscribe(function (data) {
+                _this.router.navigate(['../'], { relativeTo: _this.route });
+            }, function (error) { return console.log(error); });
+        }
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('p'),
@@ -1146,42 +1160,7 @@ var PageNewComponent = /** @class */ (function () {
             selector: 'app-page-new',
             template: __webpack_require__(/*! ./page-new.component.html */ "./src/app/views/page/page-new/page-new.component.html"),
             styles: [__webpack_require__(/*! ./page-new.component.css */ "./src/app/views/page/page-new/page-new.component.css")]
-        })
-        // export class PageNewComponent implements OnInit {
-        //   @ViewChild('f') pageForm: NgForm;
-        //
-        //   uid: string;
-        //   wid: string;
-        //   pid: string;
-        //   page: Page;
-        //   pages: Page[] = [];
-        //   newPageName: string;
-        //   newPageTitle: string;
-        //
-        //
-        //   constructor(private activateRoute: ActivatedRoute, private pageService: PageService,  private router: Router) { }
-        //
-        //   ngOnInit() {
-        //     this.activateRoute.params.subscribe(
-        //       (params: any) => {
-        //         this.uid = params['uid'];
-        //         this.wid = params['wid'];
-        //       });
-        //   }
-        //
-        //   onSubmit() {
-        //     this.newPageName = this.pageForm.value.PageName;
-        //     this.newPageTitle = this.pageForm.value.PageTitle;
-        //     // @ts-ignore
-        //     this.page = {_id: '', name: this.newPageName, websiteId: this.wid, description: this.newPageTitle, developerId: this.uid};
-        //     this.pageService.createPage(this.uid, this.page).subscribe(
-        //       (data: any) => {
-        //         this.page = data;
-        //         this.router.navigate(['../'], {relativeTo: this.activateRoute});
-        //       }
-        //     );
-        //   }
-        ,
+        }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"],
             _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
             _services_page_service_client__WEBPACK_IMPORTED_MODULE_4__["PageService"]])
@@ -1449,6 +1428,8 @@ var RegisterComponent = /** @class */ (function () {
     };
     RegisterComponent.prototype.onSubmit = function () {
         var _this = this;
+        // this.user.username = this.ng_username;
+        // this.user.password = this.ng_password;
         if (this.ng_username !== this.ng_verify_password) {
             this.errorFlag = true;
             this.errorMsg = 'Password and Verify Must be the Same';

@@ -17,6 +17,8 @@ export class PageEditComponent implements OnInit {
   wid: string;
   pid: string;
   page: Page;
+  errorFlag: boolean;
+  errorMsg = 'Please enter a name for the page!';
 
   constructor(private activateRoute: ActivatedRoute, private pageService: PageService, private router: Router) {}
 
@@ -35,12 +37,18 @@ export class PageEditComponent implements OnInit {
   }
 
   onUpdate() {
-    this.pageService.updatePage(this.pid, this.page).subscribe(
-      (data: any) => {
-        this.page = data;
-      }
-    );
-    this.router.navigate(['../'], {relativeTo: this.activateRoute});
+    if (!this.page.name) {
+      this.errorFlag = true;
+      return;
+    } else {
+      this.pageService.updatePage(this.pid, this.page).subscribe(
+        (data: any) => {
+          this.page = data;
+          this.router.navigate(['../'], {relativeTo: this.activateRoute});
+        }
+      );
+    }
+
   }
 
   onDelete() {

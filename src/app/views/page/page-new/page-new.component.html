@@ -11,6 +11,12 @@
   </div>
 </nav>
 
+
+<div class="container-fluid cl-container-padding">
+  <div *ngIf="errorFlag" class="alert alert-danger">
+    {{errorMsg}}
+  </div>
+
 <div class="container container-padding">
   <form (ngSubmit)="createPage()" #p="ngForm">
     <label for="New-Page-Name">Name</label>
