@@ -14,6 +14,10 @@ export class WebsiteEditComponent implements OnInit {
   wid: string;
   website: Website;
   websites: Website[];
+
+  errorFlag: boolean;
+  errorMsg = 'Website name required!';
+
   @ViewChild('f') websiteForm: NgForm;
 
   constructor(private websiteService: WebsiteService, private route: ActivatedRoute, private router: Router) {
@@ -47,8 +51,13 @@ export class WebsiteEditComponent implements OnInit {
   }
 
   onUpdateWebsite() {
+    if (!this.website.name) {
+      this.errorFlag = true;
+      return;
+    }
     this.websiteService.updateWebsite(this.wid, this.website).subscribe(
       (data: any) => {
+        this.errorFlag = false;
         this.website = data;
       }
     );

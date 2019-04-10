@@ -1,48 +1,37 @@
-<!--<div class="container above-below-space">
-  <h1>Login</h1>
-  <input type="text"
-         class="form-control"
-         placeholder="username"/>
-  <input type="password"
-         class="form-control"
-         placeholder="password"/>
-  <a class="btn btn-primary btn-block"
-     [routerLink]="['/user/:uid']">Login</a>
-  <a class="btn btn-success btn-block"
-     [routerLink]="['/register']">Register</a>
-</div>-->
-
 <div class="container-fluid">
-  <div *ngIf="errorFlag" class="alert alert-danger">
-    {{errorMsg}}
-  </div>
-
+  <div *ngIf="errorFlag" class="alert alert-danger"> {{errorMsg}} </div>
   <h1>Login</h1>
-  <form (ngSubmit)="login()" #f="ngForm">
+  <form (ngSubmit) = "login()" #f="ngForm">
+    <input placeholder="username"
+           name="username"
+           type="text"
+           class="form-control"
+           ngModel
+           required
+           #username="ngModel"/>
 
-    <div class="form-group">
-      <input type="text" name="username" placeholder="username" class="form-control" ngModel required #username="ngModel">
-    </div>
     <span class="help-block" *ngIf="!username.valid && username.touched">
       Please enter username!
     </span>
 
-    <div class="form-group">
-      <input type="password" name="password" placeholder="password" class="form-control" ngModel required #password="ngModel">
-    </div>
+    <input placeholder="password"
+           name="password"
+           type="password"
+           class="form-control"
+           ngModel
+           required
+           #password="ngModel"/>
+
     <span class="help-block" *ngIf="!password.valid && password.touched">
       Please enter password!
     </span>
 
-    <div class="form-group">
-      <button [disabled]="!f.valid" class="btn btn-primary btn-block" type="submit">Login</button>
-    </div>
+    <button class="btn btn-primary btn-block"
+            type="submit"
+            [disabled]="!f.valid">Login</button>
 
-    <div class="form-group">
-      <a routerLink="/register" class="btn btn-success btn-block">Register</a>
-    </div>
+    <a class="btn btn-success btn-block" routerLink="/register">Register</a>
+    <a href="/facebook/login" class="btn btn-primary btn-block"> <span class="fa fa-facebook"></span> Facebook </a>
+
   </form>
-  <a href="/facebook/login" class="btn btn-primary btn-block">
-    <span class="fa fa-facebook"></span> Facebook
-  </a>
 </div>

@@ -14,7 +14,9 @@ export class RegisterComponent implements OnInit {
   user: User = {_id: undefined, username: undefined, password: undefined, firstName: undefined, lastName: undefined};
   errorFlag: boolean;
   uid: string;
-
+  ng_username: string;
+  ng_password: string;
+  ng_verify_password: string;
 
   errorMsg = 'Passwords must match!';
   noFieldErrorFlag = false;
@@ -26,25 +28,24 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-
   onSubmit() {
-    this.user.username = this.registerForm.value.username;
-    this.user.password = this.registerForm.value.password;
-    const verify = this.registerForm.value.verify;
-    if (this.user.username === null || this.user.password === null) {
-      this.noFieldErrorFlag = true;
-    }
-    if (this.user.password !== verify) {
+    // this.user.username = this.ng_username;
+    // this.user.password = this.ng_password;
+    if (this.ng_username !== this.ng_verify_password) {
       this.errorFlag = true;
+      this.errorMsg = 'Password and Verify Must be the Same';
     } else {
+      this.user.username = this.ng_username;
+      this.user.password = this.ng_password;
       this.userService.register(this.user.username, this.user.password)
         .subscribe(
           (data: any) => {
             if (data) {
+              alert('User Successfully Created');
               this.router.navigate(['/user']);
             } else {
               this.errorFlag = true;
-              console.log('Issue when creating user');
+              console.log(this.errorMsg);
             }
           },
           (error: any) => {
@@ -58,3 +59,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 }
+
+
+

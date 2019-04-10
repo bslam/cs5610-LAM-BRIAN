@@ -19,6 +19,9 @@ export class WebsiteNewComponent implements OnInit {
   newWebsiteDescription: string;
   websites: Website[];
 
+  errorFlag: boolean;
+  errorMsg = 'Website name required!';
+
   constructor(private websiteService: WebsiteService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
@@ -40,11 +43,15 @@ export class WebsiteNewComponent implements OnInit {
     this.newWebsiteDescription = this.websitesForm.value.Description;
     this.newWebsite = {_id: undefined, name: this.newWebsiteName, developerId: this.uid, description: this.newWebsiteDescription};
     // this.websiteService.createWebsite(this.uid, this.newWebsite);
-    this.websiteService.createWebsite(this.uid, this.newWebsite).subscribe(
-      (newWebsite: any) => {
-        this.newWebsite = newWebsite;
-        this.router.navigate(['../'], {relativeTo: this.route});
-      }
-    );
+    if (this.newWebsiteName === null || this.newWebsiteName === '') {
+      this.errorFlag = true;
+    } else {
+      this.websiteService.createWebsite(this.uid, this.newWebsite).subscribe(
+        (newWebsite: any) => {
+          this.newWebsite = newWebsite;
+          this.router.navigate(['../'], {relativeTo: this.route});
+        }
+      );
+    }
   }
 }

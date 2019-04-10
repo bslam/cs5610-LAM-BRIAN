@@ -256,7 +256,7 @@ module.exports = function (app) {
 
   function logout(req, res) {
     req.logOut();
-    res.send(200);
+    // res.send(200);
     res.json({success: true});
   }
 
