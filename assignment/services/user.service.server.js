@@ -16,7 +16,7 @@ module.exports = function (app) {
   const facebookConfig = {
     clientID: process.env.FB_CLIENT_ID || localId,
     clientSecret: process.env.FB_CLIENT_SECRET || localSecret,
-    callbackURL: process.env.FB_CALLBACK_URL || 'http://localhost:3200/auth/facebook/callback/',
+    callbackURL: process.env.FB_CALLBACK_URL || '/auth/facebook/callback/',
   }
 
 
@@ -48,8 +48,8 @@ module.exports = function (app) {
   app.post("/api/loggedin", loggedin);
   app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
   app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-    successRedirect: '/user',
-    failureRedirect: '/login'
+    successRedirect: '/#/user',
+    failureRedirect: '/#/login'
   }));
 
 

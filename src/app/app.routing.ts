@@ -57,6 +57,7 @@ const appRouting: Routes = [​
 
 ];​
 
-export const AppRouting = RouterModule.forRoot(appRouting);
+// export const AppRouting = RouterModule.forRoot(appRouting);
+export const AppRouting = RouterModule.forRoot(appRouting, { useHash: true });
 // What does this line do?
 // export const Routing: ModuleWithProviders = RouterModule.forRoot(APP_ROUTES);
