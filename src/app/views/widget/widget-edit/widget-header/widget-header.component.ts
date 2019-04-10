@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {SharedService} from '../../../../services/shared.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class WidgetHeadingComponent implements OnInit {
   newWidgetSize: number;
   newWidgetText: string;
 
-  constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private widgetService: WidgetService, private router: Router, private sharedService: SharedService) {
   }
 
   ngOnInit() {

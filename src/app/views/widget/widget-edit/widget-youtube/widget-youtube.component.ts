@@ -6,6 +6,7 @@ import {WidgetHeading, WidgetHTML} from '../../../../models/widget.model.client'
 import {inject} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
 import {NgForm} from '@angular/forms';
+import {SharedService} from '../../../../services/shared.service';
 
 
 
@@ -31,7 +32,8 @@ export class WidgetYoutubeComponent implements OnInit {
   URL: string;
   baseURL: string;
 
-  constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
+  constructor(private route: ActivatedRoute, private widgetService: WidgetService, private router: Router,
+              private sharedService: SharedService) {
     this.newWidget = new WidgetYoutube(this.newWidgetName, '', 'YOUTUBE', this.pid, this.newWidgetWidth, '');
   }
 

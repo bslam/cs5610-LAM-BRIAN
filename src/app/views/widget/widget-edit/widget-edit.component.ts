@@ -8,6 +8,7 @@ import {WebsiteService} from '../../../services/website.service.client';
 import {Website} from '../../../models/website.model.client';
 import {Page} from '../../../models/page.model.client';
 import {PageService} from '../../../services/page.service.client';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-widget-edit',
@@ -22,7 +23,7 @@ export class WidgetEditComponent implements OnInit {
   wid: string;
   pid: string;
 
-  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService) {
+  constructor(private activateRoute: ActivatedRoute, private widgetService: WidgetService, private sharedService: SharedService) {
   }
 
   ngOnInit() {

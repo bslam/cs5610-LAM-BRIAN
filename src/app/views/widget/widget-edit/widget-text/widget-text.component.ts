@@ -11,6 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {SharedService} from '../../../../services/shared.service';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class WidgetTextComponent implements OnInit {
   newWidget: WidgetText;
   widget: WidgetText;
 
-  constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private widgetService: WidgetService, private router: Router, private activatedRoute: ActivatedRoute,
+              private sharedService: SharedService) {
   }
 
   ngOnInit() {

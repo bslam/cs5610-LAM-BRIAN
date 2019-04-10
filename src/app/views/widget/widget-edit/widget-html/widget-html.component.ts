@@ -9,6 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {SharedService} from '../../../../services/shared.service';
 
 @Component({
   selector: 'app-widget-html',
@@ -27,7 +28,8 @@ export class WidgetHtmlComponent implements OnInit {
   newWidget: WidgetHTML;
   widget: WidgetHTML;
 
-  constructor(private activatedRoute: ActivatedRoute, private widgetService: WidgetService, private router: Router) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private widgetService: WidgetService, private router: Router, private sharedService: SharedService) {
   }
 
   ngOnInit() {
